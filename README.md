@@ -1,74 +1,116 @@
-# FIN-Profi
-React + fast API web-app for learning about investments
-## Prerequisites
-1. Docker
-2. Docker compose
-## Building
-1. Clone the project
-  - via HTTPS:
-  ```sh
-  git clone https://github.com/iinshot/FIN_profi.git
-  ```
-  - via SSH:
-  ```sh
-  git@github.com:iinshot/FIN_profi.git
-  ```
-2. Navigate to project's directory:
-```sh
+# ФИН-Профи $-$ Образовательное веб-приложение для обучения основам инвестирования
+
+## О проекте
+веб-приложение, созданное для того, чтобы помочь людям освоить основы инвестирования и преодолеть страх перед финансовыми рынками. Проект сочетает в себе теоретический материал (статьи), практические задания (викторины) и инструменты для финансового планирования (калькулятор сложного процента).
+
+### Основная цель
+Научить пользователя инвестировать и показать, что инвестиции — это не страшно, а доступно и понятно при правильном подходе.
+
+### Ключевые возможности
+- Регистрация и авторизация пользователей
+- Изучение обучающих статей по модулям
+- Прохождение викторин с вопросами разных типов (radio/checkbox)
+- Отслеживание прогресса и накопление баллов
+- Калькулятор сложного процента (с учётом пополнений, инфляции и налогов)
+- Личный профиль с историей достижений
+
+## 🏗️ Архитектура проекта
+
+
+## Технологический стек
+
+### Backend
+| Технология      | Назначение                     |
+| --------------- | ------------------------------ |
+| **Python 3.11** | Язык программирования          |
+| **FastAPI**     | Веб-фреймворк для создания API |
+| **SQLAlchemy**  | ORM для работы с базой данных  |
+| **PostgreSQL**  | Реляционная база данных        |
+| **Pydantic**    | Валидация данных               |
+| **python-jose** | JWT-аутентификация             |
+| **bcrypt**      | Хэширование паролей            |
+| **pytest**      | Тестирование                   |
+### Frontend
+| Технология | Назначение |
+|------------|------------|
+| **React 18** | Библиотека для построения UI |
+| **TypeScript** | Типизация |
+| **Axios** | HTTP-запросы |
+| **React Router v6** | Маршрутизация |
+| **Redux Toolkit** | Управление состоянием |
+| **Nginx** | Веб-сервер и reverse proxy |
+### DevOps
+| Технология | Назначение |
+|------------|------------|
+| **Docker** | Контейнеризация |
+| **Docker Compose** | Оркестрация контейнеров |
+| **Git** | Контроль версий |
+
+## Структура проекта
+```
+FIN_profi/
+├── back/                          # Backend (FastAPI)
+│   ├── src/
+│   │   ├── main.py                # Точка входа
+│   │   ├── db/
+│   │   │   └── session.py         # Подключение к БД
+│   │   ├── models/                # SQLAlchemy модели
+│   │   │   ├── User.py
+│   │   │   ├── Module.py
+│   │   │   ├── Article.py
+│   │   │   ├── Quiz.py
+│   │   │   ├── Question.py
+│   │   │   └── Answer.py
+│   │   ├── schemas/               # Pydantic схемы
+│   │   ├── crud/                  # CRUD операции
+│   │   │   ├── user.py
+│   │   │   ├── module.py
+│   │   │   ├── article.py
+│   │   │   └── ...
+│   │   └── routers/               # API эндпоинты
+│   │       ├── auth.py
+│   │       ├── user.py
+│   │       └── ...
+│   ├── requirements.txt           # Зависимости Python
+│   └── Dockerfile                 # Docker образ backend
+│
+├── front/                         # Frontend (React)
+│   ├── src/
+│   │   ├── components/            # React компоненты
+│   │   ├── pages/                 # Страницы приложения
+│   │   ├── services/              # API сервисы
+│   │   ├── store/                 # Redux хранилище
+│   │   └── styles/                # CSS стили
+│   ├── nginx.conf                 # Конфигурация Nginx
+│   └── Dockerfile                 # Docker образ frontend
+│
+├── tests/                         # Тесты
+│   ├── conftest.py                # Фикстуры pytest
+│   └── unit/                      # Unit тесты
+│       ├── test_models.py
+│       ├── test_user_crud.py
+│       ├── test_module_crud.py
+│       └── ...
+│
+├── docker-compose.yml             # Оркестрация контейнеров
+├── db.env                         # Переменные окружения БД
+└── README.md                      # Документация
+```
+
+### Инструкция по запуску
+```bash
+git clone https://github.com/your-username/FIN_profi.git
 cd FIN_profi
+sudo docker compose up --build
 ```
-2. Create ```.env``` file in project's root:
-```
-HOST_PORT=80
-HOST_PORT_HTTPS=443
-```
-3. Create ```db.env``` file in project's root:
-```
-POSTGRES_PASSWORD=postgres
-POSTGRES_USER=postgres
-PGUSER=postgres
-```
-4. Build it via docker compose:
-  - Build:
-  ```sh
-  docker compose build
-  ```
-## Running
-- Run:
-```sh
-docker compose up
-```
-- Rebuild and run:
-```
-docker compose up --build
-```
-## Developing
-You can either build and run the whole project for testing or build a dev/test image.
-### Front-end
-1. Navigate to front directory:
-```sh
-cd front
-```
-2. Build the dev docker image:
-```sh
-docker build -t front -f Dockerfile.dev .
-```
-3. Run the dev docker container:
-```sh
-docker run -p 80:80 front
-```
-4. Make changes to the project, rebuild and rerun the container.
-### Back-end
-1. Navigate to back directory:
-```sh
-cd back
-```
-2. Build tests docker image:
-```sh
-docker build -t tests -f Dockerfile.test .
-```
-3. Run tests in a docker container:
-```sh
-docker run tests
-```
-4. See the test results, make changes to the code, rebuild and rerun the tests e.t.c.
+
+## Модели базы данных
+
+| Сущность | Описание |
+|----------|----------|
+| **User** | Пользователи системы (регистрация, профиль, баллы) |
+| **Module** | Учебные модули (разделы обучения) |
+| **Article** | Статьи с обучающим контентом (JSON формат) |
+| **Quiz** | Тесты для проверки знаний |
+| **Question** | Вопросы тестов (типы: radio, checkbox) |
+| **Answer** | Варианты ответов на вопросы |
