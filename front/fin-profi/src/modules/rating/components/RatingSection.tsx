@@ -1,0 +1,45 @@
+import { useContext } from 'react'
+import { useParams } from 'react-router-dom'
+
+import { Cup } from '@/assets/icons'
+import { COLORS } from '@/constants'
+import { NamedSection } from '@/ui'
+
+import { RatingContext } from './RatingProvider'
+import useScrollRef from '../useScrollRef'
+import { buildRankList, getCurrentRank } from '../helpers'
+import '../style.css'
+
+export function RatingSection() {
+  const { count, rating } = useContext(RatingContext)
+  const { userId } = useParams()
+  const scrollRef = useScrollRef()
+
+  const currentRank = getCurrentRank(rating, Number(userId))
+  const rankListElements = buildRankList(rating, currentRank)
+
+  return (
+    <NamedSection
+      icon={<Cup height={14} width={14} />}
+      text="Рейтинг"
+      gap="12px"
+      className="rating"
+      ref={scrollRef}
+    >
+      <div className="rank-list">
+        {rankListElements}
+      </div>
+
+      <div className="rank-info">
+        <span
+          style={{ color: COLORS.TEXT }}
+          className="body"
+        >Вы на {currentRank}-м месте</span>
+        <span
+          style={{ color: COLORS.MID_GRAY }}
+          className="small"
+        >из {count} участников</span>
+      </div>
+    </NamedSection>
+  )
+}

@@ -95,12 +95,12 @@ async def get_users_above(
 ) -> List[User]:
     """Получение пользователей с поинтами >= текущего, по убыванию"""
     query = (
-        select(User)
+        select(User.id_user, User.name, User.points)
         .where(User.points >= points)
         .order_by(User.points.desc())
     )
     result = await session.execute(query)
-    return result.scalars().all()
+    return result.mappings().all()
 
 async def get_user_progress(session: AsyncSession, id_user: int) -> dict:
     all_articles = await session.execute(select(func.count()).select_from(Article))

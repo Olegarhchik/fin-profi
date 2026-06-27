@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select
+from sqlalchemy import select, func
 from crud import user as user_crud
 from db.session import get_db
 from typing import Optional
@@ -95,6 +95,8 @@ async def get_progress(
 
 @router.get("/{id_user}/rating")
 async def get_rating(id_user: int, db: AsyncSession = Depends(get_db)):
+    all_users = await db.execute(select(func.count()).select_from(User))
+
     user = await user_crud.get_user(db, id_user=id_user)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
@@ -103,9 +105,15 @@ async def get_rating(id_user: int, db: AsyncSession = Depends(get_db)):
     top8 = top8[:8]
 
     if any(u.id_user == id_user for u in top8):
-        return top8
+        return {
+            "count": all_users.scalar(),
+            "list": top8
+        }
 
-    return await user_crud.get_users_above(db, points=user.points)
+    return await {
+        "count": all_users.scalar(),
+        "list": user_crud.get_users_above(db, points=user.points)
+    }
 
 @router.get("/{id_user}/statistics")
 async def get_user_progress(id_user: int, db: AsyncSession = Depends(get_db)):

@@ -1,11 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useAuth } from '../../hooks'
-import { AUTH } from '../../constants'
+
+import { useUserStore } from '@/store'
+import { AUTH } from '@/constants'
 
 
 export default function Login() {
-  const [auth, setAuth] = useAuth()
+  const setAuth = useUserStore(state => state.setAuth)
 
   return (
     <Link
