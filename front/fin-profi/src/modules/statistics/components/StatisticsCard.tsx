@@ -1,22 +1,19 @@
-import { Divider, NamedSection, ProgressCircle } from '@/ui'
+import { Divider, NamedSection, ProgressCircle, type NamedSectionProps } from '@/ui'
 
 import { TemplateDetails } from '../types'
 
 type Props = {
   progress: number,
   value: number,
-  sectionProps: Object, // ИСПРАВИТЬ
-  template?: TemplateDetails[],
-  dark?: boolean
+  template?: TemplateDetails,
+  sectionProps: NamedSectionProps
 }
 
-export function StatisticsCard({ progress, value, sectionProps, template, dark }: Props) {
+export function StatisticsCard({ progress, value, template, sectionProps }: Props) {
   return (
     <NamedSection
       padding="24px"
       gap="12px"
-      grayscale={!dark}
-      dark={dark}
       {...sectionProps}
     >
       <div className="progress">
@@ -26,7 +23,7 @@ export function StatisticsCard({ progress, value, sectionProps, template, dark }
           style={{
             marginBottom: "10px"
           }}
-          large={dark}
+          large={sectionProps.dark}
         />
       </div>
 
@@ -34,8 +31,8 @@ export function StatisticsCard({ progress, value, sectionProps, template, dark }
 
       {template?.map((templateObj, index) => (
         <div key={index} className="row">
-          <span className={dark ? "h3" : "body"}>{templateObj.text}</span>
-          <span className={dark ? "h3" : "body"}>{templateObj.value}</span>
+          <span className={sectionProps.dark ? "h3" : "body"}>{templateObj.text}</span>
+          <span className={sectionProps.dark ? "h3" : "body"}>{templateObj.value}</span>
         </div>
       ))}
     </NamedSection>

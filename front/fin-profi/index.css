@@ -2,7 +2,6 @@
 
 @import url('src/constants/colors.css');
 @import url('src/ui/index.css');
-@import url('src/components/index.css');
 
 * {
     font-family: 'Roboto', sans-serif;

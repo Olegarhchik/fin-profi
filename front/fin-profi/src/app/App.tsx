@@ -1,11 +1,9 @@
-import React from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 
-import { NavigationBar } from '../components'
-import { Main, Calculators, Quizzes, Profile, Article, NotFound } from '../pages'
-import { AuthLayout, Login, Register } from '../pages/auth'
-import { AUTH } from '../constants'
+import { NavigationBar } from '@/components'
+import { Main, Calculators, Quizzes, Profile, Article, NotFound } from '@/pages'
+import { AuthLayout, Login, Register } from '@/pages/auth'
 import './App.css'
 
 export default function App() {

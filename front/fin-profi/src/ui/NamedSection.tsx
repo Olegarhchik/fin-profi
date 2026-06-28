@@ -1,7 +1,19 @@
 import clsx from 'clsx'
-import React from 'react'
+import { PropsWithChildren, ReactNode, Ref } from 'react'
 
-export function NamedSection(props) {
+export type NamedSectionProps = PropsWithChildren<{
+  text: string,
+  icon: ReactNode,
+  className?: string,
+  shrink?: boolean,
+  dark?: boolean,
+  grayscale?: boolean,
+  padding?: string,
+  gap?: string,
+  ref?: Ref<HTMLDivElement>
+}>
+
+export function NamedSection(props: NamedSectionProps) {
   return (
     <section
       className={

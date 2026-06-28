@@ -3,7 +3,8 @@ import { motion, MotionProps } from 'framer-motion'
 
 import { Article, CheckCircle, Energy } from '@/assets/icons'
 import { COLORS, POINTS_PER_ARTICLE, POINTS_PER_QUIZ } from '@/constants'
-import { Activity } from '../types'
+
+import type { Activity } from '../types'
 
 type Props = Activity & {
   delay: number

@@ -1,9 +1,10 @@
 import { motion, MotionProps } from 'framer-motion'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import clsx from 'clsx'
 
 import { Crown, ProfileCircle } from '@/assets/icons'
 import { COLORS } from '@/constants'
+
 import { Highlight, UserRating } from '../types'
 
 type Props = {
@@ -14,6 +15,9 @@ type Props = {
 }
 
 export default function RankCard({ rank, user, highlight, delay }: Props) {
+  const { userId: currentUserId } = useParams()
+  const color = user.id.toString() === currentUserId ? COLORS.PRIMARY_YELLOW : COLORS.TEXT
+
   const animation: MotionProps = {
     initial: { scale: 0.8 },
     animate: { scale: 1 },
@@ -35,15 +39,16 @@ export default function RankCard({ rank, user, highlight, delay }: Props) {
             {user.name}
           </span>
         </Link>
+
         <span
           style={{ color: COLORS.MID_GRAY }}
           className="small score"
         >{user.points} очков</span>
       </div>
 
-      {highlight == "leader" && <Crown width={14} height={14} />}
+      {highlight?.includes("leader") && <Crown width={14} height={14} />}
 
-      {highlight == "you" && <span style={{ color: COLORS.PRIMARY_YELLOW }} className="small">Вы</span>}
+      {highlight?.includes("you") && <span style={{ color }} className="small">Вы</span>}
     </motion.div>
   )
 }

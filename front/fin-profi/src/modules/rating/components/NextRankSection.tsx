@@ -1,9 +1,11 @@
 import { useContext } from 'react'
-import { RatingContext } from './RatingProvider'
+import { useParams } from 'react-router-dom'
+
 import { NamedSection, ProgressBar } from '@/ui'
 import { Star } from '@/assets/icons'
 import { COLORS } from '@/constants'
-import { useParams } from 'react-router-dom'
+
+import { RatingContext } from './RatingProvider'
 import { getCurrentRank } from '../helpers'
 
 export function NextRankSection() {

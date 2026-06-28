@@ -7,11 +7,13 @@ import { COLORS } from "@/constants"
 import RankCard from "../components/RankCard"
 import { UserRating, Highlight } from "../types"
 
-export function buildRankList(rating: UserRating[], currentRank: number) {
+export function buildRankList(rating: UserRating[], currentRank: number, userId: number) {
   let elements: ReactNode[] = []
 
   const currentUser = rating[currentRank - 1]
   const nextUser = rating[currentRank - 2]
+
+  const userRank = rating.findIndex(user => user.id === userId)
 
   const start = 0
   const end = 8 +
@@ -26,7 +28,8 @@ export function buildRankList(rating: UserRating[], currentRank: number) {
         highlight={
           clsx(
             index === 0 && "leader",
-            index === currentRank - 1 && index !== 0 && "you"
+            index === currentRank - 1 && "current-user",
+            index === userRank && "you"
           ) as Highlight
         }
         rank={index + 1}

@@ -31,7 +31,7 @@ export default function Profile() {
         <ContinueSection
           name="Название статьи"
           id={2}
-          articleLink={"/"}
+          articleId={0}
           module="Название модуля"
           progress={80}
         />

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react"
+
 import { Activity } from "../types"
 
 export function useShrinkState(activity: Activity[]) {

@@ -3,18 +3,19 @@ import { useParams } from 'react-router-dom'
 
 import { ProfileCircle } from '@/assets/icons'
 import { Section } from '@/ui'
-import data from '../data'
 
 import { useProfileEditingState } from '../useProfileEditingState'
 import ActionsButtonGroup from './ActionsButtonGroup'
+import data from '../data'
 import '../style.css'
+import { useUserStore } from '@/store'
 
 
 export function ProfileInfoSection() {
   const { userId: reqUserId } = useParams()
-  const currentUserId = localStorage.getItem("id")
+  const { id: currentUserId } = useUserStore(state => state.user)
 
-  const [credentials, setCredentials] = useState(data.find(obj => obj.id.toString() == reqUserId))
+  const [credentials, setCredentials] = useState(data.find(obj => obj.id.toString() == reqUserId)!)
   const [isEditing, setIsEditing] = useProfileEditingState()
 
   return (
@@ -39,7 +40,7 @@ export function ProfileInfoSection() {
           />
         </div>
 
-        {reqUserId === currentUserId && <div className="email">
+        {reqUserId === currentUserId?.toString() && <div className="email">
           <input
             name="email"
             type="text"
@@ -54,10 +55,10 @@ export function ProfileInfoSection() {
       </div>
 
       <ActionsButtonGroup
-        shouldShow={reqUserId === currentUserId}
+        shouldShow={reqUserId === currentUserId?.toString()}
         isEditing={isEditing}
         setIsEditing={setIsEditing}
-        userId={reqUserId}
+        userId={reqUserId!}
       />
     </Section>
   )

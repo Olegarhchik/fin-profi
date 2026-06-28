@@ -1,4 +1,4 @@
-import { UserRating, UserRatingResponse } from "./types"
+import { UserRatingResponse } from "./types"
 
 export const data: UserRatingResponse = {
     count: 10,

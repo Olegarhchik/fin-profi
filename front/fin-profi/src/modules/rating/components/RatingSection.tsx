@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { Cup } from '@/assets/icons'
 import { COLORS } from '@/constants'
 import { NamedSection } from '@/ui'
+import { useUserStore } from '@/store'
 
 import { RatingContext } from './RatingProvider'
 import useScrollRef from '../useScrollRef'
@@ -12,11 +13,13 @@ import '../style.css'
 
 export function RatingSection() {
   const { count, rating } = useContext(RatingContext)
-  const { userId } = useParams()
+  const { userId: currentUserId } = useParams()
+  const { id: userId } = useUserStore(state => state.user) 
+
   const scrollRef = useScrollRef()
 
-  const currentRank = getCurrentRank(rating, Number(userId))
-  const rankListElements = buildRankList(rating, currentRank)
+  const currentRank = getCurrentRank(rating, Number(currentUserId))
+  const rankListElements = buildRankList(rating, currentRank, userId!)
 
   return (
     <NamedSection

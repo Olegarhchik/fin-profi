@@ -1,12 +1,12 @@
 import { motion, MotionProps, MotionStyle, Target } from 'framer-motion'
 import { PropsWithChildren } from 'react'
 
-type ContentType = PropsWithChildren<{
+type ContentProps = PropsWithChildren<{
   style?: MotionStyle,
   animateExit?: Target
 }>
 
-export function Content({ children, style, animateExit }: ContentType) {
+export function Content({ children, style, animateExit }: ContentProps) {
   const animation: MotionProps = {
     initial: { y: "50%", opacity: 0, scale: 0.95 },
     animate: { y: 0, opacity: 1, scale: 1 },

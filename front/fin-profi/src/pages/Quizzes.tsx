@@ -1,5 +1,4 @@
-import React from 'react'
-import { Content, Section } from '../ui'
+import { Content, Section } from '@/ui'
 
 export default function Quizzes() {
   return (

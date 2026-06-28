@@ -15,7 +15,7 @@ type Props = {
 }
 
 export default function ActionsButtonGroup({ shouldShow, isEditing, setIsEditing, userId }: Props) {
-  const setAuth = useUserStore(state => state.setAuth)
+  const clearStore = useUserStore(state => state.clearStore)
   const navigate = useNavigate()
 
   const [copied, setCopied] = useState(false)
@@ -47,8 +47,7 @@ export default function ActionsButtonGroup({ shouldShow, isEditing, setIsEditing
         icon={<Exit />}
         text="Выйти"
         onClick={() => {
-          localStorage.clear()
-          setAuth(AUTH.GUEST)
+          clearStore()
           navigate("/")
         }}
       />}

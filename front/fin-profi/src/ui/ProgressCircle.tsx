@@ -1,10 +1,16 @@
 import clsx from 'clsx'
-import React from 'react'
-import { motion } from 'framer-motion'
+import { motion, MotionProps } from 'framer-motion'
+import { CSSProperties } from 'react'
 
+type ProgressCircleProps = {
+  value: number,
+  text: string,
+  large?: boolean,
+  style: CSSProperties
+}
 
-export function ProgressCircle({ value, text, large, style }) {
-  const animation = {
+export function ProgressCircle({ value, text, large, style }: ProgressCircleProps) {
+  const animation: MotionProps = {
     initial: { background: `conic-gradient(var(--primary-yellow) ${0}%, var(--surface-light) ${0}%)` },
     animate: { background: `conic-gradient(var(--primary-yellow) ${value}%, var(--surface-light) ${value}%)` },
     transition: { delay: 0.33 }

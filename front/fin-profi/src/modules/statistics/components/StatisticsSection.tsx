@@ -24,12 +24,12 @@ export function StatisticsSection() {
       <StatisticsCard
         sectionProps={{
           text: "Общий прогресс",
-          icon: <Energy height={10} width={10} />
+          icon: <Energy height={10} width={10} />,
+          dark: true
         }}
         progress={(articles.progress + quizzes.progress) / (articles.count + quizzes.count) * 100}
         value={articles.progress + quizzes.progress}
         template={template.total}
-        dark
       />
 
       <StatisticsCard

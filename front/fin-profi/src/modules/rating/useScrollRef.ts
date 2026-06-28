@@ -1,4 +1,5 @@
 import { useContext, useEffect, useRef } from "react"
+
 import { RatingContext } from "./components/RatingProvider"
 
 export default function useScrollRef() {

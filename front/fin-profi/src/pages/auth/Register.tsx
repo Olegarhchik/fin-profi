@@ -1,21 +1,19 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 
 import { useUserStore } from '@/store'
 import { AUTH } from '@/constants'
 
-
-export default function Login() {
+export default function Register() {
   const setAuth = useUserStore(state => state.setAuth)
+  const setUser = useUserStore(state => state.setUser)
 
   return (
     <Link
       onClick={() => {
-        localStorage.setItem("id", 10)
+        setUser({ id: 10 })
         setAuth(AUTH.AUTHORIZED)
-      }} to="/"
-    >
-      Войти
-    </Link>
+      }}
+      to="/"
+    >Зарегистрироваться</Link>
   )
 }

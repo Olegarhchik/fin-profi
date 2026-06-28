@@ -1,10 +1,16 @@
-import React from 'react'
-
 import { NamedSection, ProgressBar, Button } from '@/ui'
 import { ArrowRight, Play } from '@/assets/icons'
 import { COLORS } from '@/constants'
 
-export function ContinueSection({ name, module, id, progress, articleLink }) {
+type ContinueSectionProps = {
+  name: string,
+  module: string,
+  id: number,
+  progress: number,
+  articleId: number
+}
+
+export function ContinueSection({ name, module, id, progress, articleId }: ContinueSectionProps) {
   return (
     <NamedSection
       icon={<Play className="corner" />}
@@ -39,6 +45,7 @@ export function ContinueSection({ name, module, id, progress, articleLink }) {
       <Button
         right={<ArrowRight />}
         text="Продолжить"
+        to={`articles/${articleId}`}
       />
     </NamedSection>
   )
