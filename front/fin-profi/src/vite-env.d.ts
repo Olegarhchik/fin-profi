@@ -1,4 +1,5 @@
 declare module '*.css'
+declare module '*.scss'
 
 declare module '*.svg?react' {
   import { FC, SVGProps } from 'react';

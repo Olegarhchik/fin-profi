@@ -2,9 +2,9 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 
 import { NavigationBar } from '@/components'
-import { Main, Calculators, Quizzes, Profile, Article, NotFound } from '@/pages'
-import { AuthLayout, Login, Register } from '@/pages/auth'
-import './App.css'
+import { Main, Calculators, Quizzes, Profile, Article, NotFound, Auth } from '@/pages'
+import { Login, Register } from '@/modules/auth'
+import './App.scss'
 
 export default function App() {
   const location = useLocation()
@@ -23,7 +23,7 @@ export default function App() {
             <Route path="/acticles/:articleId" element={<Article />} />
             <Route path="/calculators" element={<Calculators />} />
             <Route path="/quizzes" element={<Quizzes />} />
-            <Route element={<AuthLayout />}>
+            <Route element={<Auth />}>
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
             </Route>

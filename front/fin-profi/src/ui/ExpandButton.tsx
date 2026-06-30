@@ -1,13 +1,13 @@
 import React, { ReactNode, useState } from 'react'
-import { AnimatePresence, motion, MotionProps } from 'framer-motion'
+import { AnimatePresence, motion, MotionProps, MotionStyle } from 'framer-motion'
 import clsx from 'clsx'
 
 type ExpandButtonProps = {
   icon: ReactNode,
-  text: string,
+  text?: string,
   primary?: boolean,
   delay?: number,
-  onClick: React.MouseEventHandler<HTMLDivElement>,
+  onClick: React.MouseEventHandler<HTMLDivElement>
 }
 
 export function ExpandButton({ icon, text, primary, delay, onClick }: ExpandButtonProps) {
@@ -18,7 +18,7 @@ export function ExpandButton({ icon, text, primary, delay, onClick }: ExpandButt
     initial: { opacity: 0, scale: 0.5 },
     animate: { opacity: 1, scale: 1, transition: { delay: 0.2 + (delay ?? 0) } },
     transition: { delay: 0.2 },
-    whileHover: { padding: "10px 16px" },
+    whileHover: text ? { padding: "10px 16px" } : { scale: 1.1 },
     onAnimationComplete: () => setIsClickable(true),
   }
 
@@ -38,7 +38,7 @@ export function ExpandButton({ icon, text, primary, delay, onClick }: ExpandButt
         }, 200)
       }}
       onClick={onClick}
-      style={isClickable ? {} : { "pointerEvents": "none" }}
+      style={isClickable ? { } : { "pointerEvents": "none" }}
       {...animation}
     >
       <AnimatePresence>

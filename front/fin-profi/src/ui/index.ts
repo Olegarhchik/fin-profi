@@ -1,6 +1,7 @@
 export { Button } from "./Button"
 export { Content } from "./Content"
 export { ExpandButton } from "./ExpandButton"
+export { Input } from './Input'
 export { NamedSection } from "./NamedSection"
 export { NavigationButton } from "./NavigationButton"
 export { ProgressBar } from "./ProgressBar"

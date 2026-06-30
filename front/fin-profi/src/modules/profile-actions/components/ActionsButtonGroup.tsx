@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { Check, Exit, Pencil, Share, X } from '@/assets/icons'
 import { ButtonGroup } from '@/components'
-import { AUTH, BASE_URL } from '@/constants'
+import { BASE_URL } from '@/constants'
 import { useUserStore } from '@/store'
 import { ExpandButton } from '@/ui'
 

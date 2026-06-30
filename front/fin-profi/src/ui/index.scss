@@ -1,39 +1,41 @@
 @import url('../constants/colors.css');
 
-/* Navigation Bar */
+/* Button */
 
-.navbar-container {
-    width: 300px;
-    height: 100%;
-    box-sizing: border-box;
-    padding: 32px 0;
-    margin: 0 auto;
-    border-radius: 30px;
-    background-color: var(--surface-white);
-}
-
-.navbar {
-    width: fit-content;
-    height: 100%;
+.button {
+    padding: 10px 16px;
     display: flex;
-    flex-direction: column;
-    gap: 32px;
-    align-items: center;
-    margin: 0 auto;
-}
+    gap: 5px;
+    border-radius: 40px;
+    cursor: pointer;
+    width: fit-content;
 
-.navbar .divider {
-    height: 2px;
-    width: 100%;
     background-color: var(--surface-light);
 }
 
-nav {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 15px;
+.button.primary {
+    background-color: var(--primary-yellow);
+}
+
+.button svg {
+    margin: 2px 0;
+}
+
+.button span {
+    font-variant-caps: all-small-caps;
+    font-size: 16px;
+    letter-spacing: 1px;
+
+    text-box-trim: trim-both;
+    text-box-edge: cap alphabetic;
+}
+
+.button:not(:has(svg)) {
+    padding: 12px 16px;
+}
+
+.button:not(:has(svg)) span {
+    margin-top: -2px;
 }
 
 /* Navigation Button */
@@ -59,12 +61,12 @@ nav {
     align-items: center;
     color: var(--mid-gray);
     background-color: var(--surface-light);
-    
+
     font-variant-caps: all-small-caps;
     font-size: 20px;
     letter-spacing: 2%;
     font-weight: 500;
-    
+
     transition: all 0.1s linear;
 }
 
@@ -121,44 +123,6 @@ nav {
     gap: 20px;
 }
 
-/* Button */
-
-.button {
-    padding: 10px 16px;
-    display: flex;
-    gap: 5px;
-    border-radius: 40px;
-    cursor: pointer;
-    width: fit-content;
-
-    background-color: var(--surface-light);
-}
-
-.button.primary {
-    background-color: var(--primary-yellow);
-}
-
-.button svg {
-    margin: 2px 0;
-}
-
-.button span {
-    font-variant-caps: all-small-caps;
-    font-size: 16px;
-    letter-spacing: 1px;
-    
-    text-box-trim: trim-both;
-    text-box-edge: cap alphabetic;
-}
-
-.button:not(:has(svg)) {
-    padding: 12px 16px;
-}
-
-.button:not(:has(svg)) span {
-    margin-top: -2px;
-}
-
 /* Expand Button */
 
 .expand-button {
@@ -192,10 +156,42 @@ nav {
     height: 15px;
 }
 
-.button-group {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+/* Input */
+
+.input {
+    .label {
+        color: var(--dark-gray);
+    }
+
+    .input-container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background-color: var(--surface-light);
+        border-radius: 40px;
+        padding: 14px 20px;
+        margin-top: 8px;
+    }
+
+    input::placeholder {
+        color: var(--mid-gray);
+        letter-spacing: 0;
+        font-weight: 400;
+    }
+
+    input {
+        color: var(--text);
+        flex: 1;
+
+        ~svg {
+            cursor: pointer;
+        }
+    }
+
+    input[type="password"] {
+        letter-spacing: 1px;
+        font-weight: 700;
+    }
 }
 
 /* Progress Bar */
@@ -327,22 +323,4 @@ section.named.grayscale .header .icon:has(svg) {
 
 section.named.grayscale .header {
     color: var(--dark-gray);
-}
-
-/* Continue Section */
-
-section.named.continue .content {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-section.named.continue .content-header {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-}
-
-section.named.continue .content .completed {
-    color: var(--mid-gray);
 }

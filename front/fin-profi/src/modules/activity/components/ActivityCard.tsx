@@ -14,7 +14,7 @@ export function ActivityCard({ type, name, daysAgo, delay }: Props) {
   const animation: MotionProps = {
     initial: { scale: 0.95, opacity: 0 },
     animate: { scale: 1, opacity: 1 },
-    transition: { delay: 0.33 + (delay ?? 0) }
+    transition: { delay: 0.33 + (delay ?? 0), type: "tween" }
   }
 
   return (

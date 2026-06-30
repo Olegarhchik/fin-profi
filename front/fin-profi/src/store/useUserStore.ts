@@ -13,7 +13,7 @@ type UserStore = {
     clearStore: () => void
 }
 
-export const useUserStore = create<UserStore>()(persist((set, _, { getInitialState }) => ({
+export const useUserStore = create<UserStore>()(persist((set, _, store) => ({
     auth: AUTH.GUEST,
     setAuth: (auth: Auth) => {
         set(state => ({
@@ -30,5 +30,5 @@ export const useUserStore = create<UserStore>()(persist((set, _, { getInitialSta
         }))
     },
 
-    clearStore: () => set(getInitialState())
+    clearStore: () => set(store.getInitialState())
 }), { name: "userStore" }))
