@@ -1,16 +1,17 @@
+import axios from "axios"
 import { SubmitEventHandler, SVGProps } from "react"
 import { useNavigate } from "react-router-dom"
 
 import { Password, Profile } from "@/assets/icons"
-import { AUTH, COLORS } from "@/constants"
+import { COLORS } from "@/constants"
 import { useUserStore } from "@/store"
 import { Button, Input } from "@/ui"
+import { type LoginRequest } from "@/api"
 
 export function LoginForm() {
   const navigate = useNavigate()
 
-  const setAuth = useUserStore(state => state.setAuth)
-  const setUser = useUserStore(state => state.setUser)
+  const login = useUserStore(state => state.login)
 
   const iconProps: SVGProps<SVGSVGElement> = {
     width: 14,
@@ -18,17 +19,20 @@ export function LoginForm() {
     fill: COLORS.MID_GRAY
   }
 
-  const handleSubmit: SubmitEventHandler<HTMLFormElement> = (e) => {
+  const handleSubmit: SubmitEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
 
     const formData = new FormData(e.target)
+    const data = Object.fromEntries(formData) as LoginRequest
 
-    const data = Object.fromEntries(formData)
-
-    setUser({ id: 10 })
-    setAuth(AUTH.AUTHORIZED)
-
-    navigate("/")
+    try {
+      await login(data)
+      navigate("/")
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        // вывод ошибки пользователю
+      }
+    }
   }
 
   return (
@@ -36,9 +40,9 @@ export function LoginForm() {
       <Input
         id="login-input"
         icon={<Profile {...iconProps} />}
-        placeholder="Введите логин или email"
-        text="Логин или email"
-        name="login"
+        placeholder="Введите email"
+        text="Email"
+        name="email"
         delay={0.1}
       />
 

@@ -1,8 +1,9 @@
-import { ArrowLeft } from "@/assets/icons"
-import Logo from "@/assets/logo.svg?react"
-import { ExpandButton } from "@/ui"
-import { motion } from "framer-motion"
+import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
+
+import { ExpandButton } from '@/ui'
+import { ArrowLeft } from '@/assets/icons'
+import Logo from '@/assets/logo.svg?react'
 
 export function AuthLayout() {
   const navigate = useNavigate()

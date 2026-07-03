@@ -1,16 +1,17 @@
+import axios from 'axios'
 import { SubmitEventHandler, SVGProps } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { Email, Password, Profile } from '@/assets/icons'
-import { AUTH, COLORS } from '@/constants'
-import { useUserStore } from '@/store'
+import { COLORS } from '@/constants'
 import { Button, Input } from '@/ui'
+import type { RegisterRequest } from '@/api'
+import { useUserStore } from '@/store'
 
 export function RegisterForm() {
   const navigate = useNavigate()
 
-  const setAuth = useUserStore(state => state.setAuth)
-  const setUser = useUserStore(state => state.setUser)
+  const register = useUserStore(state => state.register)
 
   const iconProps: SVGProps<SVGSVGElement> = {
     width: 14,
@@ -18,17 +19,21 @@ export function RegisterForm() {
     fill: COLORS.MID_GRAY
   }
 
-  const handleSubmit: SubmitEventHandler<HTMLFormElement> = (e) => {
+  const handleSubmit: SubmitEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
 
     const formData = new FormData(e.target)
+    const data = Object.fromEntries(formData) as RegisterRequest
 
-    const data = Object.fromEntries(formData)
+    try {
+      await register(data)
+      navigate("/")
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        // вывод ошибки пользователю
+      }
+    }
 
-    setUser({ id: 10 })
-    setAuth(AUTH.AUTHORIZED)
-
-    navigate("/")
   }
 
   return (
@@ -38,7 +43,7 @@ export function RegisterForm() {
         icon={<Profile {...iconProps} />}
         placeholder="Введите имя пользователя"
         text="Имя пользователя"
-        name="username"
+        name="name"
         delay={0.2}
       />
 

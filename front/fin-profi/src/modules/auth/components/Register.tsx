@@ -1,10 +1,9 @@
 import { Link } from 'react-router-dom'
-
-import { useUserStore } from '@/store'
-import { AUTH } from '@/constants'
-import { RegisterForm } from './RegisterForm'
-import { Divider } from '@/ui'
 import { motion } from 'framer-motion'
+
+import { Divider } from '@/ui'
+
+import { RegisterForm } from './RegisterForm'
 
 export function Register() {
   return (

@@ -1,6 +1,6 @@
 import { User } from "@/constants";
 
-type UserRating = Required<Pick<User, 'id' | 'name' | 'points'>>
+type UserRating = Pick<User, 'id' | 'name' | 'points'>
 type UserRatingResponse = {
     count: number,
     list: UserRating[]

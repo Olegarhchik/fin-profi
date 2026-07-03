@@ -15,7 +15,7 @@ type Props = {
 }
 
 export default function ActionsButtonGroup({ shouldShow, isEditing, setIsEditing, userId }: Props) {
-  const clearStore = useUserStore(state => state.clearStore)
+  const logout = useUserStore(state => state.logout)
   const navigate = useNavigate()
 
   const [copied, setCopied] = useState(false)
@@ -47,7 +47,7 @@ export default function ActionsButtonGroup({ shouldShow, isEditing, setIsEditing
         icon={<Exit />}
         text="Выйти"
         onClick={() => {
-          clearStore()
+          logout()
           navigate("/")
         }}
       />}
@@ -57,7 +57,7 @@ export default function ActionsButtonGroup({ shouldShow, isEditing, setIsEditing
         text={copied ? "Скопировано" : "Поделиться"}
         delay={0.1}
         onClick={async () => {
-          await navigator.clipboard.writeText(`${BASE_URL}/profile/${userId}`)
+          await navigator.clipboard.writeText(`${BASE_URL}/profile/${userId}`.replace('/api', ''))
 
           setCopied(true)
 

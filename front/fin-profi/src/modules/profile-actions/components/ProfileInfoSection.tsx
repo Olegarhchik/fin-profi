@@ -3,12 +3,12 @@ import { useParams } from 'react-router-dom'
 
 import { ProfileCircle } from '@/assets/icons'
 import { Section } from '@/ui'
+import { useUserStore } from '@/store'
 
 import { useProfileEditingState } from '../useProfileEditingState'
 import ActionsButtonGroup from './ActionsButtonGroup'
 import data from '../data'
 import '../style.css'
-import { useUserStore } from '@/store'
 
 
 export function ProfileInfoSection() {
