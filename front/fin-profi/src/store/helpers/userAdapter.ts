@@ -1,4 +1,4 @@
-import { User } from "@/constants";
+import { User } from "@/constants"
 
 export function userAdapter(user): User {
     return {

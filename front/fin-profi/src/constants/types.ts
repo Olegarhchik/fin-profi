@@ -8,3 +8,9 @@ export type User = {
     email: string,
     points: number
 }
+
+export type Toast = {
+    id: number,
+    message: string,
+    action: () => void
+}

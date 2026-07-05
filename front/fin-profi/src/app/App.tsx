@@ -2,8 +2,9 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 
 import { NavigationBar } from '@/components'
-import { Main, Calculators, Quizzes, Profile, Article, NotFound, Auth } from '@/pages'
 import { Login, Register } from '@/modules/auth'
+import { ToastProvider } from '@/modules/toast'
+import { Main, Calculators, Quizzes, Profile, Article, NotFound, Auth } from '@/pages'
 import './App.scss'
 
 export default function App() {
@@ -11,7 +12,7 @@ export default function App() {
   const show = ["/login", "/register"].every(path => path != location.pathname)
 
   return (
-    <div className="container">
+    <ToastProvider className="container">
       <AnimatePresence>
         {show && <NavigationBar />}
       </AnimatePresence>
@@ -32,6 +33,6 @@ export default function App() {
           </Routes>
         </main>
       </AnimatePresence>
-    </div>
+    </ToastProvider>
   )
 }

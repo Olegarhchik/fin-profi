@@ -1,0 +1,25 @@
+.toast-group {
+    position: absolute;
+    left: calc(50% - 200px);
+    top: 12px;
+}
+
+.toast {
+    width: 400px;
+    height: 42px;
+    border-radius: 15px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: var(--text);
+    color: var(--surface-white);
+
+    position: absolute;
+}
+
+.toast-collapse {
+    padding: 4px 8px;
+    background-color: var(--text);
+    border-radius: 15px;
+    cursor: pointer;
+}
