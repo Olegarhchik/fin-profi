@@ -6,12 +6,13 @@ import { Email, Password, Profile } from '@/assets/icons'
 import { COLORS } from '@/constants'
 import { Button, Input } from '@/ui'
 import type { RegisterRequest } from '@/api'
-import { useUserStore } from '@/store'
+import { useToastStore, useUserStore } from '@/store'
 
 export function RegisterForm() {
   const navigate = useNavigate()
 
   const register = useUserStore(state => state.register)
+  const showToast = useToastStore(state => state.showToast)
 
   const iconProps: SVGProps<SVGSVGElement> = {
     width: 14,
@@ -25,15 +26,22 @@ export function RegisterForm() {
     const formData = new FormData(e.target)
     const data = Object.fromEntries(formData) as RegisterRequest
 
+    if (Object.values(data).some(d => d === "")) {
+      showToast("Не все поля заполнены")
+      return
+    }
+
+    if (data.password !== formData.get("password-confirmation")) {
+      showToast("Пароли не совпадают")
+      return
+    }
+
     try {
       await register(data)
       navigate("/")
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        // вывод ошибки пользователю
-      }
+      showToast("Произошла ошибка")
     }
-
   }
 
   return (

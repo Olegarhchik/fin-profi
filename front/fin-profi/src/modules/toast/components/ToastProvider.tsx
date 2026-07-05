@@ -25,7 +25,8 @@ export function ToastProvider({ className, children }: ToastProviderProps) {
       opacity: 0,
       y: -100,
       scaleY: -1,
-      x: (WIDTH - 27) / 2
+      x: (WIDTH - 27) / 2,
+      zIndex: 10
     },
 
     animate: {

@@ -13,7 +13,7 @@ type ToastProps = {
 }
 
 export function ToastCard({ toast, collapsed, index, count }: ToastProps) {
-  const shouldCollapse = collapsed && count !== 1
+  const shouldCollapse = count > 1 && collapsed
   const variants = getVariants(count)
 
   const scope = useAnimateClose(index, toast.id)

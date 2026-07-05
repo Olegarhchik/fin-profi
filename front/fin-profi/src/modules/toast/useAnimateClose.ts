@@ -1,6 +1,7 @@
-import { useToastStore } from '@/store'
 import { useAnimate } from 'framer-motion'
 import { useEffect } from 'react'
+
+import { useToastStore } from '@/store'
 
 export function useAnimateClose(index: number, id: number) {
     const removeToast = useToastStore(state => state.removeToast)

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 
 import { Password, Profile } from "@/assets/icons"
 import { COLORS } from "@/constants"
-import { useUserStore } from "@/store"
+import { useToastStore, useUserStore } from "@/store"
 import { Button, Input } from "@/ui"
 import { type LoginRequest } from "@/api"
 
@@ -12,6 +12,7 @@ export function LoginForm() {
   const navigate = useNavigate()
 
   const login = useUserStore(state => state.login)
+  const showToast = useToastStore(state => state.showToast)
 
   const iconProps: SVGProps<SVGSVGElement> = {
     width: 14,
@@ -25,13 +26,22 @@ export function LoginForm() {
     const formData = new FormData(e.target)
     const data = Object.fromEntries(formData) as LoginRequest
 
+    if (Object.values(data).some(d => d === "")) {
+      showToast("Не все поля заполнены")
+      return
+    }
+
     try {
       await login(data)
       navigate("/")
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        // вывод ошибки пользователю
-      }
+      if (axios.isAxiosError(error))
+        if (error.status === 401) {
+          showToast("Неверные логин или пароль")
+          return
+        }
+
+      showToast("Произошла ошибка")
     }
   }
 
