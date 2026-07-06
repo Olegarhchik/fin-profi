@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { SubmitEventHandler, SVGProps } from 'react'
 import { useNavigate } from 'react-router-dom'
 

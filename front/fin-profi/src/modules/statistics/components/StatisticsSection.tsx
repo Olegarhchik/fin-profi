@@ -7,7 +7,7 @@ import { StatisticsCard } from './StatisticsCard'
 import { buildTemplate } from '../buildTemplate'
 import { Statistics } from '../types'
 import data from '../data'
-import '../style.css'
+import '../style.scss'
 
 export function StatisticsSection() {
   const [statistics, setStatistics] = useState<Statistics>(data)

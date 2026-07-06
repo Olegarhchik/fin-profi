@@ -8,7 +8,7 @@ import { useUserStore } from '@/store'
 import { useProfileEditingState } from '../useProfileEditingState'
 import ActionsButtonGroup from './ActionsButtonGroup'
 import data from '../data'
-import '../style.css'
+import '../style.scss'
 
 
 export function ProfileInfoSection() {

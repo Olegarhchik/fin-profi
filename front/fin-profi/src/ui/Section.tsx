@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { motion, MotionProps } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { CSSProperties, PropsWithChildren } from 'react'
 
 export type SectionProps = PropsWithChildren<{
@@ -13,11 +13,11 @@ export type SectionProps = PropsWithChildren<{
 export function Section({ children, shrink, padding, className, layout }: SectionProps) {
   return (
     <motion.section
-      className={clsx({shrink}, className)}
+      className={clsx({ shrink }, className)}
       style={{ padding: padding ?? "32px 120px" }}
       layout={layout}
     >
-      { children }
+      {children}
     </motion.section>
   )
 }

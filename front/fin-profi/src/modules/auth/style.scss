@@ -1,4 +1,4 @@
-@import url("../../constants/colors.css");
+@use "../../constants/colors.scss" as *;
 
 .auth-section {
     flex-direction: column;
@@ -12,7 +12,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    border-bottom: 2px solid var(--surface-light);
+    border-bottom: 2px solid $surface-light;
 
     .expand-button {
         position: absolute;
@@ -34,7 +34,7 @@
         gap: 5px;
 
         .body {
-            color: var(--mid-gray);
+            color: $mid-gray;
         }
     }
 
@@ -64,11 +64,11 @@
         .solid {
             height: 2px;
             flex: 1;
-            background-color: var(--surface-light);
+            background-color: $surface-light;
         }
 
         .label {
-            color: var(--mid-gray);
+            color: $mid-gray;
         }
     }
 
@@ -78,11 +78,11 @@
         gap: 10px;
 
         .body:first-child {
-            color: var(--mid-gray);
+            color: $mid-gray;
         }
 
         .link {
-            color: var(--text);
+            color: $text;
             text-decoration: underline;
         }
     }

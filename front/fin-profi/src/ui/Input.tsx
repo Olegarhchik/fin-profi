@@ -43,7 +43,7 @@ export function Input({ icon, text, delay, ...props }: InputProps) {
         <input {...props} type={showPassword ? "text" : "password"} />
         {props.type === "password" && (
           showPassword ?
-            <Hide {...eyeProps} /> : <Show {...eyeProps} />
+            <Show {...eyeProps} /> : <Hide {...eyeProps} />
         )}
       </motion.div>
     </div>

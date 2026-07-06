@@ -3,7 +3,7 @@ import { NamedSection } from "@/ui"
 
 import { ActivityCard } from "./ActivityCard"
 import { useActivityState, useShrinkState } from "../hooks"
-import "../style.css"
+import "../style.scss"
 
 export function ActivitySection() {
   const activity = useActivityState()

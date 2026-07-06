@@ -9,12 +9,12 @@ import { useUserStore } from '@/store'
 import { RatingContext } from './RatingProvider'
 import useScrollRef from '../useScrollRef'
 import { buildRankList, getCurrentRank } from '../helpers'
-import '../style.css'
+import '../style.scss'
 
 export function RatingSection() {
   const { count, rating } = useContext(RatingContext)
   const { userId: currentUserId } = useParams()
-  const { id: userId } = useUserStore(state => state.user) 
+  const { id: userId } = useUserStore(state => state.user)
 
   const scrollRef = useScrollRef()
 
