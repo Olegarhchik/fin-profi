@@ -1,22 +1,22 @@
-import { create } from "zustand"
-import { persist } from "zustand/middleware"
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
-import { AUTH, User, type Auth } from "@/constants"
-import { api } from "@/api"
-import type { LoginRequest, Payload, RegisterRequest } from "@/api"
+import { AUTH, type Auth } from '@/constants'
+import { api } from '@/api'
+import type { LoginRequest, Payload, RegisterRequest } from '@/api'
 
-import { parseToken, userAdapter } from "./helpers"
+import { parseToken } from './helpers'
 
 type State = {
     auth: Auth,
     accessToken: string | null,
-    user: Partial<User>,
+    id: number | null
 }
 
 type Action = {
     register: (data: RegisterRequest) => Promise<void>,
     login: (data: LoginRequest) => Promise<void>,
-    logout: () => void
+    logout: () => void,
 }
 
 type UserStore = State & Action
@@ -24,35 +24,31 @@ type UserStore = State & Action
 export const useUserStore = create<UserStore>()(persist((set, _, store) => ({
     auth: AUTH.GUEST,
     accessToken: null,
-    user: {} as User,
+    id: null,
 
     register: async (data) => {
         const registerResponse = await api.private.register(data)
         const accessToken = registerResponse.data.access_token
         const { payload } = parseToken<Payload>(accessToken)
 
-        const userResponse = await api.public.fetchUser(payload.id_user)
-        const user = userAdapter(userResponse.data)
-
         set(() => ({
             auth: AUTH.AUTHORIZED,
             accessToken,
-            user
+            id: parseInt(payload.id_user)
         }))
     },
+
     login: async (data) => {
         const loginResponse = await api.private.login(data)
         const accessToken = loginResponse.data.access_token
         const { payload } = parseToken<Payload>(accessToken)
 
-        const userResponse = await api.public.fetchUser(payload.id_user)
-        const user = userAdapter(userResponse.data)
-
         set(() => ({
             auth: AUTH.AUTHORIZED,
             accessToken,
-            user
+            id: parseInt(payload.id_user)
         }))
     },
+
     logout: () => set(() => store.getInitialState())
 }), { name: "userStore" }))

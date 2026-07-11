@@ -14,7 +14,7 @@ import '../style.scss'
 export function RatingSection() {
   const { count, rating } = useContext(RatingContext)
   const { userId: currentUserId } = useParams()
-  const { id: userId } = useUserStore(state => state.user)
+  const userId = useUserStore(state => state.id)
 
   const scrollRef = useScrollRef()
 

@@ -16,7 +16,7 @@ export function NavigationBar() {
     transition: { type: "spring", duration: 0.66, delay: 0.1 }
   }
 
-  const { id: userId } = useUserStore(state => state.user)
+  const id = useUserStore(state => state.id)
 
   return (
     <motion.div
@@ -56,7 +56,7 @@ export function NavigationBar() {
               text="Войти"
             /> :
             <NavigationButton
-              to={`profile/${userId ?? ""}`}
+              to={`profile/${id}`}
               icon={<Profile />}
               text="Профиль"
             />
@@ -64,5 +64,5 @@ export function NavigationBar() {
         </nav>
       </div>
     </motion.div>
-  );
+  )
 }

@@ -1,8 +1,7 @@
 import { User } from "@/constants"
 
-export function userAdapter(user): User {
+export function userAdapter(user): Omit<User, 'id'> {
     return {
-        id: user.id_user,
         name: user.name,
         email: user.email,
         points: user.points

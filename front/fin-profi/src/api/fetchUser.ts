@@ -1,9 +1,13 @@
-import { AxiosPromise } from "axios";
+import { User } from '@/constants'
 
-import { User } from "@/constants";
+import { publicApi } from './public'
 
-import { publicApi } from "./public";
+export async function fetchUser(id: number): Promise<User> {
+    try {
+        const response = await publicApi.get<User>(`/users/${id}`)
 
-export async function fetchUser(id: string): AxiosPromise<User> {
-    return publicApi.get<User>(`/users/${id}`)
+        return response.data
+    } catch (error) {
+        throw error
+    }
 }

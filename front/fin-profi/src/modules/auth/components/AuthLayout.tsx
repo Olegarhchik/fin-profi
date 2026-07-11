@@ -7,7 +7,7 @@ import Logo from '@/assets/logo.svg?react'
 
 export function AuthLayout() {
   const navigate = useNavigate()
-  
+
   return (
     <motion.div layout className="auth-layout">
       <ExpandButton

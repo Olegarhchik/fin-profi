@@ -1,20 +1,22 @@
-export type AuthResponse = {
+type AuthResponse = {
     access_token: string,
     token_type: string
 }
 
-export type RegisterRequest = {
+type RegisterRequest = {
     name: string,
     email: string,
     password: string
 }
 
-export type LoginRequest = {
+type LoginRequest = {
     email: string,
     password: string
 }
 
-export type Payload = {
+type Payload = {
     sub: string,
     id_user: string
 }
+
+export type { AuthResponse, RegisterRequest, LoginRequest, Payload }

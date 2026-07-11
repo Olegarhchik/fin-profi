@@ -1,5 +1,5 @@
-import { login, register } from "./auth"
-import { fetchUser } from "./fetchUser"
+import { login, register } from './auth'
+import { fetchUser } from './fetchUser'
 
 export const api = {
     private: {
@@ -15,4 +15,4 @@ export type {
     RegisterRequest,
     LoginRequest,
     Payload
-} from "./types"
+} from './types'

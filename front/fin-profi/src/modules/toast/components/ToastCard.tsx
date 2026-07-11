@@ -23,7 +23,7 @@ export function ToastCard({ toast, collapsed, index, count }: ToastProps) {
       key={toast.id}
       className="toast"
       ref={scope}
-      onClick={collapsed ? () => { } : toast.action}
+      onClick={shouldCollapse ? () => { } : toast.action}
       custom={index}
       variants={variants}
       initial="initial"

@@ -13,7 +13,7 @@ import '../style.scss'
 
 export function ProfileInfoSection() {
   const { userId: reqUserId } = useParams()
-  const { id: currentUserId } = useUserStore(state => state.user)
+  const currentUserId = useUserStore(state => state.id)
 
   const [credentials, setCredentials] = useState(data.find(obj => obj.id.toString() == reqUserId)!)
   const [isEditing, setIsEditing] = useProfileEditingState()

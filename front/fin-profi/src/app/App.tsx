@@ -1,7 +1,7 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 
-import { NavigationBar } from '@/components'
+import { NavigationBar, ProtectedRoutes } from '@/components'
 import { Login, Register } from '@/modules/auth'
 import { ToastProvider } from '@/modules/toast'
 import { Main, Calculators, Quizzes, Profile, Article, NotFound, Auth } from '@/pages'
@@ -9,6 +9,7 @@ import './App.scss'
 
 export default function App() {
   const location = useLocation()
+
   const show = ["/login", "/register"].every(path => path != location.pathname)
 
   return (
@@ -24,12 +25,16 @@ export default function App() {
             <Route path="/acticles/:articleId" element={<Article />} />
             <Route path="/calculators" element={<Calculators />} />
             <Route path="/quizzes" element={<Quizzes />} />
+            <Route path="/*" element={<NotFound />} />
+
             <Route element={<Auth />}>
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
             </Route>
-            <Route path="/profile/:userId" element={<Profile />} />
-            <Route path="/*" element={<NotFound />} />
+
+            <Route element={<ProtectedRoutes />}>
+              <Route path="/profile/:userId" element={<Profile />} />
+            </Route>
           </Routes>
         </main>
       </AnimatePresence>
