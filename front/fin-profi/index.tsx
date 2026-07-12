@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import App from "./src/app/App"
 import "./index.scss"
 
-const queryClient = new QueryClient()
+export const queryClient = new QueryClient()
 
 const root = ReactDOM.createRoot(document.querySelector("#root")!)
 root.render(

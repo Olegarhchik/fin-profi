@@ -4,14 +4,15 @@ import { useNavigate } from 'react-router-dom'
 import { Email, Password, Profile } from '@/assets/icons'
 import { COLORS } from '@/constants'
 import { Button, Input } from '@/ui'
-import type { RegisterRequest } from '@/api'
 import { useToastStore, useUserStore } from '@/store'
+
+import type { RegisterRequest } from '../api'
+import { register } from '../api'
 
 export function RegisterForm() {
   const navigate = useNavigate()
-
-  const register = useUserStore(state => state.register)
   const showToast = useToastStore(state => state.showToast)
+  const setToken = useUserStore(state => state.setToken)
 
   const iconProps: SVGProps<SVGSVGElement> = {
     width: 14,
@@ -36,7 +37,8 @@ export function RegisterForm() {
     }
 
     try {
-      await register(data)
+      const response = await register(data)
+      setToken(response.data.access_token)
       navigate("/")
     } catch (error) {
       showToast("Произошла ошибка")

@@ -1,16 +1,28 @@
 import { AUTH } from "./names"
 
-export type Auth = typeof AUTH[keyof typeof AUTH]
+type Auth = typeof AUTH[keyof typeof AUTH]
 
-export type User = {
+type User = {
     id: number,
     name: string,
     email: string,
     points: number
 }
 
-export type Toast = {
+type Toast = {
     id: number,
     message: string,
     action: () => void
+}
+
+type Payload = {
+    sub: string,
+    id_user: string
+}
+
+export type {
+    Auth,
+    User,
+    Toast,
+    Payload
 }

@@ -1,1 +1,1 @@
-export { useUserQuery } from "./useUserQuery"
+export { useParamsId } from './useParamsId'

@@ -1,6 +1,6 @@
 import { User } from '@/constants'
 
-import { publicApi } from './public'
+import { publicApi } from '@/api'
 
 export async function fetchUser(id: number): Promise<User> {
     try {

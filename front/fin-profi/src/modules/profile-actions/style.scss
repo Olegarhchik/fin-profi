@@ -21,16 +21,17 @@
             border-radius: 10px;
             background-color: $surface-light;
             color: $text;
+            width: max-content;
 
             transition: all 0.05s linear;
 
             &:read-only {
                 background-color: transparent;
             }
-        }
 
-        .email input:read-only {
-            color: $mid-gray;
+            &[name="email"]:read-only {
+                color: $mid-gray;
+            }
         }
     }
 }

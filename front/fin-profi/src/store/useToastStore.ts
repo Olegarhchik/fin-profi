@@ -22,7 +22,11 @@ export const useToastStore = create<ToastStore>()((set, get) => ({
     showToast: (message, action) => {
         const id = (get().toasts.at(-1) ?? { id: 0 }).id + 1
 
-        const a = action ?? (() => get().removeToast(id))
+        const a = () => {
+            if (action) action()
+
+            get().removeToast(id)
+        }
 
         set(state => ({
             toasts: [

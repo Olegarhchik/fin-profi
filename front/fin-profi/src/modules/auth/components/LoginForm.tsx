@@ -6,12 +6,13 @@ import { Password, Profile } from "@/assets/icons"
 import { COLORS } from "@/constants"
 import { useToastStore, useUserStore } from "@/store"
 import { Button, Input } from "@/ui"
-import { type LoginRequest } from "@/api"
+
+import { type LoginRequest } from "../api"
+import { login } from '../api'
 
 export function LoginForm() {
   const navigate = useNavigate()
-
-  const login = useUserStore(state => state.login)
+  const setToken = useUserStore(state => state.setToken)
   const showToast = useToastStore(state => state.showToast)
 
   const iconProps: SVGProps<SVGSVGElement> = {
@@ -32,7 +33,8 @@ export function LoginForm() {
     }
 
     try {
-      await login(data)
+      const response = await login(data)
+      setToken(response.data.access_token)
       navigate("/")
     } catch (error) {
       if (axios.isAxiosError(error))

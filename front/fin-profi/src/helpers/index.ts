@@ -1,1 +1,1 @@
-export { userAdapter } from "./userAdapter"
+export { delay } from "./delay"

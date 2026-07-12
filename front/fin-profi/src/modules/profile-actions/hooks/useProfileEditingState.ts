@@ -6,7 +6,7 @@ export function useProfileEditingState() {
     useEffect(() => {
         if (isEditing == false) return
 
-        const handleEnterKey = async (event) => {
+        const handleEnterKey = async (event: KeyboardEvent) => {
             if (event.key === 'Enter') {
                 setIsEditing(false)
             }

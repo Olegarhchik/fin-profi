@@ -11,10 +11,11 @@ type Props = {
   shouldShow: boolean,
   isEditing: boolean,
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>,
-  userId: string
+  userId: number,
+  isLocked: boolean
 }
 
-export default function ActionsButtonGroup({ shouldShow, isEditing, setIsEditing, userId }: Props) {
+export default function ActionsButtonGroup({ shouldShow, isEditing, setIsEditing, userId, isLocked }: Props) {
   const logout = useUserStore(state => state.logout)
   const navigate = useNavigate()
 
@@ -48,7 +49,6 @@ export default function ActionsButtonGroup({ shouldShow, isEditing, setIsEditing
         text="Выйти"
         onClick={() => {
           logout()
-          navigate("/")
         }}
       />}
 
@@ -69,7 +69,7 @@ export default function ActionsButtonGroup({ shouldShow, isEditing, setIsEditing
         icon={<Pencil />}
         text="Редактировать"
         delay={0.2}
-        onClick={() => setIsEditing(true)}
+        onClick={() => !isLocked && setIsEditing(true)}
         primary
       />}
     </ButtonGroup>

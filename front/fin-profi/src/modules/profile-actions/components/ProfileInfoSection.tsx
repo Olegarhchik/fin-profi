@@ -1,22 +1,28 @@
-import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useEffect } from 'react'
 
 import { ProfileCircle } from '@/assets/icons'
-import { Section } from '@/ui'
-import { useUserStore } from '@/store'
+import { Section, Skeleton } from '@/ui'
+import { useToastStore, useUserStore } from '@/store'
+import { useParamsId } from '@/hooks'
 
-import { useProfileEditingState } from '../useProfileEditingState'
 import ActionsButtonGroup from './ActionsButtonGroup'
-import data from '../data'
+import { useProfileEditingState, useUserQuery } from '../hooks'
 import '../style.scss'
 
-
 export function ProfileInfoSection() {
-  const { userId: reqUserId } = useParams()
-  const currentUserId = useUserStore(state => state.id)
-
-  const [credentials, setCredentials] = useState(data.find(obj => obj.id.toString() == reqUserId)!)
   const [isEditing, setIsEditing] = useProfileEditingState()
+  const ownerId = useParamsId("userId")
+  const currentUserId = useUserStore(state => state.id)
+  const showToast = useToastStore(state => state.showToast)
+  const { data: credentials, isError, isLoading } = useUserQuery(ownerId!)
+
+  const isOwner = ownerId === currentUserId
+  const isLoadingSkeleton = isLoading || isError
+
+  useEffect(() => {
+    if (isError)
+      showToast("Не удалось загрузить данные пользователя")
+  }, [isError])
 
   return (
     <Section
@@ -27,38 +33,45 @@ export function ProfileInfoSection() {
       <ProfileCircle width={96} height={96} />
 
       <div className="user-credentials">
-        <div className="username">
+        <Skeleton
+          show={isLoadingSkeleton}
+          width={200}
+          height={47}
+        >
           <input
             name="username"
             type="text"
-            value={credentials.name ?? ""}
+            value={credentials?.name ?? ""}
             className="h1"
             readOnly={!isEditing}
-            onChange={(e) => setCredentials(prevCredentials => (
-              { ...prevCredentials, name: e.target.value }
-            ))}
+            onChange={(e) => { }}
           />
-        </div>
+        </Skeleton>
 
-        {reqUserId === currentUserId?.toString() && <div className="email">
-          <input
-            name="email"
-            type="text"
-            value={credentials.email ?? ""}
-            className="body"
-            readOnly={!isEditing}
-            onChange={(e) => setCredentials(prevCredentials => (
-              { ...prevCredentials, email: e.target.value }
-            ))}
-          />
-        </div>}
+        {isOwner &&
+          <Skeleton
+            show={isLoadingSkeleton}
+            width={160}
+            height={31}
+          >
+            <input
+              name="email"
+              type="text"
+              value={credentials?.email ?? ""}
+              className="body"
+              readOnly={!isEditing}
+              onChange={(e) => { }}
+            />
+          </Skeleton>
+        }
       </div>
 
       <ActionsButtonGroup
-        shouldShow={reqUserId === currentUserId?.toString()}
+        shouldShow={isOwner}
         isEditing={isEditing}
         setIsEditing={setIsEditing}
-        userId={reqUserId!}
+        userId={ownerId!}
+        isLocked={isLoadingSkeleton}
       />
     </Section>
   )

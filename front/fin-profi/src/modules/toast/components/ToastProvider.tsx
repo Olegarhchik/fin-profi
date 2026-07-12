@@ -44,7 +44,6 @@ export function ToastProvider({ className, children }: ToastProviderProps) {
     <>
       <motion.div
         className="toast-group"
-        style={{ cursor: shouldExpand ? "pointer" : "default" }}
         onClick={() => { shouldExpand && setCollapsed(false) }}
         initial={{ transition: { delayChildren: 0.05 } }}
       >

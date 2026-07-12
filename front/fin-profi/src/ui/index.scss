@@ -335,3 +335,22 @@ section.named {
         }
     }
 }
+
+// Skeleton
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.skeleton {
+    background: linear-gradient(90deg, $surface-light 25%, $surface-white 50%, $surface-light 75%);
+    background-size: 200% 100%;
+    border-radius: 10px;
+    animation: skeleton-loading 2s infinite linear;
+}

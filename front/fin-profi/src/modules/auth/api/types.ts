@@ -14,9 +14,4 @@ type LoginRequest = {
     password: string
 }
 
-type Payload = {
-    sub: string,
-    id_user: string
-}
-
-export type { AuthResponse, RegisterRequest, LoginRequest, Payload }
+export type { AuthResponse, RegisterRequest, LoginRequest }
