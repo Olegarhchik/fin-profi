@@ -1,15 +1,16 @@
-import { Divider, NamedSection, ProgressCircle, type NamedSectionProps } from '@/ui'
+import { Divider, NamedSection, ProgressCircle, Skeleton, type NamedSectionProps } from '@/ui'
 
-import { TemplateDetails } from '../types'
+import { TemplateDetails } from '../constants/types'
 
 type Props = {
   progress: number,
   value: number,
-  template?: TemplateDetails,
-  sectionProps: NamedSectionProps
+  template: TemplateDetails,
+  sectionProps: NamedSectionProps,
+  showSkeleton: boolean
 }
 
-export function StatisticsCard({ progress, value, template, sectionProps }: Props) {
+export function StatisticsCard({ progress, value, template, sectionProps, showSkeleton }: Props) {
   return (
     <NamedSection
       padding="24px"
@@ -29,10 +30,13 @@ export function StatisticsCard({ progress, value, template, sectionProps }: Prop
 
       <Divider />
 
-      {template?.map((templateObj, index) => (
+      {template.map((templateObj, index) => (
         <div key={index} className="row">
           <span className={sectionProps.dark ? "h3" : "body"}>{templateObj.text}</span>
-          <span className={sectionProps.dark ? "h3" : "body"}>{templateObj.value}</span>
+
+          <Skeleton height={sectionProps.dark ? 25 : 23} width={50} show={showSkeleton} dark={sectionProps.dark}>
+            <span className={sectionProps.dark ? "h3" : "body"}>{templateObj.value}</span>
+          </Skeleton>
         </div>
       ))}
     </NamedSection>

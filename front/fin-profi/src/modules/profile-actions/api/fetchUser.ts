@@ -1,8 +1,7 @@
 import { publicApi } from '@/api'
-import { UserDTO } from '@/constants'
 
 import { userAdapter } from '../helpers'
-import { User } from '../constants/types'
+import { UserDTO, User } from '../constants'
 
 export async function fetchUser(id: number): Promise<User> {
     try {
@@ -10,6 +9,6 @@ export async function fetchUser(id: number): Promise<User> {
 
         return userAdapter(response.data)
     } catch (error) {
-        throw error
+        throw new Error("Не удалось загрузить данные пользователя")
     }
 }

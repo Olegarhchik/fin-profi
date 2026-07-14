@@ -4,7 +4,7 @@ import { CSSProperties } from 'react'
 
 type ProgressCircleProps = {
   value: number,
-  text: string,
+  text: number,
   large?: boolean,
   style: CSSProperties
 }

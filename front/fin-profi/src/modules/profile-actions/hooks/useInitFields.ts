@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react'
 
-import { useToastStore } from '@/store'
+import { useErrorEffect } from '@/hooks'
 
 import { User } from '../constants'
 import { useUserQuery } from './useUserQuery'
 
 export function useInitFields(id: number) {
-    const showToast = useToastStore(state => state.showToast)
-    const { data, isError, isLoading } = useUserQuery(id)
+    const { data, isError, isLoading, error } = useUserQuery(id)
     const [fields, setFields] = useState<User>({ name: "", email: "" })
 
     const isLoadingSkeleton = isLoading || isError
@@ -18,10 +17,7 @@ export function useInitFields(id: number) {
         }
     }, [isLoading, data])
 
-    useEffect(() => {
-        if (isError)
-            showToast("Не удалось загрузить данные пользователя")
-    }, [isError])
+    useErrorEffect(error)
 
     return { fields, setFields, isLoadingSkeleton }
 }

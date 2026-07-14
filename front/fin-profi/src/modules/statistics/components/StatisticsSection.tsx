@@ -1,19 +1,24 @@
-import { useState } from 'react'
-
 import { Article, CheckCircle, Energy } from '@/assets/icons'
 import { Section } from '@/ui'
+import { useErrorEffect } from '@/hooks'
 
 import { StatisticsCard } from './StatisticsCard'
-import { buildTemplate } from '../buildTemplate'
-import { Statistics } from '../types'
-import data from '../data'
+import { buildTemplate, getPlaceholder } from '../helpers'
+import { useStatisticsQuery } from '../hooks'
 import '../style.scss'
 
 export function StatisticsSection() {
-  const [statistics, setStatistics] = useState<Statistics>(data)
+  const {
+    data: statistics = getPlaceholder(),
+    error,
+    isError,
+    isLoading
+  } = useStatisticsQuery()
 
-  const { articles, quizzes } = statistics
-  const template = buildTemplate(statistics)
+  const { articles, quizzes } = statistics!
+  const template = buildTemplate(statistics!)
+
+  useErrorEffect(error)
 
   return (
     <Section
@@ -30,6 +35,7 @@ export function StatisticsSection() {
         progress={(articles.progress + quizzes.progress) / (articles.count + quizzes.count) * 100}
         value={articles.progress + quizzes.progress}
         template={template.total}
+        showSkeleton={isLoading || isError}
       />
 
       <StatisticsCard
@@ -40,6 +46,7 @@ export function StatisticsSection() {
         progress={articles.progress / articles.count * 100}
         value={articles.progress}
         template={template.articles}
+        showSkeleton={isLoading || isError}
       />
 
       <StatisticsCard
@@ -50,6 +57,7 @@ export function StatisticsSection() {
         progress={quizzes.progress / quizzes.count * 100}
         value={quizzes.progress}
         template={template.quizzes}
+        showSkeleton={isLoading || isError}
       />
     </Section>
   )

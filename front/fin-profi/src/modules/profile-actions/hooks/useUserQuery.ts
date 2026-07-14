@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { fetchUser } from '../api'
+import { FETCH_USER_KEY } from '../constants'
 
 export function useUserQuery(id: number) {
     return useQuery({
-        queryKey: ['fetchUser', id],
+        queryKey: [...FETCH_USER_KEY, id],
         queryFn: () => fetchUser(id)
     })
 }

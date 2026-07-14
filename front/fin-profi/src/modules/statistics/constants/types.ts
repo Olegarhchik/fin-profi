@@ -7,6 +7,13 @@ type TemplateDetails = {
 
 type Template = Record<Entities | 'total', TemplateDetails>
 
+type StatisticsDetailsDTO = {
+    user_progress: number,
+    all_count: number
+}
+
+type StatisticsDTO = Record<Entities, StatisticsDetailsDTO>
+
 type StatisticsDetails = {
     progress: number,
     count: number
@@ -14,4 +21,4 @@ type StatisticsDetails = {
 
 type Statistics = Record<Entities, StatisticsDetails>
 
-export type { TemplateDetails, Template, Statistics }
+export type { TemplateDetails, Template, StatisticsDTO, Statistics }

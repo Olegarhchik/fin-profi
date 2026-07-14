@@ -1,6 +1,6 @@
-import { POINTS_PER_ARTICLE, POINTS_PER_QUIZ } from "@/constants";
+import { POINTS_PER_ARTICLE, POINTS_PER_QUIZ } from "@/constants"
 
-import { Statistics, Template } from "./types";
+import { Statistics, Template } from "../constants"
 
 export function buildTemplate(data: Statistics): Template {
     return {

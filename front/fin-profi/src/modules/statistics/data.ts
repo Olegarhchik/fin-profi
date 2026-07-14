@@ -1,4 +1,4 @@
-import { Statistics } from "./types";
+import { Statistics } from "./constants"
 
 const data: Statistics = {
     quizzes: {

@@ -1,7 +1,6 @@
 import { publicApi } from '@/api'
-import { UserDTO } from '@/constants'
 
-import { User } from '../constants/types'
+import { UserDTO, User } from '../constants'
 import { userAdapter } from '../helpers'
 
 type Params = {

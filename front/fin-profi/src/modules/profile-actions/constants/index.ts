@@ -1,3 +1,2 @@
 export { FETCH_USER_KEY, MUTATE_USER_KEY } from "./names"
-
-export type { User } from "./types"
+export type { UserDTO, User } from "./types"
