@@ -1,9 +1,10 @@
-import { User } from "@/constants"
+import { UserDTO } from '@/constants'
 
-export function userAdapter(user): Omit<User, 'id'> {
+import { User } from '../constants/types'
+
+export function userAdapter(user: UserDTO): User {
     return {
         name: user.name,
-        email: user.email,
-        points: user.points
+        email: user.email
     }
 }

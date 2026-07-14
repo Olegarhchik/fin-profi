@@ -1,25 +1,39 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useCallback, useState } from 'react'
 
 import { Check, Exit, Pencil, Share, X } from '@/assets/icons'
 import { ButtonGroup } from '@/components'
 import { BASE_URL } from '@/constants'
 import { useUserStore } from '@/store'
 import { ExpandButton } from '@/ui'
+import { useParamsId } from '@/hooks'
+
+import { type User } from '../constants'
+import { useEnterKeyEffect, useUserMutation } from '../hooks'
 
 type Props = {
-  shouldShow: boolean,
   isEditing: boolean,
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>,
-  userId: number,
-  isLocked: boolean
+  isLocked: boolean,
+  user: User
 }
 
-export default function ActionsButtonGroup({ shouldShow, isEditing, setIsEditing, userId, isLocked }: Props) {
-  const logout = useUserStore(state => state.logout)
-  const navigate = useNavigate()
+export default function ActionsButtonGroup({ isEditing, setIsEditing, isLocked, user }: Props) {
+  const currentUserId = useUserStore(state => state.id)
+  const ownerId = useParamsId("userId")
 
+  const shouldShow = ownerId === currentUserId
+
+  const logout = useUserStore(state => state.logout)
   const [copied, setCopied] = useState(false)
+
+  const { mutate } = useUserMutation()
+
+  const handleAccept = useCallback(() => {
+    mutate({ id: ownerId, user })
+    setIsEditing(false)
+  }, [ownerId, user])
+
+  useEnterKeyEffect(isEditing, handleAccept)
 
   if (isEditing) return (
     <ButtonGroup key="while-editing">
@@ -35,9 +49,7 @@ export default function ActionsButtonGroup({ shouldShow, isEditing, setIsEditing
         icon={<Check />}
         text="Принять"
         primary
-        onClick={async () => {
-          setIsEditing(false)
-        }}
+        onClick={handleAccept}
       />
     </ButtonGroup>
   )
@@ -47,9 +59,7 @@ export default function ActionsButtonGroup({ shouldShow, isEditing, setIsEditing
       {shouldShow && <ExpandButton
         icon={<Exit />}
         text="Выйти"
-        onClick={() => {
-          logout()
-        }}
+        onClick={() => logout()}
       />}
 
       <ExpandButton
@@ -57,7 +67,7 @@ export default function ActionsButtonGroup({ shouldShow, isEditing, setIsEditing
         text={copied ? "Скопировано" : "Поделиться"}
         delay={0.1}
         onClick={async () => {
-          await navigator.clipboard.writeText(`${BASE_URL}/profile/${userId}`.replace('/api', ''))
+          await navigator.clipboard.writeText(`${BASE_URL}/profile/${ownerId}`.replace('/api', ''))
 
           setCopied(true)
 

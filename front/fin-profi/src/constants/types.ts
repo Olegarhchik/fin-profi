@@ -2,7 +2,7 @@ import { AUTH } from "./names"
 
 type Auth = typeof AUTH[keyof typeof AUTH]
 
-type User = {
+type UserDTO = {
     id: number,
     name: string,
     email: string,
@@ -22,7 +22,7 @@ type Payload = {
 
 export type {
     Auth,
-    User,
+    UserDTO,
     Toast,
     Payload
 }

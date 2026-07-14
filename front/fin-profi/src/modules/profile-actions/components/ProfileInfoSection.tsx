@@ -1,28 +1,22 @@
-import { useEffect } from 'react'
+import { useState } from 'react'
 
 import { ProfileCircle } from '@/assets/icons'
 import { Section, Skeleton } from '@/ui'
-import { useToastStore, useUserStore } from '@/store'
+import { useUserStore } from '@/store'
 import { useParamsId } from '@/hooks'
 
 import ActionsButtonGroup from './ActionsButtonGroup'
-import { useProfileEditingState, useUserQuery } from '../hooks'
+import { useInitFields } from '../hooks'
 import '../style.scss'
 
 export function ProfileInfoSection() {
-  const [isEditing, setIsEditing] = useProfileEditingState()
   const ownerId = useParamsId("userId")
   const currentUserId = useUserStore(state => state.id)
-  const showToast = useToastStore(state => state.showToast)
-  const { data: credentials, isError, isLoading } = useUserQuery(ownerId!)
 
   const isOwner = ownerId === currentUserId
-  const isLoadingSkeleton = isLoading || isError
 
-  useEffect(() => {
-    if (isError)
-      showToast("Не удалось загрузить данные пользователя")
-  }, [isError])
+  const [isEditing, setIsEditing] = useState(false)
+  const { fields, setFields, isLoadingSkeleton } = useInitFields(ownerId)
 
   return (
     <Section
@@ -41,10 +35,10 @@ export function ProfileInfoSection() {
           <input
             name="username"
             type="text"
-            value={credentials?.name ?? ""}
+            value={fields?.name ?? ""}
             className="h1"
             readOnly={!isEditing}
-            onChange={(e) => { }}
+            onChange={(e) => setFields(prev => ({ ...prev, name: e.target.value }))}
           />
         </Skeleton>
 
@@ -57,21 +51,20 @@ export function ProfileInfoSection() {
             <input
               name="email"
               type="text"
-              value={credentials?.email ?? ""}
+              value={fields?.email ?? ""}
               className="body"
               readOnly={!isEditing}
-              onChange={(e) => { }}
+              onChange={(e) => setFields(prev => ({ ...prev, email: e.target.value }))}
             />
           </Skeleton>
         }
       </div>
 
       <ActionsButtonGroup
-        shouldShow={isOwner}
         isEditing={isEditing}
         setIsEditing={setIsEditing}
-        userId={ownerId!}
         isLocked={isLoadingSkeleton}
+        user={fields}
       />
     </Section>
   )
