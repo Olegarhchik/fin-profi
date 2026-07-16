@@ -1,10 +1,5 @@
-type UserDTO = {
-    id: number,
-    name: string,
-    email: string,
-    points: number
-}
+import { UserDTO } from '@/constants'
 
 type User = Pick<UserDTO, 'name' | 'email'>
 
-export type { UserDTO, User }
+export type { User }

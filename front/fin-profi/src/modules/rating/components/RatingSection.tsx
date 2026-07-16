@@ -1,25 +1,31 @@
-import { useContext } from 'react'
-import { useParams } from 'react-router-dom'
-
 import { Cup } from '@/assets/icons'
 import { COLORS } from '@/constants'
-import { NamedSection } from '@/ui'
+import { NamedSection, Skeleton } from '@/ui'
 import { useUserStore } from '@/store'
+import { useErrorEffect, useParamsId } from '@/hooks'
 
-import { RatingContext } from './RatingProvider'
-import useScrollRef from '../useScrollRef'
-import { buildRankList, getCurrentRank } from '../helpers'
+import { useRatingQuery, useScrollRef } from '../hooks'
+import { buildRankList, getRank, getTemplate } from '../helpers'
 import '../style.scss'
 
 export function RatingSection() {
-  const { count, rating } = useContext(RatingContext)
-  const { userId: currentUserId } = useParams()
-  const userId = useUserStore(state => state.id)
+  const ownerId = useParamsId("userId")
+  const userId = useUserStore(state => state.id)!
 
-  const scrollRef = useScrollRef()
+  const {
+    data = getTemplate(userId),
+    isLoading,
+    isError,
+    error
+  } = useRatingQuery(userId)
+  const { count, list: rating } = data
+  const userRank = getRank(userId, rating)
+  const showSkeleton = isLoading || isError
 
-  const currentRank = getCurrentRank(rating, Number(currentUserId))
-  const rankListElements = buildRankList(rating, currentRank, userId!)
+  const { containerRef } = useScrollRef(showSkeleton, ownerId)
+  const rankListElements = buildRankList(rating, ownerId, userId, showSkeleton)
+
+  useErrorEffect(error)
 
   return (
     <NamedSection
@@ -27,7 +33,7 @@ export function RatingSection() {
       text="Рейтинг"
       gap="12px"
       className="rating"
-      ref={scrollRef}
+      ref={containerRef}
       grow
     >
       <div className="rank-list">
@@ -38,11 +44,11 @@ export function RatingSection() {
         <span
           style={{ color: COLORS.TEXT }}
           className="body"
-        >Вы на {currentRank}-м месте</span>
+        >Вы на <Skeleton width={10} height={17} show={showSkeleton}>{userRank}</Skeleton>-м месте</span>
         <span
           style={{ color: COLORS.MID_GRAY }}
           className="small"
-        >из {count} участников</span>
+        >из <Skeleton width={10} height={13} show={showSkeleton}>{count}</Skeleton> участников</span>
       </div>
     </NamedSection>
   )

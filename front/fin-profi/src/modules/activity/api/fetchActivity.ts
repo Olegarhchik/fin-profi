@@ -2,7 +2,6 @@ import { publicApi } from '@/api'
 
 import type { ActivityDTO } from '../constants'
 import { activityAdapter } from '../helpers'
-import { delay } from '@/helpers'
 
 export async function fetchActivity(id: number) {
     try {

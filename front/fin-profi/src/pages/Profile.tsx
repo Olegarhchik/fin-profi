@@ -1,15 +1,16 @@
-import { useState } from 'react'
-
 import { ContinueSection } from '@/components'
 import { Content, SideBar } from '@/ui'
 
+import { useParamsId } from '@/hooks'
 import { ProfileInfoSection } from '@/modules/profile-actions'
 import { StatisticsSection } from '@/modules/statistics'
 import { ActivitySection } from '@/modules/activity'
-import { data, NextRankSection, RatingProvider, RatingSection, type UserRating } from '@/modules/rating'
+import { NextRankSection, RatingSection } from '@/modules/rating'
 
 export default function Profile() {
-  const [rating, setRating] = useState<UserRating[]>(data.list)
+  const id = useParamsId("userId")
+
+  // проверка корректности url
 
   return (
     <>
@@ -22,11 +23,9 @@ export default function Profile() {
       </Content>
 
       <SideBar>
-        <RatingProvider value={{ count: data.count, rating, setRating }}>
-          <RatingSection />
+        <RatingSection />
 
-          <NextRankSection />
-        </RatingProvider>
+        <NextRankSection />
 
         <ContinueSection
           name="Название статьи"

@@ -2,8 +2,8 @@ import { motion } from 'framer-motion'
 
 import { Toast } from '@/constants'
 
-import { getVariants } from '../getVariants'
-import { useAnimateClose } from '../useAnimateClose'
+import { getVariants } from '../helpers'
+import { useAnimateClose } from '../hooks'
 
 type ToastProps = {
   toast: Toast,

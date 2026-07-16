@@ -1,22 +1,26 @@
 import { motion, MotionProps } from 'framer-motion'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import clsx from 'clsx'
 
 import { Crown, ProfileCircle } from '@/assets/icons'
 import { COLORS } from '@/constants'
 
-import { Highlight, UserRating } from '../types'
+import { Highlight, RatingDetail } from '../constants'
+import { useParamsId } from '@/hooks'
+import { Skeleton } from '@/ui'
 
 type Props = {
   rank: number,
-  user: UserRating,
+  user: RatingDetail,
   highlight?: Highlight,
-  delay?: number
+  delay?: number,
+  showSkeleton: boolean,
+  dataId?: number
 }
 
-export default function RankCard({ rank, user, highlight, delay }: Props) {
-  const { userId: currentUserId } = useParams()
-  const color = user.id.toString() === currentUserId ? COLORS.PRIMARY_YELLOW : COLORS.TEXT
+export default function RankCard({ rank, user, highlight, delay, showSkeleton, dataId }: Props) {
+  const currentUserId = useParamsId("userId")
+  const color = user.id === currentUserId ? COLORS.PRIMARY_YELLOW : COLORS.TEXT
 
   const animation: MotionProps = {
     initial: { scale: 0.8 },
@@ -27,28 +31,37 @@ export default function RankCard({ rank, user, highlight, delay }: Props) {
   return (
     <motion.div
       className={clsx("rank-card", highlight)}
+      data-id={dataId}
       {...animation}
     >
-      <span className="body rank-number">{rank}</span>
+      <Skeleton width={8} height={23} show={showSkeleton} dark={rank === 1}>
+        <span className="body rank-number">{rank}</span>
+      </Skeleton>
 
-      <ProfileCircle width={28} height={28} />
+      <Skeleton width={28} height={28} show={showSkeleton} dark={rank === 1}>
+        <ProfileCircle width={28} height={28} />
+      </Skeleton>
 
       <div className="user-data">
-        <Link to={`/profile/${user.id}`} >
-          <span className="body username">
-            {user.name}
-          </span>
-        </Link>
+        <Skeleton width={120} height={17} show={showSkeleton} dark={rank === 1}>
+          <Link to={`/profile/${user.id}`} >
+            <span className="body username">
+              {user.name}
+            </span>
+          </Link>
+        </Skeleton>
 
-        <span
-          style={{ color: COLORS.MID_GRAY }}
-          className="small score"
-        >{user.points} очков</span>
+        <Skeleton width={80} height={14} show={showSkeleton} dark={rank === 1}>
+          <span
+            style={{ color: COLORS.MID_GRAY }}
+            className="small score"
+          >{user.points} очков</span>
+        </Skeleton>
       </div>
 
-      {highlight?.includes("leader") && <Crown width={14} height={14} />}
+      {!showSkeleton && highlight?.includes("leader") && <Crown width={14} height={14} />}
 
-      {highlight?.includes("you") && <span style={{ color }} className="small">Вы</span>}
+      {!showSkeleton && highlight?.includes("you") && <span style={{ color }} className="small">Вы</span>}
     </motion.div>
   )
 }

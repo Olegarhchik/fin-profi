@@ -1,7 +1,8 @@
 import { publicApi } from '@/api'
+import { UserDTO } from '@/constants'
 
 import { userAdapter } from '../helpers'
-import { UserDTO, User } from '../constants'
+import { User } from '../constants'
 
 export async function fetchUser(id: number): Promise<User> {
     try {

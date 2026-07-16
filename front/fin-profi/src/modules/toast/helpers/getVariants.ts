@@ -1,6 +1,6 @@
 import { Variants } from 'framer-motion'
 
-import { GAP, HEIGHT } from './constants'
+import { GAP, HEIGHT } from '../constants'
 
 export function getVariants(count: number): Variants {
     return {

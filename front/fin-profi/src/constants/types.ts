@@ -13,8 +13,16 @@ type Payload = {
     id_user: string
 }
 
+type UserDTO = {
+    id: number,
+    name: string,
+    email: string,
+    points: number
+}
+
 export type {
     Auth,
     Toast,
-    Payload
+    Payload,
+    UserDTO
 }

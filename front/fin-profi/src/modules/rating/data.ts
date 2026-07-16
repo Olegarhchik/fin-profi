@@ -1,6 +1,6 @@
-import { UserRatingResponse } from "./types"
+import { Rating } from "./constants"
 
-export const data: UserRatingResponse = {
+export const data: Rating = {
     count: 10,
     list: [
         {

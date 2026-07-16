@@ -110,9 +110,9 @@ async def get_rating(id_user: int, db: AsyncSession = Depends(get_db)):
             "list": top8
         }
 
-    return await {
+    return {
         "count": all_users.scalar(),
-        "list": user_crud.get_users_above(db, points=user.points)
+        "list": await user_crud.get_users_above(db, points=user.points)
     }
 
 @router.get("/{id_user}/statistics")

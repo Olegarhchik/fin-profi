@@ -1,23 +1,40 @@
-import { useContext } from 'react'
-import { useParams } from 'react-router-dom'
-
 import { NamedSection, ProgressBar } from '@/ui'
 import { Star } from '@/assets/icons'
 import { COLORS } from '@/constants'
+import { useParamsId } from '@/hooks'
 
-import { RatingContext } from './RatingProvider'
-import { getCurrentRank } from '../helpers'
+import { getRank, getTemplate } from '../helpers'
+import { useRatingQuery } from '../hooks'
+import { MotionProps } from 'framer-motion'
+import { useUserStore } from '@/store'
 
 export function NextRankSection() {
-  const { rating } = useContext(RatingContext)
-  const { userId } = useParams()
+  const currentUserId = useUserStore(state => state.id)!
 
-  const currentRank = getCurrentRank(rating, Number(userId))
+  const { data = getTemplate(currentUserId) } = useRatingQuery(currentUserId)
+  const { list: rating } = data
 
-  const currentUser = rating[currentRank - 1]
-  const nextUser = rating[currentRank - 2]
+  const currentRank = getRank(currentUserId, rating)
 
-  if (currentRank === 1) return null
+  const currentUser = rating.at(currentRank - 1)
+  const nextUser = rating.at(currentRank - 2)
+
+  if (currentRank === 1 || !currentUser || !nextUser) return null
+
+  const animation: MotionProps = {
+    initial: {
+      height: 0,
+      opacity: 0,
+      paddingTop: 0,
+      paddingBottom: 0
+    },
+    animate: {
+      height: "auto",
+      opacity: 1,
+      paddingTop: 24,
+      paddingBottom: 24
+    }
+  }
 
   return (
     <NamedSection
@@ -25,6 +42,7 @@ export function NextRankSection() {
       text="До следующего места"
       gap="8px"
       className="next-rank"
+      animation={animation}
     >
       <div className="content-header">
         <div className="points">

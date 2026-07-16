@@ -1,4 +1,6 @@
-import { UserDTO, User } from '../constants/types'
+import { UserDTO } from '@/constants'
+
+import { User } from '../constants/types'
 
 export function userAdapter(user: UserDTO): User {
     return {

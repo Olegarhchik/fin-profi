@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { motion, MotionProps } from 'framer-motion'
 import { PropsWithChildren, ReactNode, Ref } from 'react'
 
 export type NamedSectionProps = PropsWithChildren<{
@@ -10,12 +11,15 @@ export type NamedSectionProps = PropsWithChildren<{
   padding?: string,
   gap?: string,
   ref?: Ref<HTMLDivElement>,
-  grow?: boolean
+  grow?: boolean,
+  animation?: MotionProps
 }>
 
 export function NamedSection(props: NamedSectionProps) {
+  const animation = props.animation ?? {}
+
   return (
-    <section
+    <motion.section
       className={
         clsx("named", {
           dark: props.dark,
@@ -27,6 +31,7 @@ export function NamedSection(props: NamedSectionProps) {
         padding: props.padding ?? "24px",
         gap: props.gap ?? "16px"
       }}
+      {...animation}
     >
       <div className="header">
         <div className="icon">{props.icon}</div>
@@ -36,6 +41,6 @@ export function NamedSection(props: NamedSectionProps) {
       <div className="content" ref={props.ref} >
         {props.children}
       </div>
-    </section>
+    </motion.section>
   )
 }
