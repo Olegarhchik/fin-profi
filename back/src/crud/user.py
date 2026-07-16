@@ -131,12 +131,18 @@ async def get_user_progress(session: AsyncSession, id_user: int) -> dict:
 async def get_user_activity(session: AsyncSession, id_user: int) -> list:
     articles_query = (
         select(UserArticle)
-        .where(UserArticle.id_user == id_user)
+        .where(
+            UserArticle.id_user == id_user,
+            UserArticle.is_read == True
+        )
         .options(selectinload(UserArticle.article))
     )
     quizzes_query = (
         select(UserQuiz)
-        .where(UserQuiz.id_user == id_user)
+        .where(
+            UserQuiz.id_user == id_user,
+            UserQuiz.is_completed == True
+        )
         .options(selectinload(UserQuiz.quiz))
     )
 

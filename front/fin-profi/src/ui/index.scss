@@ -112,20 +112,11 @@
         direction: column;
     }
 
+    scrollbar-width: none;
+
     &::-webkit-scrollbar {
         display: none;
     }
-}
-
-// Side Bar
-
-.sidebar-container {
-    width: 300px;
-    border-radius: 30px;
-    background-color: $background;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
 }
 
 // Expand Button
@@ -199,6 +190,69 @@
     }
 }
 
+// Named Section
+
+section.named {
+    flex-direction: column;
+    gap: 16px;
+
+    .header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        color: $mid-gray;
+
+        &:has(svg) {
+            justify-content: start;
+            color: $text;
+        }
+
+        .icon:has(svg) {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: $primary-yellow;
+            border-radius: 50%;
+            height: 28px;
+            width: 28px;
+
+            svg {
+                fill: $text;
+            }
+        }
+
+        .icon:has(svg.corner) {
+            border-radius: 8px;
+        }
+    }
+
+    .content {
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+
+    &.dark {
+        background-color: $text;
+
+        .header {
+            color: $surface-white;
+        }
+    }
+
+    &.grayscale .header {
+        color: $dark-gray;
+
+        .icon:has(svg) {
+            background-color: $surface-light;
+        }
+    }
+}
+
 // Progress Bar
 
 .progress-bar {
@@ -257,83 +311,21 @@ section {
     border-radius: 30px;
     background-color: $surface-white;
 
-    &:not(.named) {
-        flex: 1;
-    }
-
-    &.shrink {
-        flex: 0 !important;
+    &.grow {
+        flex-grow: 1;
     }
 }
 
-// Named Section
+// Side Bar
 
-section.named {
-    flex: 1 {
-        direction: column;
-    }
-
-    gap: 16px;
-
-
-    &:not(.shrink) {
-        overflow-y: hidden;
-    }
-
-    .header {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-        color: $mid-gray;
-
-        &:has(svg) {
-            justify-content: start;
-            color: $text;
-        }
-
-        .icon:has(svg) {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: $primary-yellow;
-            border-radius: 50%;
-            height: 28px;
-            width: 28px;
-
-            svg {
-                fill: $text;
-            }
-        }
-
-        .icon:has(svg.corner) {
-            border-radius: 8px;
-        }
-    }
-
-    .content {
-        overflow-y: auto;
-
-        &::-webkit-scrollbar {
-            display: none;
-        }
-    }
-
-    &.dark {
-        background-color: $text;
-
-        .header {
-            color: $surface-white;
-        }
-    }
-
-    &.grayscale .header {
-        color: $dark-gray;
-
-        .icon:has(svg) {
-            background-color: $surface-light;
-        }
-    }
+.sidebar-container {
+    width: 300px;
+    border-radius: 30px;
+    background-color: $background;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow: hidden;
 }
 
 // Skeleton
@@ -355,7 +347,7 @@ section.named {
     animation: skeleton-loading 2s infinite linear;
 
     &.dark {
-        background: linear-gradient(90deg, #3b3b3b 25%, $text 50%, #3b3b3b 75%);
+        background: linear-gradient(90deg, #3b3b3b 25%, $dark-gray 50%, #3b3b3b 75%);
         background-size: 200% 100%;
     }
 }

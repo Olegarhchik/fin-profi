@@ -24,7 +24,6 @@ export function StatisticsSection() {
     <Section
       padding="0"
       className="statistics"
-      shrink
     >
       <StatisticsCard
         sectionProps={{

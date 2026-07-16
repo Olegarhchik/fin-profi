@@ -26,10 +26,14 @@
 }
 
 .rating {
+    min-height: 0;
+
     .content {
         display: flex;
         flex-direction: column;
         gap: 12px;
+
+        overflow: auto;
     }
 
     .rank-list {

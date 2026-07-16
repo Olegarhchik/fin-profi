@@ -1,6 +1,6 @@
-import { ActivityResponse } from "./types";
+import { ActivityDTO } from './constants'
 
-export const data: ActivityResponse[] = [
+export const data: ActivityDTO[] = [
     {
         type: "quiz",
         name: "Название викторины",

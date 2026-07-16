@@ -21,7 +21,6 @@ export function ProfileInfoSection() {
   return (
     <Section
       padding="32px 40px"
-      shrink
       className="user-info"
     >
       <ProfileCircle width={96} height={96} />

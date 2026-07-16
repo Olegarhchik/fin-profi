@@ -28,6 +28,7 @@ export function RatingSection() {
       gap="12px"
       className="rating"
       ref={scrollRef}
+      grow
     >
       <div className="rank-list">
         {rankListElements}

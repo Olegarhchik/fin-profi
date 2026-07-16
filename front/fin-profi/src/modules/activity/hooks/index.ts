@@ -1,2 +1,1 @@
-export { useActivityState } from './useActivityState'
-export { useShrinkState } from './useShrinkState'
+export { useActivityQuery } from './useActivityQuery'

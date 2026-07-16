@@ -1,6 +1,6 @@
 type Entity = 'article' | 'quiz'
 
-type ActivityResponse = {
+type ActivityDTO = {
     type: Entity,
     name: string,
     created_at: string
@@ -12,4 +12,4 @@ type Activity = {
     daysAgo: number
 }
 
-export type { ActivityResponse, Activity }
+export type { ActivityDTO, Activity }

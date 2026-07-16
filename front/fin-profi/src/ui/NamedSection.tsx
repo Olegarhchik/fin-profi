@@ -5,12 +5,12 @@ export type NamedSectionProps = PropsWithChildren<{
   text: string,
   icon: ReactNode,
   className?: string,
-  shrink?: boolean,
   dark?: boolean,
   grayscale?: boolean,
   padding?: string,
   gap?: string,
-  ref?: Ref<HTMLDivElement>
+  ref?: Ref<HTMLDivElement>,
+  grow?: boolean
 }>
 
 export function NamedSection(props: NamedSectionProps) {
@@ -18,9 +18,9 @@ export function NamedSection(props: NamedSectionProps) {
     <section
       className={
         clsx("named", {
-          shrink: props.shrink,
           dark: props.dark,
-          grayscale: props.grayscale
+          grayscale: props.grayscale,
+          grow: props.grow
         }, props.className)
       }
       style={{

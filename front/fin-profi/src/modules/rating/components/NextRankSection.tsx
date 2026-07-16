@@ -24,7 +24,6 @@ export function NextRankSection() {
       icon={<Star />}
       text="До следующего места"
       gap="8px"
-      shrink
       className="next-rank"
     >
       <div className="content-header">

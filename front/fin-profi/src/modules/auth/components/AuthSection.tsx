@@ -10,7 +10,6 @@ export function AuthSection() {
     <Section
       padding="0 40px"
       className="auth-section"
-      shrink
       layout
     >
       <AuthLayout />
