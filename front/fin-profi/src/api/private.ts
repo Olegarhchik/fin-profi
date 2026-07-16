@@ -1,7 +1,8 @@
-import axios from 'axios'
+import axios, { isAxiosError } from 'axios'
 
 import { BASE_URL } from '@/constants'
-import { useUserStore } from '@/store'
+import { useToastStore, useUserStore } from '@/store'
+import { useNavigate } from 'react-router-dom'
 
 export const privateApi = axios.create({
     headers: {

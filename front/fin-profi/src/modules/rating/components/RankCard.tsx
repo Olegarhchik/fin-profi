@@ -34,16 +34,16 @@ export default function RankCard({ rank, user, highlight, delay, showSkeleton, d
       data-id={dataId}
       {...animation}
     >
-      <Skeleton width={8} height={23} show={showSkeleton} dark={rank === 1}>
+      <Skeleton width={8} height={23} show={showSkeleton}>
         <span className="body rank-number">{rank}</span>
       </Skeleton>
 
-      <Skeleton width={28} height={28} show={showSkeleton} dark={rank === 1}>
+      <Skeleton width={28} height={28} show={showSkeleton}>
         <ProfileCircle width={28} height={28} />
       </Skeleton>
 
       <div className="user-data">
-        <Skeleton width={120} height={17} show={showSkeleton} dark={rank === 1}>
+        <Skeleton width={120} height={17} show={showSkeleton}>
           <Link to={`/profile/${user.id}`} >
             <span className="body username">
               {user.name}
@@ -51,7 +51,7 @@ export default function RankCard({ rank, user, highlight, delay, showSkeleton, d
           </Link>
         </Skeleton>
 
-        <Skeleton width={80} height={14} show={showSkeleton} dark={rank === 1}>
+        <Skeleton width={80} height={14} show={showSkeleton}>
           <span
             style={{ color: COLORS.MID_GRAY }}
             className="small score"

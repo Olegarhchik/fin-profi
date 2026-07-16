@@ -34,7 +34,7 @@ export function buildRankList(
         key={start + index}
         highlight={
           clsx(
-            index === 0 && "leader",
+            !isLoading && index === 0 && "leader",
             index === ownerRank - 1 && "current-user",
             index === userRank - 1 && "you"
           ) as Highlight

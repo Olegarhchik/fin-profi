@@ -1,12 +1,12 @@
+import { MotionProps } from 'framer-motion'
+
 import { NamedSection, ProgressBar } from '@/ui'
 import { Star } from '@/assets/icons'
 import { COLORS } from '@/constants'
-import { useParamsId } from '@/hooks'
+import { useUserStore } from '@/store'
 
 import { getRank, getTemplate } from '../helpers'
 import { useRatingQuery } from '../hooks'
-import { MotionProps } from 'framer-motion'
-import { useUserStore } from '@/store'
 
 export function NextRankSection() {
   const currentUserId = useUserStore(state => state.id)!
