@@ -17,7 +17,8 @@ type UserDTO = {
     id: number,
     name: string,
     email: string,
-    points: number
+    points: number,
+    id_current_article: number | null
 }
 
 type UsersArticles = {
@@ -37,10 +38,16 @@ type ArticleDTO = {
     users_articles: UsersArticles[]
 }
 
+type Progress = {
+    progress: number,
+    articleId: number
+}
+
 export type {
     Auth,
     Toast,
     Payload,
     UserDTO,
-    ArticleDTO
+    ArticleDTO,
+    Progress
 }

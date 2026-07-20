@@ -40,14 +40,14 @@ export function ModuleBody({ articles, isLoading }: Props) {
       {points.length > 0 &&
         <svg>
           {points.map((point, index) => {
-            if (index === 0) return null
+            if (index === points.length - 1) return null
 
             return (
               <Curve
                 key={point.articleId}
                 progress={articles?.at(index)?.progress ?? 0}
-                from={points[index - 1]}
-                to={point}
+                from={point}
+                to={points[index + 1]}
               />
             )
           })}

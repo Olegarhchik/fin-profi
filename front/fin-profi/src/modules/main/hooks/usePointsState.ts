@@ -8,19 +8,6 @@ export function usePointsState(cards: Map<number, HTMLDivElement>, articles: Art
     const resize = () => {
         if (!articles) return
 
-        // setPoints(articles
-        //     .map(article => cards.get(article.id))
-        //     .filter(card => card !== undefined)
-        //     .map(card => {
-        //         const w = card.clientWidth
-
-        //         return {
-        //             x: card.offsetLeft + w / 2,
-        //             y: card.offsetTop + w / 2
-        //         }
-        //     })
-        // )
-
         setPoints(articles
             .map(article => ({ id: article.id, card: cards.get(article.id) }))
             .filter(obj => obj.card !== undefined)

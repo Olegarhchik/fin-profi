@@ -1,4 +1,5 @@
 import { ArticleDTO } from '@/constants'
+
 import { Article } from '../constants'
 
 export function articleAdapter(article: ArticleDTO): Article {

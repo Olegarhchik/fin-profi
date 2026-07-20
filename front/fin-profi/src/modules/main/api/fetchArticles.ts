@@ -3,7 +3,6 @@ import { ArticleDTO } from '@/constants'
 
 import { Article } from '../constants'
 import { articleAdapter } from '../helpers'
-import { delay } from '@/helpers'
 
 export async function fetchArticles(): Promise<Article[]> {
     try {

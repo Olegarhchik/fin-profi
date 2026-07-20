@@ -37,9 +37,4 @@ type ProgressDTO = {
     created_at: string
 }
 
-type Progress = {
-    progress: number,
-    articleId: number
-}
-
-export type { ModuleDTO, Module, Article, Point, ProgressDTO, Progress }
+export type { ModuleDTO, Module, Article, Point, ProgressDTO }

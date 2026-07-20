@@ -1,4 +1,5 @@
 import { publicApi } from '@/api'
+
 import { Module, ModuleDTO } from '../constants'
 import { moduleAdapter } from '../helpers'
 

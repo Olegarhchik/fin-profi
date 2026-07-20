@@ -1,6 +1,6 @@
 import { useQueries } from '@tanstack/react-query'
 
-import { useUserStore } from '@/store'
+import { useUserStore, useProgressStore } from '@/store'
 import { AUTH } from '@/constants'
 
 import { FETCH_ARTICLES_KEY, FETCH_ARTICLES_PROGRESS_KEY, FETCH_MODULES_KEY } from '../constants'
@@ -9,6 +9,7 @@ import { getPlaceholder, moduleAdapter } from '../helpers'
 
 export function useModulesQueries() {
     const auth = useUserStore(state => state.auth)
+    const articles = useProgressStore(state => state.articles)
 
     return useQueries({
         queries: [
@@ -28,7 +29,6 @@ export function useModulesQueries() {
         ],
         combine: (results) => {
             const [modulesRes, articlesRes, progressRes] = results
-
             const isError = results.some(res => res.isError)
 
             if (!modulesRes.data || !articlesRes.data || (auth === AUTH.AUTHORIZED && !progressRes.data)) {
@@ -40,8 +40,7 @@ export function useModulesQueries() {
                 }
             }
 
-            const progressData = auth === AUTH.AUTHORIZED ? progressRes.data : []
-
+            const progressData = auth === AUTH.AUTHORIZED ? progressRes.data : articles
             const progressMap = new Map(
                 progressData?.map(p => [p.articleId, p.progress])
             )
@@ -56,7 +55,6 @@ export function useModulesQueries() {
 
                 return moduleAdapter(module, articlesData)
             })
-
 
             return {
                 data,

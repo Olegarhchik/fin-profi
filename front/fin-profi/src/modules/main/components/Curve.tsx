@@ -1,9 +1,7 @@
-import { motion, MotionProps } from 'framer-motion'
-
-import { COLORS } from '@/constants'
+import { motion } from 'framer-motion'
 
 import { buildPathData, getGradientVariants } from '../helpers'
-import { Article, Point } from '../constants'
+import { Point } from '../constants'
 
 type Props = {
   from: Point,

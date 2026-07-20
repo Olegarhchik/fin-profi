@@ -9,12 +9,17 @@ type Props = {
 }
 
 export function ModuleHeader({ isLoading, module }: Props) {
-  const progress = module?.articles
+  const maxProgress = module?.articles
+    .map(article => article.progress)
+    .reduce((a, b) => Math.max(a, b)) ?? 0
+
+  const completed = module?.articles
     .filter(article => article.progress === 100)
     .length ?? 0
+
   const all = module?.articles?.length ?? 0
 
-  const { status, text } = getStatus(progress, all)
+  const { status, text } = getStatus(maxProgress, completed, all)
 
   return (
     <div className="header">
@@ -32,11 +37,11 @@ export function ModuleHeader({ isLoading, module }: Props) {
 
       {status !== "inactive" && <div className="module-progress">
         <Skeleton width={96} height={18} show={isLoading}>
-          <span className="small">{progress} из {all} прочитано</span>
+          <span className="small">{completed} из {all} прочитано</span>
         </Skeleton>
 
         <Skeleton width={128} height={8} show={isLoading}>
-          <ProgressBar value={progress / all * 100} height={8} />
+          <ProgressBar value={completed / all * 100} height={8} />
         </Skeleton>
       </div>}
     </div>

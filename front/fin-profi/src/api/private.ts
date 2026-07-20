@@ -46,8 +46,7 @@ privateApi.interceptors.response.use(
                 return new Promise((resolve, reject) => {
                     failedQueue.push({ resolve, reject })
                 })
-                    .then((token) => {
-                        originalRequest.headers["Authorization"] = `Bearer ${token}`
+                    .then(_ => {
                         return privateApi(originalRequest)
                     })
                     .catch((err) => Promise.reject(err))
@@ -61,13 +60,12 @@ privateApi.interceptors.response.use(
 
                 const newToken = data.access_token
                 useUserStore.getState().setToken(newToken)
-                privateApi.defaults.headers.common["Authorization"] = `Bearer ${newToken}`
 
                 processQueue(null, newToken)
                 return privateApi(originalRequest)
             } catch (refreshError) {
                 const axiosError = refreshError as AxiosError
-                processQueue(axiosError, null)
+                processQueue(axiosError)
 
                 useUserStore.getState().logout()
                 useToastStore.getState().showToast("Пожалуйста, войдите снова")

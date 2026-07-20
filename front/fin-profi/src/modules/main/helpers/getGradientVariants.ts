@@ -1,5 +1,6 @@
-import { COLORS } from '@/constants'
 import { Variants } from 'framer-motion'
+
+import { COLORS } from '@/constants'
 
 export function getGradientVariants(progress: number, order: 1 | 2): Variants {
     return {
