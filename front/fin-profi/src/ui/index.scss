@@ -288,8 +288,6 @@ section.named {
         justify-content: center;
 
         span {
-            color: $text;
-
             font: {
                 size: 64px;
                 weight: 500;
@@ -350,5 +348,22 @@ section {
     &.dark {
         background: linear-gradient(90deg, #3b3b3b 25%, $dark-gray 50%, #3b3b3b 75%);
         background-size: 200% 100%;
+    }
+}
+
+// Status Label
+
+span.status {
+    padding: 2px 10px;
+    border-radius: 100px;
+
+    &.active {
+        background-color: $primary-yellow;
+    }
+
+    &.inactive {
+        background-color: $surface-white;
+        border: 1px solid $mid-gray;
+        color: $mid-gray;
     }
 }

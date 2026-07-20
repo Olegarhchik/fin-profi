@@ -20,9 +20,27 @@ type UserDTO = {
     points: number
 }
 
+type UsersArticles = {
+    id_user: number,
+    id_article: number,
+    is_read: boolean,
+    last_checkpoint: number,
+    created_at: string
+}
+
+type ArticleDTO = {
+    id_article: number,
+    id_module: number,
+    name: string,
+    content: {},
+    id_quiz: number | null,
+    users_articles: UsersArticles[]
+}
+
 export type {
     Auth,
     Toast,
     Payload,
-    UserDTO
+    UserDTO,
+    ArticleDTO
 }

@@ -6,7 +6,7 @@ type ProgressCircleProps = {
   value: number,
   text: number,
   large?: boolean,
-  style: CSSProperties
+  style?: CSSProperties
 }
 
 export function ProgressCircle({ value, text, large, style }: ProgressCircleProps) {

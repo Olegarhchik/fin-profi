@@ -16,22 +16,21 @@ export function ContinueSection({ name, module, id, progress, articleId }: Conti
       icon={<Play className="corner" />}
       text="Продолжить"
       padding="20px"
-      shrink
       dark
       className="continue"
     >
       <div className="content-header">
         <h4
-        className="truncated"
+          className="truncated"
           style={{ color: COLORS.SURFACE_WHITE }}
         >
-          { name }
+          {name}
         </h4>
         <span
           className="body truncated"
           style={{ color: COLORS.MID_GRAY }}
         >
-          Модуль { id } — { module }
+          Модуль {id} — {module}
         </span>
       </div>
 

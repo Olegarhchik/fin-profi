@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react'
+import React, { CSSProperties, ReactNode, useState } from 'react'
 import { AnimatePresence, motion, MotionProps, MotionStyle } from 'framer-motion'
 import clsx from 'clsx'
 
@@ -7,18 +7,22 @@ type ExpandButtonProps = {
   text?: string,
   primary?: boolean,
   delay?: number,
-  onClick: React.MouseEventHandler<HTMLDivElement>
+  onClick: React.MouseEventHandler<HTMLDivElement>,
+  show?: boolean
 }
 
-export function ExpandButton({ icon, text, primary, delay, onClick }: ExpandButtonProps) {
+export function ExpandButton({ icon, text, primary, delay, onClick, show = true }: ExpandButtonProps) {
   const [isExpanded, setIsExpanded] = useState(false)
   const [isClickable, setIsClickable] = useState(false)
 
   const animation: MotionProps = {
     initial: { opacity: 0, scale: 0.5 },
-    animate: { opacity: 1, scale: 1, transition: { delay: 0.2 + (delay ?? 0) } },
+    animate: { opacity: show ? 1 : 0, scale: 1, transition: { delay: 0.2 + (delay ?? 0) } },
     transition: { delay: 0.2 },
-    whileHover: text ? { padding: "10px 16px" } : { scale: 1.1 },
+    whileHover: {
+      padding: text ? "10px 16px" : "10px",
+      scale: text ? 1 : 1.1
+    },
     onAnimationComplete: () => setIsClickable(true),
   }
 
@@ -35,10 +39,10 @@ export function ExpandButton({ icon, text, primary, delay, onClick }: ExpandButt
       onHoverEnd={() => {
         setTimeout(() => {
           setIsExpanded(false)
-        }, 200)
+        }, 500)
       }}
       onClick={onClick}
-      style={isClickable ? { } : { "pointerEvents": "none" }}
+      style={{ pointerEvents: !isClickable || !show ? "none" : "initial" }}
       {...animation}
     >
       <AnimatePresence>

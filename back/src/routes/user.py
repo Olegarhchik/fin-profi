@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func
-from crud import user as user_crud
+from crud import user as user_crud, article as article_crud
 from db.session import get_db
 from typing import Optional
 from auth.dependencies import get_current_user
@@ -57,7 +57,7 @@ async def get_total_progress(
     stmt = select(UserArticle).where(UserArticle.id_user == user.id_user)
     result = await db.execute(stmt)
     user_articles = result.scalars().all()
-    return {"articles": [user_articles]}
+    return user_articles
 
 @router.post("/set_progress/{id_article}")
 async def set_progress(
@@ -67,7 +67,7 @@ async def set_progress(
     user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db)
 ):
-    article = await user_crud.get_article(db, id_article=id_article)
+    article = await article_crud.get_article(db, id_article=id_article)
     if not article:
         raise HTTPException(status_code=404, detail=f"Article {id_article} not found")
     
@@ -78,6 +78,7 @@ async def set_progress(
     
     if last_checkpoint: user_article.last_checkpoint = last_checkpoint
     if is_read: user_article.is_read = is_read
+    else: user.id_current_article = id_article
     await db.commit()
     return {}
 

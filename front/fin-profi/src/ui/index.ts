@@ -1,5 +1,6 @@
 export { Button } from "./Button"
 export { Content } from "./Content"
+export { Divider } from "./Divider"
 export { ExpandButton } from "./ExpandButton"
 export { Input } from './Input'
 export { NamedSection } from "./NamedSection"
@@ -9,5 +10,5 @@ export { ProgressCircle } from "./ProgressCircle"
 export { Section } from "./Section"
 export { SideBar } from "./SideBar"
 export { Skeleton } from "./Skeleton"
-export { Divider } from "./Divider"
+export { StatusLabel } from "./StatusLabel"
 export type { NamedSectionProps } from "./NamedSection"
