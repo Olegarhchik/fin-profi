@@ -1,15 +1,17 @@
+import { useEffect } from 'react'
 import { AnimatePresence, motion, MotionProps } from 'framer-motion'
 
 import { AUTH, STATUS } from '@/constants'
 import Logo from '@/assets/logo.svg?react'
-import { NavigationButton, Divider } from '@/ui'
 import { Calc, Home, Login, Profile, Quiz } from '@/assets/icons'
-import { useProgressStore, useUserStore } from '@/store'
-import { SyncProgress } from '@/modules/local-progress'
+import { SyncProgress, trigger } from '@/modules/local-progress'
+import { useProgressStore, useToastStore, useUserStore } from '@/store'
+import { NavigationButton, Divider } from '@/ui'
 
 export function NavigationBar() {
   const auth = useUserStore(state => state.auth)
   const status = useProgressStore(state => state.status)
+  const showToast = useToastStore(state => state.showToast)
 
   const animation: MotionProps = {
     initial: { y: "50%", opacity: 0, scale: 0.95 },
@@ -19,6 +21,16 @@ export function NavigationBar() {
   }
 
   const id = useUserStore(state => state.id)
+
+  useEffect(() => {
+    if (status !== STATUS.ERROR) return
+
+    (async () => {
+      const { error } = await trigger()
+
+      if (error !== null) showToast("Не удалось синхронизировать")
+    })()
+  }, [status])
 
   return (
     <motion.div

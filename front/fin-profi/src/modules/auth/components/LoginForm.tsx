@@ -3,8 +3,8 @@ import { SubmitEventHandler, SVGProps } from "react"
 import { useNavigate } from "react-router-dom"
 
 import { Password, Profile } from "@/assets/icons"
-import { COLORS } from "@/constants"
-import { useToastStore, useUserStore } from "@/store"
+import { COLORS, STATUS } from "@/constants"
+import { useProgressStore, useToastStore, useUserStore } from "@/store"
 import { Button, Input } from "@/ui"
 
 import { type LoginRequest } from "../api"
@@ -14,6 +14,7 @@ export function LoginForm() {
   const navigate = useNavigate()
   const setToken = useUserStore(state => state.setToken)
   const showToast = useToastStore(state => state.showToast)
+  const setStatus = useProgressStore(state => state.setStatus)
 
   const iconProps: SVGProps<SVGSVGElement> = {
     width: 14,
@@ -32,9 +33,16 @@ export function LoginForm() {
       return
     }
 
+    const ok = confirm("Вы уверены? Ваши данные локальные данные будут удалены. Если хотите их сохранить, пожалуйста, зарегистрируйтесь.")
+
+    if (!ok) return
+
     try {
       const response = await login(data)
       setToken(response.data.access_token)
+
+      setStatus(STATUS.CLOSED)
+
       navigate("/")
     } catch (error) {
       if (axios.isAxiosError(error))

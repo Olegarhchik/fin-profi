@@ -42,16 +42,27 @@ export function useModulesQueries() {
 
             const progressData = status === STATUS.CLOSED ? progressRes.data : articles
             const progressMap = new Map(
-                progressData?.map(p => [p.articleId, p.progress])
+                progressData?.map(p => [p.articleId, {
+                    progress: p.progress,
+                    isRead: p.isRead
+                }])
             )
 
             const data = modulesRes.data.map(module => {
                 let articlesData = articlesRes.data
                     .filter(article => module.id === article.moduleId)
-                    .map(article => ({
-                        ...article,
-                        progress: progressMap.get(article.id) ?? 0
-                    }))
+                    .map(article => {
+                        const progressObj = progressMap.get(article.id) ?? {
+                            progress: 0,
+                            isRead: false
+                        }
+
+                        return {
+                            ...article,
+                            progress: progressObj.progress,
+                            isRead: progressObj.isRead
+                        }
+                    })
 
                 return moduleAdapter(module, articlesData)
             })

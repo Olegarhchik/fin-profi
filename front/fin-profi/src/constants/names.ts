@@ -6,7 +6,8 @@ export const AUTH = {
 export const STATUS = {
     WAITING: "waiting",
     SYNCING: "syncing",
-    CLOSED: "closed"
+    CLOSED: "closed",
+    ERROR: "error"
 }
 
 export const BASE_URL = "http://localhost/api"

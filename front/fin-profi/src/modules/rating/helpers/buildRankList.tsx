@@ -1,4 +1,4 @@
-import { ReactNode, Ref } from "react"
+import { ReactNode } from "react"
 import clsx from "clsx"
 
 import { Divider } from "@/ui"

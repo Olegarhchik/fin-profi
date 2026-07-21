@@ -1,8 +1,8 @@
 import { useProgressStore, useUserStore } from '@/store'
 import { STATUS } from '@/constants'
+import { delay } from '@/helpers'
 
 import { setProgress, updateUser } from '../api'
-import { delay } from '@/helpers'
 
 export async function trigger() {
     useProgressStore.getState().setStatus(STATUS.SYNCING)
@@ -13,15 +13,15 @@ export async function trigger() {
         try {
             await setProgress(progress.articleId, {
                 last_checkpoint: progress.progress,
-                is_read: progress.progress === 100
+                is_read: progress.isRead
             })
 
             useProgressStore.getState().setSynced({ articleId: progress.articleId })
 
             progress = useProgressStore.getState().getNextProgress()
-
-            await delay(1000)
         } catch (error) {
+            useProgressStore.getState().setStatus(STATUS.ERROR)
+
             return { error }
         }
     }
@@ -34,8 +34,6 @@ export async function trigger() {
         })
 
         useProgressStore.getState().setSynced({ user: true })
-
-        await delay(1000)
     } catch (error) {
         return { error }
     }

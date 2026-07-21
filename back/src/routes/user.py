@@ -78,7 +78,7 @@ async def set_progress(
     
     if last_checkpoint: user_article.last_checkpoint = last_checkpoint
     if is_read: user_article.is_read = is_read
-    else: user.id_current_article = id_article
+    if last_checkpoint != 100: user.id_current_article = id_article
     await db.commit()
     return {}
 

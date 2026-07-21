@@ -42,7 +42,8 @@ type ArticleDTO = {
 
 type Progress = {
     progress: number,
-    articleId: number
+    articleId: number,
+    isRead: boolean
 }
 
 export type {

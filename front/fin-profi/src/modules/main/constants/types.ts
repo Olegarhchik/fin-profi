@@ -14,6 +14,7 @@ type Article = {
     id: number,
     name: string,
     progress: number,
+    isRead: boolean,
     moduleId: number
 }
 

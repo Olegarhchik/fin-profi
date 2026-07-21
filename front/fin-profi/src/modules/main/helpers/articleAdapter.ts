@@ -7,6 +7,7 @@ export function articleAdapter(article: ArticleDTO): Article {
         id: article.id_article,
         name: article.name,
         progress: 0,
+        isRead: false,
         moduleId: article.id_module
     }
 }

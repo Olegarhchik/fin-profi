@@ -3,13 +3,13 @@ import { MotionProps } from 'framer-motion'
 import { NamedSection, ProgressBar } from '@/ui'
 import { Star } from '@/assets/icons'
 import { COLORS } from '@/constants'
-import { useUserStore } from '@/store'
+import { useParamsId } from '@/hooks'
 
 import { getRank, getTemplate } from '../helpers'
 import { useRatingQuery } from '../hooks'
 
 export function NextRankSection() {
-  const currentUserId = useUserStore(state => state.id)!
+  const currentUserId = useParamsId("userId")
 
   const { data = getTemplate(currentUserId) } = useRatingQuery(currentUserId)
   const { list: rating } = data
@@ -19,7 +19,10 @@ export function NextRankSection() {
   const currentUser = rating.at(currentRank - 1)
   const nextUser = rating.at(currentRank - 2)
 
-  if (currentRank === 1 || !currentUser || !nextUser) return null
+  if (currentRank === 1 ||
+    !currentUser ||
+    !nextUser ||
+    currentUser.points === nextUser.points) return null
 
   const animation: MotionProps = {
     initial: {

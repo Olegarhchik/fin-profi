@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-import { Progress, STATUS, Status } from '@/constants'
+import { POINTS_PER_ARTICLE, Progress, STATUS, Status } from '@/constants'
 
 type Synced<T> = T & { synced: boolean }
 
@@ -30,7 +30,7 @@ type Action = {
         articleId?: number,
         user?: boolean
     }) => void,
-    setArticleProgress: ({ articleId, progress }: Progress) => void,
+    setArticleProgress: ({ articleId, progress }: Omit<Progress, 'isRead'>) => void,
     getNextProgress: () => (Article | undefined)
 }
 
@@ -115,6 +115,7 @@ export const useProgressStore = create<ProgressStore>()(persist((set, _, store) 
     setArticleProgress: ({ articleId, progress }) => {
         const index = store.getState().articles
             .findIndex(obj => obj.articleId === articleId)
+        let shouldSetPoints = false
 
         if (progress !== 100) {
             set(state => ({
@@ -127,33 +128,44 @@ export const useProgressStore = create<ProgressStore>()(persist((set, _, store) 
         }
 
         if (index === -1) {
+            const isRead = progress === 100
+
             set(state => ({
                 ...state,
                 articles: [...state.articles, {
                     articleId,
                     progress,
                     synced: false,
-                    updatedAt: Date.now()
+                    updatedAt: Date.now(),
+                    isRead
                 }],
                 count: state.count + 1
             }))
+
+            shouldSetPoints = isRead
         }
         else {
             set(state => ({
                 ...state,
                 articles: state.articles.map((obj, objIndex) => {
-                    if (objIndex === index)
+                    if (objIndex === index) {
+                        if (!obj.isRead && progress === 100)
+                            shouldSetPoints = true
+
                         return {
                             ...obj,
                             progress,
                             synced: false,
-                            updatedAt: Date.now()
+                            updatedAt: Date.now(),
+                            isRead: obj.isRead || progress === 100
                         }
-
+                    }
                     return obj
                 })
             }))
         }
+
+        if (shouldSetPoints) store.getState().setPoints(POINTS_PER_ARTICLE)
     },
 
     getNextProgress: () => {

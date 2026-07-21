@@ -1,5 +1,5 @@
-export function getStatus(maxProgress: number, completed: number, all: number) {
-    if (maxProgress === 0) {
+export function getStatus(isRead: boolean, completed: number, all: number) {
+    if (!isRead) {
         return {
             status: "inactive",
             text: "Не начат"

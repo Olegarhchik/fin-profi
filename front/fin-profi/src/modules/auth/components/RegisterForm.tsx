@@ -8,6 +8,7 @@ import { useToastStore, useUserStore } from '@/store'
 
 import type { RegisterRequest } from '../api'
 import { register } from '../api'
+import { trigger } from '@/modules/local-progress'
 
 export function RegisterForm() {
   const navigate = useNavigate()
@@ -39,6 +40,12 @@ export function RegisterForm() {
     try {
       const response = await register(data)
       setToken(response.data.access_token)
+
+      const { error } = await trigger()
+
+      if (error !== null) {
+        showToast("Не удалось синхронизировать")
+      }
 
       navigate("/quizzes")
     } catch (error) {

@@ -359,6 +359,7 @@ span.status {
 
     &.active {
         background-color: $primary-yellow;
+        border: 1px solid $primary-yellow;
     }
 
     &.inactive {

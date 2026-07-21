@@ -21,6 +21,7 @@ type Props = {
 export default function RankCard({ rank, user, highlight, delay, showSkeleton, dataId }: Props) {
   const currentUserId = useParamsId("userId")
   const color = user.id === currentUserId ? COLORS.PRIMARY_YELLOW : COLORS.TEXT
+  const isDark = rank === 1 && user.id === currentUserId
 
   const animation: MotionProps = {
     initial: { scale: 0.8 },
@@ -34,16 +35,16 @@ export default function RankCard({ rank, user, highlight, delay, showSkeleton, d
       data-id={dataId}
       {...animation}
     >
-      <Skeleton width={8} height={23} show={showSkeleton}>
+      <Skeleton width={8} height={23} show={showSkeleton} dark={isDark}>
         <span className="body rank-number">{rank}</span>
       </Skeleton>
 
-      <Skeleton width={28} height={28} show={showSkeleton}>
+      <Skeleton width={28} height={28} show={showSkeleton} dark={isDark}>
         <ProfileCircle width={28} height={28} />
       </Skeleton>
 
       <div className="user-data">
-        <Skeleton width={120} height={17} show={showSkeleton}>
+        <Skeleton width={120} height={17} show={showSkeleton} dark={isDark}>
           <Link to={`/profile/${user.id}`} >
             <span className="body username">
               {user.name}
@@ -51,7 +52,7 @@ export default function RankCard({ rank, user, highlight, delay, showSkeleton, d
           </Link>
         </Skeleton>
 
-        <Skeleton width={80} height={14} show={showSkeleton}>
+        <Skeleton width={80} height={14} show={showSkeleton} dark={isDark}>
           <span
             style={{ color: COLORS.MID_GRAY }}
             className="small score"
