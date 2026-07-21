@@ -1,13 +1,15 @@
-import { motion, MotionProps } from 'framer-motion'
+import { AnimatePresence, motion, MotionProps } from 'framer-motion'
 
-import { AUTH } from '@/constants'
+import { AUTH, STATUS } from '@/constants'
 import Logo from '@/assets/logo.svg?react'
 import { NavigationButton, Divider } from '@/ui'
 import { Calc, Home, Login, Profile, Quiz } from '@/assets/icons'
-import { useUserStore } from '@/store'
+import { useProgressStore, useUserStore } from '@/store'
+import { SyncProgress } from '@/modules/local-progress'
 
 export function NavigationBar() {
   const auth = useUserStore(state => state.auth)
+  const status = useProgressStore(state => state.status)
 
   const animation: MotionProps = {
     initial: { y: "50%", opacity: 0, scale: 0.95 },
@@ -49,18 +51,24 @@ export function NavigationBar() {
             />
           </div>
 
-          {auth === AUTH.GUEST ?
-            <NavigationButton
-              to="login"
-              icon={<Login />}
-              text="Войти"
-            /> :
-            <NavigationButton
-              to={`profile/${id}`}
-              icon={<Profile />}
-              text="Профиль"
-            />
-          }
+          <div className="nav-button-group">
+            <AnimatePresence>
+              {status === STATUS.SYNCING && <SyncProgress />}
+            </AnimatePresence>
+
+            {auth === AUTH.GUEST ?
+              <NavigationButton
+                to="login"
+                icon={<Login />}
+                text="Войти"
+              /> :
+              <NavigationButton
+                to={`profile/${id}`}
+                icon={<Profile />}
+                text="Профиль"
+              />
+            }
+          </div>
         </nav>
       </div>
     </motion.div>

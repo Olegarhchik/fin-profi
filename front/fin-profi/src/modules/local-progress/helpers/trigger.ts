@@ -2,8 +2,11 @@ import { useProgressStore, useUserStore } from '@/store'
 import { STATUS } from '@/constants'
 
 import { setProgress, updateUser } from '../api'
+import { delay } from '@/helpers'
 
 export async function trigger() {
+    useProgressStore.getState().setStatus(STATUS.SYNCING)
+
     let progress = useProgressStore.getState().getNextProgress()
 
     while (progress) {
@@ -16,6 +19,8 @@ export async function trigger() {
             useProgressStore.getState().setSynced({ articleId: progress.articleId })
 
             progress = useProgressStore.getState().getNextProgress()
+
+            await delay(1000)
         } catch (error) {
             return { error }
         }
@@ -29,6 +34,8 @@ export async function trigger() {
         })
 
         useProgressStore.getState().setSynced({ user: true })
+
+        await delay(1000)
     } catch (error) {
         return { error }
     }

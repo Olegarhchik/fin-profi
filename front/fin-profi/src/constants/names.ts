@@ -4,7 +4,8 @@ export const AUTH = {
 }
 
 export const STATUS = {
-    WAITING: "wating",
+    WAITING: "waiting",
+    SYNCING: "syncing",
     CLOSED: "closed"
 }
 
