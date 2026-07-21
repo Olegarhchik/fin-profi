@@ -1,10 +1,12 @@
 import { useState } from 'react'
 
 import { Play } from '@/assets/icons'
-import { COLORS } from '@/constants'
+import { COLORS, POINTS_PER_ARTICLE } from '@/constants'
 import { ExpandButton, ProgressCircle, Skeleton } from '@/ui'
 
 import { Article } from '../constants'
+import { trigger } from '@/modules/local-progress'
+import { useProgressStore } from '@/store'
 
 type ArticleCardProps = Article & {
   ref: (node: HTMLDivElement | null) => void,
@@ -13,6 +15,10 @@ type ArticleCardProps = Article & {
 
 export function ArticleCard({ id, name, progress, ref, isLoading }: ArticleCardProps) {
   const [isHovering, setIsHovering] = useState<boolean>(false)
+
+  const setArticleProgress = useProgressStore(state => state.setArticleProgress)
+  const setPoints = useProgressStore(state => state.setPoints)
+  const [wasClicked, setWasClicked] = useState<boolean>(false)
 
   return (
     <div
@@ -39,7 +45,39 @@ export function ArticleCard({ id, name, progress, ref, isLoading }: ArticleCardP
         show={!isLoading && isHovering}
         delay={-0.2}
         icon={<Play />}
-        onClick={() => alert(`Переход к статье ${id}`)}
+        onClick={async () => {
+          if (wasClicked) {
+            const { error } = await trigger()
+
+            console.log(error)
+          } else {
+            setArticleProgress({
+              articleId: 1,
+              progress: 100
+            })
+
+            setPoints(POINTS_PER_ARTICLE)
+
+            setArticleProgress({
+              articleId: 2,
+              progress: 66
+            })
+
+            setArticleProgress({
+              articleId: 4,
+              progress: 20
+            })
+
+            setArticleProgress({
+              articleId: 2,
+              progress: 100
+            })
+
+            setPoints(POINTS_PER_ARTICLE)
+
+            setWasClicked(true)
+          }
+        }}
       />
     </div>
   )

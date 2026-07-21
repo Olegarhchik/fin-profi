@@ -56,7 +56,7 @@ privateApi.interceptors.response.use(
             isRefreshing = true
 
             try {
-                const { data } = await axios.post("/auth/refresh")
+                const { data } = await axios.post(`${BASE_URL}/auth/refresh`)
 
                 const newToken = data.access_token
                 useUserStore.getState().setToken(newToken)

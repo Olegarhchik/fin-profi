@@ -2,8 +2,8 @@ import React, { useCallback, useState } from 'react'
 
 import { Check, Exit, Pencil, Share, X } from '@/assets/icons'
 import { ButtonGroup } from '@/components'
-import { BASE_URL } from '@/constants'
-import { useUserStore } from '@/store'
+import { BASE_URL, STATUS } from '@/constants'
+import { useProgressStore, useUserStore } from '@/store'
 import { ExpandButton } from '@/ui'
 import { useParamsId } from '@/hooks'
 
@@ -23,6 +23,7 @@ export default function ActionsButtonGroup({ isEditing, setIsEditing, isLocked, 
 
   const shouldShow = ownerId === currentUserId
 
+  const setStatus = useProgressStore(state => state.setStatus)
   const logout = useUserStore(state => state.logout)
   const [copied, setCopied] = useState(false)
 
@@ -59,7 +60,10 @@ export default function ActionsButtonGroup({ isEditing, setIsEditing, isLocked, 
       {shouldShow && <ExpandButton
         icon={<Exit />}
         text="Выйти"
-        onClick={() => logout()}
+        onClick={() => {
+          logout()
+          setStatus(STATUS.WAITING)
+        }}
       />}
 
       <ExpandButton

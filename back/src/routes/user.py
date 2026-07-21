@@ -132,6 +132,7 @@ async def update_user(
         phone: Optional[str] = None,
         about: Optional[str] = None,
         email: Optional[str] = None,
+        points: Optional[int] = None,
         db: AsyncSession = Depends(get_db)
 ):
     kwargs = {}
@@ -147,6 +148,8 @@ async def update_user(
         kwargs["about"] = about
     if email is not None:
         kwargs["email"] = email
+    if points is not None:
+        kwargs["points"] = points
 
     if not kwargs:
         raise HTTPException(status_code=400, detail="No fields to update")

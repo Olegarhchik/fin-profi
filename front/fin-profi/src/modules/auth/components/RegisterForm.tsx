@@ -39,7 +39,8 @@ export function RegisterForm() {
     try {
       const response = await register(data)
       setToken(response.data.access_token)
-      navigate("/")
+
+      navigate("/quizzes")
     } catch (error) {
       showToast("Произошла ошибка")
     }

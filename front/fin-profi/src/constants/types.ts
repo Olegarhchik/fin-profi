@@ -1,6 +1,8 @@
-import { AUTH } from "./names"
+import { AUTH, STATUS } from "./names"
 
 type Auth = typeof AUTH[keyof typeof AUTH]
+
+type Status = typeof STATUS[keyof typeof STATUS]
 
 type Toast = {
     id: number,
@@ -45,6 +47,7 @@ type Progress = {
 
 export type {
     Auth,
+    Status,
     Toast,
     Payload,
     UserDTO,
