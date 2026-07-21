@@ -5,14 +5,14 @@ import { Toast } from '@/constants'
 import { getVariants } from '../helpers'
 import { useAnimateClose } from '../hooks'
 
-type ToastProps = {
+type ToastCardProps = {
   toast: Toast,
   collapsed: boolean,
   index: number,
   count: number
 }
 
-export function ToastCard({ toast, collapsed, index, count }: ToastProps) {
+export function ToastCard({ toast, collapsed, index, count }: ToastCardProps) {
   const shouldCollapse = count > 1 && collapsed
   const variants = getVariants(count)
 

@@ -1,11 +1,12 @@
 import { useState } from 'react'
 
 import { Play } from '@/assets/icons'
-import { COLORS, POINTS_PER_ARTICLE } from '@/constants'
+import { COLORS } from '@/constants'
 import { ExpandButton, ProgressCircle, Skeleton } from '@/ui'
 
 import { Article } from '../constants'
 import { useProgressStore } from '@/store'
+import { showConfirmToast } from '@/modules/toast'
 
 type ArticleCardProps = Article & {
   ref: (node: HTMLDivElement | null) => void,

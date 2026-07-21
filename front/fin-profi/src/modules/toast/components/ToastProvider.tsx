@@ -7,6 +7,8 @@ import { ToastCard } from './ToastCard'
 import { GAP, HEIGHT, WIDTH } from '../constants'
 import { CollapseToast } from './CollapseToast'
 import '../style.scss'
+import { ConfirmToastCard } from './ConfirmToastCard'
+import clsx from 'clsx'
 
 type ToastProviderProps = PropsWithChildren<{
   className: string
@@ -14,6 +16,7 @@ type ToastProviderProps = PropsWithChildren<{
 
 export function ToastProvider({ className, children }: ToastProviderProps) {
   const toasts = useToastStore(state => state.toasts)
+  const confirmToast = useToastStore(state => state.confirmToast)
   const count = toasts.length
 
   const [collapsed, setCollapsed] = useState<boolean>(true)
@@ -42,6 +45,17 @@ export function ToastProvider({ className, children }: ToastProviderProps) {
 
   return (
     <>
+      <AnimatePresence>
+        {confirmToast.isOpen && (
+          <ConfirmToastCard
+            header={"Вы уверены?"}
+            message={confirmToast.message}
+            confirmText="Продолжить"
+            cancelText="Назад"
+          />
+        )}
+      </AnimatePresence>
+
       <motion.div
         className="toast-group"
         onClick={() => { shouldExpand && setCollapsed(false) }}
@@ -68,7 +82,7 @@ export function ToastProvider({ className, children }: ToastProviderProps) {
         </AnimatePresence>
       </motion.div>
 
-      <div className={className}>
+      <div className={clsx(className, { focus: confirmToast.isOpen })}>
         {children}
       </div>
     </>

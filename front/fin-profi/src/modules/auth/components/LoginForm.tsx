@@ -4,17 +4,18 @@ import { useNavigate } from "react-router-dom"
 
 import { Password, Profile } from "@/assets/icons"
 import { COLORS, STATUS } from "@/constants"
+import { showConfirmToast } from '@/modules/toast'
 import { useProgressStore, useToastStore, useUserStore } from "@/store"
 import { Button, Input } from "@/ui"
 
-import { type LoginRequest } from "../api"
-import { login } from '../api'
+import { type LoginRequest, login } from "../api"
 
 export function LoginForm() {
   const navigate = useNavigate()
   const setToken = useUserStore(state => state.setToken)
   const showToast = useToastStore(state => state.showToast)
   const setStatus = useProgressStore(state => state.setStatus)
+  const articles = useProgressStore(state => state.articles)
 
   const iconProps: SVGProps<SVGSVGElement> = {
     width: 14,
@@ -33,9 +34,11 @@ export function LoginForm() {
       return
     }
 
-    const ok = confirm("Вы уверены? Ваши данные локальные данные будут удалены. Если хотите их сохранить, пожалуйста, зарегистрируйтесь.")
+    if (articles.length !== 0) {
+      const ok = await showConfirmToast("Ваши локальные данные будут удалены. Если хотите их сохранить, пожалуйста, зарегистрируйтесь.")
 
-    if (!ok) return
+      if (!ok) return
+    }
 
     try {
       const response = await login(data)

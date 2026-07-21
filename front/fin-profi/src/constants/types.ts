@@ -10,6 +10,12 @@ type Toast = {
     action: () => void
 }
 
+type ConfirmToast = {
+    message: string | null,
+    isOpen: boolean,
+    resolver: ((value: boolean) => void) | null
+}
+
 type Payload = {
     sub: string,
     id_user: string
@@ -50,6 +56,7 @@ export type {
     Auth,
     Status,
     Toast,
+    ConfirmToast,
     Payload,
     UserDTO,
     ArticleDTO,
