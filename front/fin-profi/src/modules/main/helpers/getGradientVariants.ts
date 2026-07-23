@@ -2,7 +2,7 @@ import { Variants } from 'framer-motion'
 
 import { COLORS } from '@/constants'
 
-export function getGradientVariants(progress: number, order: 1 | 2): Variants {
+export function getGradientVariants(isRead: boolean, progress: number, order: 1 | 2): Variants {
     return {
         initial: (id: number) => ({
             offset: id % 2 === 0 ? "0%" : "100%",
@@ -10,7 +10,7 @@ export function getGradientVariants(progress: number, order: 1 | 2): Variants {
         }),
 
         animate: (id: number) => ({
-            offset: id % 2 === 0 ? `${progress}%` : `${100 - progress}%`
+            offset: id % 2 === 0 ? `${isRead ? 100 : progress}%` : `${100 - (isRead ? 100 : progress)}%`
         })
     }
 }

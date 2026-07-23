@@ -6,10 +6,11 @@ import { Point } from '../constants'
 type Props = {
   from: Point,
   to: Point,
-  progress: number
+  progress: number,
+  isRead: boolean
 }
 
-export function Curve({ from, to, progress }: Props) {
+export function Curve({ from, to, progress, isRead }: Props) {
   const d = buildPathData(from, to, 0.1)
 
   return (
@@ -18,13 +19,13 @@ export function Curve({ from, to, progress }: Props) {
         <linearGradient id={`progress-gradient-${to.articleId}`}>
           <motion.stop
             custom={to.articleId}
-            variants={getGradientVariants(progress, 1)}
+            variants={getGradientVariants(isRead, progress, 1)}
             initial={"initial"}
             animate={"animate"}
           />
           <motion.stop
             custom={to.articleId}
-            variants={getGradientVariants(progress, 2)}
+            variants={getGradientVariants(isRead, progress, 2)}
             initial={"initial"}
             animate={"animate"}
           />

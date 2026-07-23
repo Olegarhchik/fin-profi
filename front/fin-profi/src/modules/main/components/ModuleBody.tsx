@@ -48,6 +48,7 @@ export function ModuleBody({ articles, isLoading }: Props) {
                 progress={articles?.at(index)?.progress ?? 0}
                 from={point}
                 to={points[index + 1]}
+                isRead={articles?.at(index)?.isRead ?? false}
               />
             )
           })}

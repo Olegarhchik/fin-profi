@@ -9,16 +9,17 @@ type Props = {
 }
 
 export function ModuleHeader({ isLoading, module }: Props) {
-  const isRead = module?.articles
-    .some(article => article.isRead) ?? false
-
   const completed = module?.articles
     .filter(article => article.isRead)
     .length ?? 0
 
+  const maxProgress = module?.articles
+    .map(article => article.progress)
+    .reduce((a, b) => Math.max(a, b)) ?? 0
+
   const all = module?.articles?.length ?? 0
 
-  const { status, text } = getStatus(isRead, completed, all)
+  const { status, text } = getStatus(completed > 0, maxProgress, completed === all)
 
   return (
     <div className="header">
