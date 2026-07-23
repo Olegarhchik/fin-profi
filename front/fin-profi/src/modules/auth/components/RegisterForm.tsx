@@ -41,13 +41,13 @@ export function RegisterForm() {
       const response = await register(data)
       setToken(response.data.access_token)
 
+      navigate("/quizzes")
+
       const { error } = await trigger()
 
       if (error !== null) {
         showToast("Не удалось синхронизировать")
       }
-
-      navigate("/quizzes")
     } catch (error) {
       showToast("Произошла ошибка")
     }

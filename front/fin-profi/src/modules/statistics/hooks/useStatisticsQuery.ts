@@ -4,7 +4,6 @@ import { useParamsId } from '@/hooks'
 
 import { fetchStatistics } from '../api'
 import { FETCH_STATISTICS_KEY, type Statistics } from '../constants'
-import { getPlaceholder } from '../helpers'
 
 export function useStatisticsQuery() {
     const id = useParamsId("userId")

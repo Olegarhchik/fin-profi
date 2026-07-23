@@ -6,11 +6,14 @@ import { Login, Register } from '@/modules/auth'
 import { ToastProvider } from '@/modules/toast'
 import { Main, Calculators, Quizzes, Profile, Article, NotFound, Auth } from '@/pages'
 import './App.scss'
+import { useRehydrateEffect } from '@/modules/local-progress'
 
 export default function App() {
   const location = useLocation()
 
   const show = ["/login", "/register"].every(path => path != location.pathname)
+
+  useRehydrateEffect()
 
   return (
     <ToastProvider className="container">

@@ -1,7 +1,9 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-import { POINTS_PER_ARTICLE, Progress, STATUS, Status } from '@/constants'
+import { AUTH, POINTS_PER_ARTICLE, Progress, STATUS, Status } from '@/constants'
+import { useUserStore } from './useUserStore'
+import { trigger } from '@/modules/local-progress'
 
 type Synced<T> = T & { synced: boolean }
 
@@ -11,6 +13,7 @@ type Article = Synced<Progress & {
 
 type State = {
     status: Status,
+    hasHydrated: boolean,
     user: Synced<{
         points: number,
         currentArticleId: number | null
@@ -38,6 +41,8 @@ type ProgressStore = State & Action
 
 export const useProgressStore = create<ProgressStore>()(persist((set, _, store) => ({
     status: "waiting",
+
+    hasHydrated: false,
 
     user: {
         points: 0,
@@ -108,7 +113,7 @@ export const useProgressStore = create<ProgressStore>()(persist((set, _, store) 
 
         set(state => ({
             ...state,
-            progress: (res.length + (+store.getState().user.synced)) / store.getState().count * 100
+            progress: Math.trunc((res.length + (+store.getState().user.synced)) / store.getState().count * 100)
         }))
     },
 
@@ -175,4 +180,21 @@ export const useProgressStore = create<ProgressStore>()(persist((set, _, store) 
 
         return res
     }
-}), { name: "progressStore" }))
+}), {
+    name: "progressStore",
+
+    partialize: (state) => ({
+        user: state.user,
+        articles: state.articles,
+        count: state.count,
+        progress: state.progress
+    }),
+
+    onRehydrateStorage: () => {
+        return (restoredState, error) => {
+            if (error || !restoredState) return
+
+            restoredState.hasHydrated = true
+        }
+    }
+}))
