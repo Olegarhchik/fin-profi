@@ -4,7 +4,7 @@ import { PropsWithChildren, ReactNode, Ref } from 'react'
 
 export type NamedSectionProps = PropsWithChildren<{
   text: string,
-  icon: ReactNode,
+  icon?: ReactNode,
   className?: string,
   dark?: boolean,
   grayscale?: boolean,
@@ -34,7 +34,7 @@ export function NamedSection(props: NamedSectionProps) {
       {...animation}
     >
       <div className="header">
-        <div className="icon">{props.icon}</div>
+        <div className="icon">{props?.icon}</div>
         <span className="label">{props.text}</span>
       </div>
 

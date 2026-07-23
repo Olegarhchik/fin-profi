@@ -1,8 +1,13 @@
+import { useState } from 'react'
+
+import { ArticleSearch, ArticlesListSection } from '@/modules/articles-list'
 import { ModuleSection, useModulesQueries } from '@/modules/main'
-import { Content, Section, SideBar } from '@/ui'
+import { Content, SideBar } from '@/ui'
 
 export default function Main() {
   const { data: modules, isLoading, isError } = useModulesQueries()
+
+  const [searchText, setSearchText] = useState('')
 
   return (
     <>
@@ -17,7 +22,15 @@ export default function Main() {
       </Content>
 
       <SideBar>
-        <Section grow></Section>
+        <ArticleSearch
+          text={searchText}
+          setText={setSearchText}
+        />
+
+        <ArticlesListSection
+          data={modules}
+          searchText={searchText}
+        />
       </SideBar>
     </>
   )

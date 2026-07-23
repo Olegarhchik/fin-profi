@@ -6,7 +6,6 @@ import { ExpandButton, ProgressCircle, Skeleton } from '@/ui'
 
 import { Article } from '../constants'
 import { useProgressStore } from '@/store'
-import { showConfirmToast } from '@/modules/toast'
 
 type ArticleCardProps = Article & {
   ref: (node: HTMLDivElement | null) => void,
@@ -17,7 +16,6 @@ export function ArticleCard({ id, name, progress, isRead, ref, isLoading }: Arti
   const [isHovering, setIsHovering] = useState<boolean>(false)
 
   const setArticleProgress = useProgressStore(state => state.setArticleProgress)
-  const setPoints = useProgressStore(state => state.setPoints)
 
   return (
     <div
@@ -29,6 +27,7 @@ export function ArticleCard({ id, name, progress, isRead, ref, isLoading }: Arti
         pointerEvents: isLoading ? "none" : "initial"
       }}
       ref={ref}
+      id={`article-${id}`}
     >
       <ProgressCircle
         value={progress}

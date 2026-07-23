@@ -107,6 +107,7 @@
     overflow: auto;
     display: flex;
     gap: 20px;
+    scroll-behavior: smooth;
 
     flex: 1 {
         direction: column;
