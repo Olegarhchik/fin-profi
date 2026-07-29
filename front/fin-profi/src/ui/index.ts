@@ -3,6 +3,7 @@ export { Content } from "./Content"
 export { Divider } from "./Divider"
 export { ExpandButton } from "./ExpandButton"
 export { Input } from './Input'
+export { MultilineSkeleton } from "./MultilineSkeleton"
 export { NamedSection } from "./NamedSection"
 export { NavigationButton } from "./NavigationButton"
 export { ProgressBar } from "./ProgressBar"

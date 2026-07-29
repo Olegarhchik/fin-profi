@@ -1,5 +1,5 @@
 import { SubmitEventHandler, SVGProps } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 
 import { Email, Password, Profile } from '@/assets/icons'
 import { COLORS } from '@/constants'

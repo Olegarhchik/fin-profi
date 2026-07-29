@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 
 import { ExpandButton } from '@/ui'
 import { ArrowLeft } from '@/assets/icons'

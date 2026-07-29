@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { isAxiosError } from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 
 import { useToastStore } from '@/store'
 import { queryClient } from '@/api'
@@ -20,7 +20,7 @@ export function useErrorEffect(error: Error | null) {
                 }
 
                 if (error.status === 422) {
-                    showToast("Недопустимый формат")
+                    showToast("Неверный формат строки поиска")
                     navigate("/not-found")
                 }
             } else

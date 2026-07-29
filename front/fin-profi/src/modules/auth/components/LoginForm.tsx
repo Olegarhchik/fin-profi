@@ -1,6 +1,6 @@
 import axios from "axios"
 import { SubmitEventHandler, SVGProps } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router"
 
 import { Password, Profile } from "@/assets/icons"
 import { COLORS, STATUS } from "@/constants"

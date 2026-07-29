@@ -3,14 +3,14 @@ import { CSSProperties, PropsWithChildren } from 'react'
 
 type SkeletonProps = PropsWithChildren<{
   show: boolean,
-  width: number,
+  width?: number | string,
   height: number,
   dark?: boolean
 }>
 
 export function Skeleton({ show, width, height, children, dark = false }: SkeletonProps) {
   let styles: CSSProperties = {
-    width,
+    width: width ?? "100%",
     height
   }
 

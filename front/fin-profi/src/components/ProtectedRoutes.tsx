@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router'
 
 import { AUTH } from '@/constants'
 import { useUserStore } from '@/store'

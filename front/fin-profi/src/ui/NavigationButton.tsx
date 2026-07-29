@@ -1,5 +1,5 @@
 import { ComponentType, CSSProperties, ReactElement, SVGProps } from 'react'
-import { Link, To, useLocation } from 'react-router-dom'
+import { Link, To, useLocation } from 'react-router'
 import clsx from 'clsx'
 
 import { COLORS } from '@/constants'
@@ -15,7 +15,7 @@ type NavigationButtonProps = {
 }
 
 export function NavigationButton({ to, text, icon, style }: NavigationButtonProps) {
-  const location = useLocation();
+  const location = useLocation()
   const isActive = location.pathname === `/${to}`
 
   return (

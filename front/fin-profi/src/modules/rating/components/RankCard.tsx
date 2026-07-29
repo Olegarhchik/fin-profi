@@ -1,5 +1,5 @@
 import { motion, MotionProps } from 'framer-motion'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import clsx from 'clsx'
 
 import { Crown, ProfileCircle } from '@/assets/icons'

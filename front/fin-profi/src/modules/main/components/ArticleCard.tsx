@@ -1,11 +1,11 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router'
 
 import { Play } from '@/assets/icons'
 import { COLORS } from '@/constants'
 import { ExpandButton, ProgressCircle, Skeleton } from '@/ui'
 
 import { Article } from '../constants'
-import { useProgressStore } from '@/store'
 
 type ArticleCardProps = Article & {
   ref: (node: HTMLDivElement | null) => void,
@@ -15,7 +15,7 @@ type ArticleCardProps = Article & {
 export function ArticleCard({ id, name, progress, isRead, ref, isLoading }: ArticleCardProps) {
   const [isHovering, setIsHovering] = useState<boolean>(false)
 
-  const setArticleProgress = useProgressStore(state => state.setArticleProgress)
+  const navigate = useNavigate()
 
   return (
     <div
@@ -43,16 +43,7 @@ export function ArticleCard({ id, name, progress, isRead, ref, isLoading }: Arti
         show={!isLoading && isHovering}
         delay={-0.2}
         icon={<Play />}
-        onClick={() => {
-          const res = prompt("Укажите прогресс статьи")
-
-          if (!res) return
-
-          setArticleProgress({
-            articleId: id,
-            progress: Number(res)
-          })
-        }}
+        onClick={() => navigate(`/articles/${id}`)}
       />
     </div>
   )

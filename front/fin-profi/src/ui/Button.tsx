@@ -1,4 +1,4 @@
-import { To, useNavigate } from 'react-router-dom'
+import { To, useNavigate } from 'react-router'
 import clsx from 'clsx'
 import { motion, MotionProps } from 'framer-motion'
 import { ButtonHTMLAttributes, ReactNode } from 'react'
@@ -27,7 +27,7 @@ export function Button({
     whileInView: { opacity: 1, scale: 1, transition: { type: "spring" } },
     whileHover: { scale: 0.96 }
   }
-  
+
   return (
     <motion.button
       className={clsx("button", { primary }, props.className)}

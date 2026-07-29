@@ -41,7 +41,9 @@ type ArticleDTO = {
     id_article: number,
     id_module: number,
     name: string,
-    content: {},
+    content: {
+        data: []
+    },
     id_quiz: number | null,
     users_articles: UsersArticles[]
 }

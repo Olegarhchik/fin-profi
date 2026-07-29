@@ -1,0 +1,1 @@
+export { useArticleQuery } from "./useArticleQuery"

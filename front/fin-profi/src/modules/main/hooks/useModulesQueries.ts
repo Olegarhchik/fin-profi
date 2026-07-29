@@ -1,7 +1,7 @@
 import { useQueries } from '@tanstack/react-query'
 
-import { useUserStore, useProgressStore } from '@/store'
-import { AUTH, STATUS } from '@/constants'
+import { useProgressStore } from '@/store'
+import { STATUS } from '@/constants'
 
 import { FETCH_ARTICLES_KEY, FETCH_ARTICLES_PROGRESS_KEY, FETCH_MODULES_KEY } from '../constants'
 import { fetchModules, fetchArticles, fetchArticlesProgress } from '../api'
