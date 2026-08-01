@@ -18,7 +18,7 @@ export function ArticleHeader() {
       <Button
         left={<ArrowLeft />}
         text="Назад"
-        onClick={() => navigate(-1)}
+        onClick={() => navigate(`/`)}
         primary
       />
 
