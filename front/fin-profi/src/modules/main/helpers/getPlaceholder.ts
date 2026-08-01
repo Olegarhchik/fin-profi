@@ -9,19 +9,22 @@ export function getPlaceholder(): Module[] {
                 id: 1,
                 name: "_",
                 progress: 0,
-                moduleId: 1
+                moduleId: 1,
+                isRead: false
             },
             {
                 id: 2,
                 name: "_",
                 progress: 0,
-                moduleId: 1
+                moduleId: 1,
+                isRead: false
             },
             {
                 id: 3,
                 name: "_",
                 progress: 0,
-                moduleId: 1
+                moduleId: 1,
+                isRead: false
             }
         ]
     }]
