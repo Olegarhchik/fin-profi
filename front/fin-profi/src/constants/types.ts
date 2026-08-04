@@ -1,8 +1,8 @@
-import { AUTH, STATUS } from "./names"
+import { AUTH, QUIZ_STATUS, STATUS } from "./names"
 
 type Auth = typeof AUTH[keyof typeof AUTH]
-
 type Status = typeof STATUS[keyof typeof STATUS]
+type QuizStatus = typeof QUIZ_STATUS[keyof typeof QUIZ_STATUS]
 
 type Toast = {
     id: number,
@@ -22,14 +22,14 @@ type Payload = {
 }
 
 type UserDTO = {
-    id: number,
+    id_user: number,
     name: string,
     email: string,
     points: number,
     id_current_article: number | null
 }
 
-type User = Pick<UserDTO, 'id' | 'name' | 'email' | 'points'>
+type User = { id: number } & Pick<UserDTO, 'name' | 'email' | 'points'>
 
 type UserParams = {
     name?: string,
@@ -72,5 +72,6 @@ export type {
     User,
     UserParams,
     ArticleDTO,
-    Progress
+    Progress,
+    QuizStatus
 }

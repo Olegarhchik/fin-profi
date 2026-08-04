@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { fetchUser } from '@/api'
-import { AUTH, FETCH_USER_KEY } from '@/constants'
+import { AUTH, FETCH_USER_KEY, User } from '@/constants'
 import { useUserStore } from '@/store'
 
 export function useUserQuery() {
@@ -10,7 +10,7 @@ export function useUserQuery() {
 
     return useQuery({
         queryKey: [...FETCH_USER_KEY, id],
-        queryFn: id === null ? () => { } : () => fetchUser(id),
+        queryFn: id === null ? () => ({} as User) : () => fetchUser(id),
         enabled: auth === AUTH.AUTHORIZED
     })
 }
