@@ -14,3 +14,6 @@ export const BASE_URL = "http://localhost/api"
 
 export const POINTS_PER_ARTICLE = 200
 export const POINTS_PER_QUIZ = 50
+
+export const FETCH_USER_KEY = ["fetchUser"]
+export const MUTATE_USER_KEY = ["updateUser"]

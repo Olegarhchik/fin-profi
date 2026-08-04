@@ -1,9 +1,8 @@
-import { publicApi } from '@/api'
-import { UserDTO } from '@/constants'
-
-import { userAdapter } from '../helpers'
-import { User } from '../constants'
 import { isAxiosError } from 'axios'
+
+import { publicApi } from '@/api'
+import { UserDTO, User } from '@/constants'
+import { userAdapter } from '@/helpers'
 
 export async function fetchUser(id: number): Promise<User> {
     try {

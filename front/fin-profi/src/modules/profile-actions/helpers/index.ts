@@ -1,1 +1,0 @@
-export { userAdapter } from "./userAdapter"

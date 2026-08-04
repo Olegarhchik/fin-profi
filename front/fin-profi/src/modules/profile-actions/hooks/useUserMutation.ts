@@ -3,9 +3,7 @@ import { useMutation } from '@tanstack/react-query'
 import { queryClient, updateUser } from '@/api'
 import { useToastStore } from '@/store'
 import { FETCH_RATING_KEY, Rating } from '@/modules/rating'
-import { UserParams } from '@/constants'
-
-import { FETCH_USER_KEY, type User } from '../constants'
+import { FETCH_USER_KEY, User, UserParams } from '@/constants'
 
 export function useUserMutation() {
     const showToast = useToastStore(state => state.showToast)

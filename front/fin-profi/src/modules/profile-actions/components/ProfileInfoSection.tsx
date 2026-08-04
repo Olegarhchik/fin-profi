@@ -4,11 +4,11 @@ import { ProfileCircle } from '@/assets/icons'
 import { Section, Skeleton } from '@/ui'
 import { useUserStore } from '@/store'
 import { useParamsId } from '@/hooks'
+import { User } from '@/constants'
 
 import ActionsButtonGroup from './ActionsButtonGroup'
 import { useInitFields } from '../hooks'
 import '../style.scss'
-import { User } from '../constants'
 
 export function ProfileInfoSection() {
   const ownerId = useParamsId("userId")
@@ -18,7 +18,7 @@ export function ProfileInfoSection() {
 
   const [isEditing, setIsEditing] = useState(false)
   const { fields, setFields, isLoadingSkeleton } = useInitFields(ownerId)
-  const fieldsRef = useRef<User>(null)
+  const fieldsRef = useRef<Pick<User, "name" | "email">>(null)
 
   return (
     <Section

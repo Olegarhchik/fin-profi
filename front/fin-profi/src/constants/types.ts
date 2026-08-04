@@ -29,6 +29,8 @@ type UserDTO = {
     id_current_article: number | null
 }
 
+type User = Pick<UserDTO, 'id' | 'name' | 'email' | 'points'>
+
 type UserParams = {
     name?: string,
     email?: string,
@@ -67,6 +69,7 @@ export type {
     ConfirmToast,
     Payload,
     UserDTO,
+    User,
     UserParams,
     ArticleDTO,
     Progress

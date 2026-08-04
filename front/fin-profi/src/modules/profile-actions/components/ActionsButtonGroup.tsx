@@ -2,21 +2,20 @@ import React, { RefObject, useCallback, useState } from 'react'
 
 import { Check, Exit, Pencil, Share, X } from '@/assets/icons'
 import { ButtonGroup } from '@/components'
-import { BASE_URL, STATUS } from '@/constants'
+import { BASE_URL, STATUS, User } from '@/constants'
 import { useProgressStore, useUserStore } from '@/store'
 import { ExpandButton } from '@/ui'
 import { useParamsId } from '@/hooks'
 
-import { type User } from '../constants'
 import { useEnterKeyEffect, useUserMutation } from '../hooks'
 
 type Props = {
   isEditing: boolean,
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>,
   isLocked: boolean,
-  userRef: RefObject<User | null>,
-  user: User,
-  setUser: React.Dispatch<React.SetStateAction<User>>
+  userRef: RefObject<Pick<User, "name" | "email"> | null>,
+  user: Pick<User, "name" | "email">,
+  setUser: React.Dispatch<React.SetStateAction<Pick<User, "name" | "email">>>
 }
 
 export default function ActionsButtonGroup({ isEditing, setIsEditing, isLocked, userRef, user, setUser }: Props) {
