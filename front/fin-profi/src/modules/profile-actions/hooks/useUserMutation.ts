@@ -1,10 +1,10 @@
 import { useMutation } from '@tanstack/react-query'
 
-import { queryClient } from '@/api'
+import { queryClient, updateUser } from '@/api'
 import { useToastStore } from '@/store'
 import { FETCH_RATING_KEY, Rating } from '@/modules/rating'
+import { UserParams } from '@/constants'
 
-import { updateUser } from '../api'
 import { FETCH_USER_KEY, type User } from '../constants'
 
 export function useUserMutation() {
@@ -13,12 +13,12 @@ export function useUserMutation() {
     return useMutation({
         mutationFn: updateUser,
 
-        onMutate: async ({ id, user }) => {
+        onMutate: async ({ id, params: user }) => {
             await queryClient.cancelQueries({ queryKey: [...FETCH_USER_KEY, id] })
 
             const previousUserData = queryClient.getQueryData<User>([...FETCH_USER_KEY, id])
 
-            queryClient.setQueryData<User>(
+            queryClient.setQueryData<User | UserParams>(
                 [...FETCH_USER_KEY, id],
                 (prevUser) => ({ ...prevUser, ...user })
             )

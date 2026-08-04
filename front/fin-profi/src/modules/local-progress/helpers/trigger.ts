@@ -1,8 +1,8 @@
 import { useProgressStore, useUserStore } from '@/store'
 import { STATUS } from '@/constants'
 
-import { setProgress, updateUser } from '../api'
-import { queryClient } from '@/api'
+import { setProgress } from '../api'
+import { queryClient, updateUser } from '@/api'
 import { FETCH_STATISTICS_KEY } from '@/modules/statistics'
 import { FETCH_ACTIVITY_KEY } from '@/modules/activity'
 import { FETCH_RATING_KEY } from '@/modules/rating'
@@ -37,8 +37,11 @@ export async function trigger() {
     const user = useProgressStore.getState().user
 
     try {
-        await updateUser(useUserStore.getState().id!, {
-            points: user.points
+        await updateUser({
+            id: useUserStore.getState().id!,
+            params: {
+                points: user.points
+            }
         })
 
         queryClient.invalidateQueries({ queryKey: [...FETCH_RATING_KEY, id] })

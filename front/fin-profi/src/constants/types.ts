@@ -29,6 +29,12 @@ type UserDTO = {
     id_current_article: number | null
 }
 
+type UserParams = {
+    name?: string,
+    email?: string,
+    points?: number
+}
+
 type UsersArticles = {
     id_user: number,
     id_article: number,
@@ -61,6 +67,7 @@ export type {
     ConfirmToast,
     Payload,
     UserDTO,
+    UserParams,
     ArticleDTO,
     Progress
 }

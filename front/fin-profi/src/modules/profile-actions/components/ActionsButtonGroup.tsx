@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { RefObject, useCallback, useState } from 'react'
 
 import { Check, Exit, Pencil, Share, X } from '@/assets/icons'
 import { ButtonGroup } from '@/components'
@@ -14,10 +14,12 @@ type Props = {
   isEditing: boolean,
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>,
   isLocked: boolean,
-  user: User
+  userRef: RefObject<User | null>,
+  user: User,
+  setUser: React.Dispatch<React.SetStateAction<User>>
 }
 
-export default function ActionsButtonGroup({ isEditing, setIsEditing, isLocked, user }: Props) {
+export default function ActionsButtonGroup({ isEditing, setIsEditing, isLocked, userRef, user, setUser }: Props) {
   const currentUserId = useUserStore(state => state.id)
   const ownerId = useParamsId("userId")
 
@@ -30,7 +32,8 @@ export default function ActionsButtonGroup({ isEditing, setIsEditing, isLocked, 
   const { mutate } = useUserMutation()
 
   const handleAccept = useCallback(() => {
-    mutate({ id: ownerId, user })
+    mutate({ id: ownerId, params: user })
+    userRef.current = null
     setIsEditing(false)
   }, [ownerId, user])
 
@@ -43,6 +46,10 @@ export default function ActionsButtonGroup({ isEditing, setIsEditing, isLocked, 
         text="Отменить"
         onClick={async () => {
           setIsEditing(false)
+
+          if (!userRef.current) return
+
+          setUser(userRef.current)
         }}
       />
 
@@ -83,7 +90,12 @@ export default function ActionsButtonGroup({ isEditing, setIsEditing, isLocked, 
         icon={<Pencil />}
         text="Редактировать"
         delay={0.2}
-        onClick={() => !isLocked && setIsEditing(true)}
+        onClick={() => {
+          if (isLocked) return
+
+          userRef.current = user
+          setIsEditing(true)
+        }}
         primary
       />}
     </ButtonGroup>

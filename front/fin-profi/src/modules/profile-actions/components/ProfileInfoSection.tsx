@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 import { ProfileCircle } from '@/assets/icons'
 import { Section, Skeleton } from '@/ui'
@@ -8,6 +8,7 @@ import { useParamsId } from '@/hooks'
 import ActionsButtonGroup from './ActionsButtonGroup'
 import { useInitFields } from '../hooks'
 import '../style.scss'
+import { User } from '../constants'
 
 export function ProfileInfoSection() {
   const ownerId = useParamsId("userId")
@@ -17,6 +18,7 @@ export function ProfileInfoSection() {
 
   const [isEditing, setIsEditing] = useState(false)
   const { fields, setFields, isLoadingSkeleton } = useInitFields(ownerId)
+  const fieldsRef = useRef<User>(null)
 
   return (
     <Section
@@ -63,7 +65,9 @@ export function ProfileInfoSection() {
         isEditing={isEditing}
         setIsEditing={setIsEditing}
         isLocked={isLoadingSkeleton}
+        userRef={fieldsRef}
         user={fields}
+        setUser={setFields}
       />
     </Section>
   )
