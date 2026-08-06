@@ -1,9 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-import { AUTH, POINTS_PER_ARTICLE, Progress, STATUS, Status } from '@/constants'
-import { useUserStore } from './useUserStore'
-import { trigger } from '@/modules/local-progress'
+import { POINTS_PER_ARTICLE, Progress, STATUS, Status } from '@/constants'
 
 type Synced<T> = T & { synced: boolean }
 

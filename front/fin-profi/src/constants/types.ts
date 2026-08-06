@@ -62,6 +62,11 @@ type Progress = {
     isRead: boolean
 }
 
+type ProgressParams = {
+    last_checkpoint: number,
+    is_read: boolean
+}
+
 export type {
     Auth,
     Status,
@@ -73,5 +78,6 @@ export type {
     UserParams,
     ArticleDTO,
     Progress,
+    ProgressParams,
     QuizStatus
 }

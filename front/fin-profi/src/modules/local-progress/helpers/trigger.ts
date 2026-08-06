@@ -1,8 +1,6 @@
 import { useProgressStore, useUserStore } from '@/store'
 import { STATUS } from '@/constants'
-
-import { setProgress } from '../api'
-import { queryClient, updateUser } from '@/api'
+import { queryClient, updateUser, setProgress } from '@/api'
 import { FETCH_STATISTICS_KEY } from '@/modules/statistics'
 import { FETCH_ACTIVITY_KEY } from '@/modules/activity'
 import { FETCH_RATING_KEY } from '@/modules/rating'
@@ -15,9 +13,12 @@ export async function trigger() {
 
     while (progress) {
         try {
-            await setProgress(progress.articleId, {
-                last_checkpoint: progress.progress,
-                is_read: progress.isRead
+            await setProgress({
+                id: progress.articleId,
+                params: {
+                    last_checkpoint: progress.progress,
+                    is_read: progress.isRead
+                }
             })
 
             Promise.all([
