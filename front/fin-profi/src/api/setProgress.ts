@@ -1,3 +1,4 @@
+import { isAxiosError } from 'axios'
 import { privateApi } from './private'
 import { ProgressParams } from '@/constants'
 
@@ -8,6 +9,11 @@ export async function setProgress({ id, params }: {
     try {
         await privateApi.post(`/users/set_progress/${id}`, {}, { params })
     } catch (error) {
-        throw error
+        if (isAxiosError(error)) {
+            if (error.status === 404)
+                throw new Error("Не удалось найти статью для сохранения")
+        }
+
+        throw new Error("Не удалось сохранить прогресс")
     }
 }

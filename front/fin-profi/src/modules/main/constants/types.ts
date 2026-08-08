@@ -30,12 +30,4 @@ type Point = {
     articleId: number
 }
 
-type ProgressDTO = {
-    id_user: number,
-    id_article: number,
-    is_read: boolean,
-    last_checkpoint: number,
-    created_at: string
-}
-
-export type { ModuleDTO, Module, Article, Point, ProgressDTO }
+export type { ModuleDTO, Module, Article, Point }

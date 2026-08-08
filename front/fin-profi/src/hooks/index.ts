@@ -1,3 +1,5 @@
-export { useErrorEffect } from './useErrorEffect'
-export { useParamsId } from './useParamsId'
+export { useErrorEffect } from "./useErrorEffect"
+export { useParamsId } from "./useParamsId"
+export { usePointsMutation } from "./usePointsMutation"
+export { useProgressQuery } from "./useProgressQuery"
 export { useUserQuery } from "./useUserQuery"

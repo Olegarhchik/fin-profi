@@ -1,14 +1,15 @@
 import clsx from 'clsx'
 import { motion, MotionProps, MotionStyle, Target } from 'framer-motion'
-import { HTMLAttributes, PropsWithChildren } from 'react'
+import { HTMLAttributes, PropsWithChildren, RefObject } from 'react'
 
 type ContentProps = PropsWithChildren<{
   style?: MotionStyle,
   animateAbsolute?: boolean,
-  center?: boolean
+  center?: boolean,
+  ref?: RefObject<HTMLDivElement | null>
 } & HTMLAttributes<HTMLDivElement>>
 
-export function Content({ children, style, animateAbsolute, center, ...props }: ContentProps) {
+export function Content({ children, style, animateAbsolute, center, ref, ...props }: ContentProps) {
   const animation: MotionProps = {
     initial: {
       y: "50%", opacity: 0, scale: 0.95,
@@ -35,6 +36,7 @@ export function Content({ children, style, animateAbsolute, center, ...props }: 
       className={clsx("content-container", props.className)}
       {...animation}
       style={style}
+      ref={ref}
     >
       {children}
     </motion.div>

@@ -1,16 +1,16 @@
 import { useMutation } from '@tanstack/react-query'
 
-import { updateUser } from '@/api'
-
-import { POINTS_MUTATION_KEY } from '../constants'
+import { setProgress } from '@/api'
 import { useToastStore } from '@/store'
 
-export function usePointsMutation() {
+import { PROGRESS_MUTATION_KEY } from '../constants'
+
+export function useProgressMutation() {
     const showToast = useToastStore(state => state.showToast)
 
     return useMutation({
-        mutationKey: POINTS_MUTATION_KEY,
-        mutationFn: updateUser,
+        mutationFn: setProgress,
+        mutationKey: PROGRESS_MUTATION_KEY,
         onError: (error) => showToast(error.message)
     })
 }

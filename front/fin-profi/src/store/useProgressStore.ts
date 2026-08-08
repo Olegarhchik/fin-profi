@@ -32,7 +32,8 @@ type Action = {
         user?: boolean
     }) => void,
     setArticleProgress: ({ articleId, progress }: Omit<Progress, 'isRead'>) => void,
-    getNextProgress: () => (Article | undefined)
+    getArticleProgress: (id: number) => Progress
+    getNextProgress: () => (Article | undefined),
 }
 
 type ProgressStore = State & Action
@@ -169,6 +170,23 @@ export const useProgressStore = create<ProgressStore>()(persist((set, _, store) 
         }
 
         if (shouldSetPoints) store.getState().setPoints(POINTS_PER_ARTICLE)
+    },
+
+    getArticleProgress: (id) => {
+        const article = store.getState().articles
+            .find(obj => obj.articleId === id)
+
+        return (article ?
+            {
+                articleId: id,
+                isRead: article.isRead,
+                progress: article.progress
+            } : {
+                articleId: id,
+                isRead: false,
+                progress: 0
+            }
+        )
     },
 
     getNextProgress: () => {

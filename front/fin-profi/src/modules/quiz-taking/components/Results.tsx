@@ -2,10 +2,10 @@ import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 
 import { ProgressCircle } from '@/ui'
-import { useUserQuery } from '@/hooks'
+import { useUserQuery, usePointsMutation } from '@/hooks'
 
 import { buildResult } from '../helpers'
-import { useCompleteQuizQuery, usePointsMutation, useQuizQuery } from '../hooks'
+import { useCompleteQuizQuery, useQuizQuery } from '../hooks'
 import { POINTS_PER_QUIZ } from '@/constants'
 
 export function Results() {

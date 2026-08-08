@@ -25,3 +25,5 @@ export const POINTS_PER_QUIZ = 50
 
 export const FETCH_USER_KEY = ["fetchUser"]
 export const MUTATE_USER_KEY = ["updateUser"]
+export const FETCH_PROGRESS_KEY = ["fetchProgress"]
+export const POINTS_MUTATION_KEY = ["pointsMutation"]

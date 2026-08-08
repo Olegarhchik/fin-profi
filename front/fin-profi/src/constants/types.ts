@@ -56,6 +56,14 @@ type ArticleDTO = {
     users_articles: UsersArticles[]
 }
 
+type ProgressDTO = {
+    id_user: number,
+    id_article: number,
+    is_read: boolean,
+    last_checkpoint: number,
+    created_at: string
+}
+
 type Progress = {
     progress: number,
     articleId: number,
@@ -77,6 +85,7 @@ export type {
     User,
     UserParams,
     ArticleDTO,
+    ProgressDTO,
     Progress,
     ProgressParams,
     QuizStatus

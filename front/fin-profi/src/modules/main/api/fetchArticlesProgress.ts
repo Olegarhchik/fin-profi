@@ -1,8 +1,6 @@
 import { privateApi } from '@/api'
-import { Progress } from '@/constants'
-
-import { ProgressDTO } from '../constants'
-import { progressAdapter } from '../helpers'
+import { Progress, ProgressDTO } from '@/constants'
+import { progressAdapter } from '@/helpers'
 
 export async function fetchArticlesProgress(): Promise<Progress[]> {
     try {

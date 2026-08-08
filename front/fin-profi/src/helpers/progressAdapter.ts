@@ -1,5 +1,4 @@
-import { Progress } from '@/constants'
-import { ProgressDTO } from '../constants'
+import { Progress, ProgressDTO } from '@/constants'
 
 export function progressAdapter(progress: ProgressDTO): Progress {
     return {

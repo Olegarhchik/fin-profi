@@ -26,5 +26,5 @@ export function useRehydrateEffect() {
 
         if (progress === 0)
             setStatus(STATUS.CLOSED)
-    }, [hasHydrated])
+    }, [hasHydrated, auth])
 }

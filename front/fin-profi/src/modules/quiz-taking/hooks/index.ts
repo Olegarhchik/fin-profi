@@ -1,7 +1,6 @@
 export { useAnswerMutation } from "./useAnswerMutation"
 export { useCompleteQuizQuery } from "./useCompleteQuizQuery"
 export { useFormRef } from "./useFormRef"
-export { usePointsMutation } from "./usePointsMutation"
 export { useQuestionQuery } from "./useQuestionQuery"
 export { useQuizQuery } from "./useQuizQuery"
 export { useQuizStatusState } from "./useQuizStatusState"

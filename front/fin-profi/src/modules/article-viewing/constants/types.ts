@@ -10,7 +10,8 @@ type BlockType = "paragraph" | "header" | "warning"
 
 type Block = {
     type: BlockType,
-    text: string
+    text: string,
+    order?: number
 }
 
 export type { Article, Block }
