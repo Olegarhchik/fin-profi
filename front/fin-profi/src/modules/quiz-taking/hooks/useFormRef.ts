@@ -20,7 +20,7 @@ export function useFormRef(
     const showToast = useToastStore(state => state.showToast)
     const { data } = useQuestionQuery(passedCount)
     const { mutateAsync: answerQuestion } = useAnswerMutation()
-    const { mutateAsync: startQuiz } = useStartQuizMutation()
+    const { mutateAsync: startQuiz } = useStartQuizMutation(quizId)
 
     const answerHandler = async () => {
         let ok = false

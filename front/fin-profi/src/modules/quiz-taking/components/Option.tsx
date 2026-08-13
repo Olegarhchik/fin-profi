@@ -1,6 +1,6 @@
 import { Check } from '@/assets/icons'
 
-import { QuestionType, QUESTION_TYPE } from '../constants'
+import { QuestionType, QUESTION_TYPE } from '@/constants'
 
 type OptionProps = {
   type: QuestionType,

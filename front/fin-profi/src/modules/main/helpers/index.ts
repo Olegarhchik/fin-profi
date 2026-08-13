@@ -1,4 +1,3 @@
-export { articleAdapter } from "./articleAdapter"
 export { buildPathData } from "./buildPathData"
 export { getGradientVariants } from "./getGradientVariants"
 export { getPlaceholder } from "./getPlaceholder"

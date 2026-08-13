@@ -1,8 +1,9 @@
-import { AUTH, QUIZ_STATUS, STATUS } from "./names"
+import { AUTH, QUESTION_TYPE, QUIZ_STATUS, STATUS } from "./names"
 
 type Auth = typeof AUTH[keyof typeof AUTH]
 type Status = typeof STATUS[keyof typeof STATUS]
 type QuizStatus = typeof QUIZ_STATUS[keyof typeof QUIZ_STATUS]
+type QuestionType = typeof QUESTION_TYPE[keyof typeof QUESTION_TYPE]
 
 type Toast = {
     id: number,
@@ -75,6 +76,54 @@ type ProgressParams = {
     is_read: boolean
 }
 
+type QuizzesQuestions = {
+    id_question: number,
+    id_quiz: number
+}
+
+type UsersQuizzes = {
+    id_user: number,
+    is_completed: boolean,
+    id_quiz: number,
+    created_at: string
+}
+
+type QuizDTO = {
+    name: string,
+    id_quiz: number,
+    quizes_questions: QuizzesQuestions[],
+    users_quizes: UsersQuizzes[]
+}
+
+type Answer = {
+    id: number,
+    text: string,
+    isCorrect: boolean
+}
+
+type Question = {
+    id: number,
+    text: string,
+    type: QuestionType,
+    answers: Answer[]
+}
+
+type Quiz = {
+    id: number,
+    name: string,
+    questions: ({ id: number } | Question)[],
+    isCompleted?: boolean
+}
+
+type Article = {
+    id: number,
+    name: string,
+    progress: number,
+    isRead: boolean,
+    moduleId: number,
+    quizId: number | null
+}
+
 export type {
     Auth,
     Status,
@@ -88,5 +137,11 @@ export type {
     ProgressDTO,
     Progress,
     ProgressParams,
-    QuizStatus
+    QuizStatus,
+    QuizDTO,
+    QuestionType,
+    Question,
+    Answer,
+    Quiz,
+    Article
 }

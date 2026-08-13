@@ -1,13 +1,12 @@
 import { AnimatePresence } from 'framer-motion'
 import { useMemo, useRef } from 'react'
+import { slugify } from 'transliteration'
 
 import { useParamsId, useProgressQuery, useUserQuery } from '@/hooks'
 import { ArticleFooterSection, ArticleSection, useArticleQuery, useDelayedScroll, placeholder } from '@/modules/article-viewing'
 import { ContentsSection, useProgressState, useRefMap } from '@/modules/article-contents'
 import { QuizSection } from '@/modules/quiz-taking'
 import { Content, SideBar } from '@/ui'
-import { slugify } from 'transliteration'
-import { useProgressStore } from '@/store'
 
 export default function Article() {
   const containerRef = useRef<HTMLDivElement>(null)

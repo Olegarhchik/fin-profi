@@ -3,7 +3,7 @@ import { motion, resize } from 'framer-motion'
 
 import { Section } from '@/ui'
 import { useUserStore } from '@/store'
-import { QuizStatus, AUTH } from '@/constants'
+import { QuizStatus, AUTH, QUIZ_STATUS } from '@/constants'
 import { useErrorEffect } from '@/hooks'
 
 import { Quiz } from './Quiz'
@@ -13,7 +13,8 @@ import { useCompleteQuizQuery, useQuizStatusState } from '../hooks'
 import '../style.scss'
 
 type QuizSectionProps = {
-  id: number
+  id: number,
+  name?: string
 }
 
 interface QuizContextType {
@@ -24,7 +25,7 @@ interface QuizContextType {
 
 export const QuizContext = createContext<QuizContextType>({} as QuizContextType)
 
-export function QuizSection({ id }: QuizSectionProps) {
+export function QuizSection({ id, name }: QuizSectionProps) {
   const scrollRef = useRef<HTMLDivElement>(null)
   const [height, setHeight] = useState(0)
   const auth = useUserStore(state => state.auth)
@@ -51,7 +52,7 @@ export function QuizSection({ id }: QuizSectionProps) {
         ref={measureRef}
       >
         <QuizContext value={{ status: quizStatus, setStatus: setQuizStatus, id }}>
-          {shouldShow ? <Quiz /> : <Results />}
+          {shouldShow ? <Quiz name={name} /> : <Results />}
           {auth === AUTH.GUEST && <Warning />}
         </QuizContext>
       </motion.div>

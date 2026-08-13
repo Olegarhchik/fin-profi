@@ -1,4 +1,6 @@
-import { Question, QuestionDTO } from '../constants'
+import { Question } from "@/constants"
+
+import { QuestionDTO } from '../constants'
 import { answerAdapter } from './answerAdapter'
 
 export function questionAdapter(question: QuestionDTO): Question {

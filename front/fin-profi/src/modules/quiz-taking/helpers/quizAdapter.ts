@@ -1,4 +1,4 @@
-import { Quiz, QuizDTO } from '../constants'
+import { Quiz, QuizDTO } from '@/constants'
 
 export function quizAdapter(quiz: QuizDTO): Quiz {
     return {

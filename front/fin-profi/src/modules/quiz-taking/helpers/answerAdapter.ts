@@ -1,4 +1,6 @@
-import { Answer, AnswerDTO } from '../constants'
+import { Answer } from "@/constants"
+
+import { AnswerDTO } from '../constants'
 
 export function answerAdapter(answer: AnswerDTO): Answer {
     return {

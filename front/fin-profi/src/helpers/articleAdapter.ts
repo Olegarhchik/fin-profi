@@ -1,6 +1,4 @@
-import { ArticleDTO } from '@/constants'
-
-import { Article } from '../constants'
+import { ArticleDTO, Article } from '@/constants'
 
 export function articleAdapter(article: ArticleDTO): Article {
     return {
@@ -8,6 +6,7 @@ export function articleAdapter(article: ArticleDTO): Article {
         name: article.name,
         progress: 0,
         isRead: false,
-        moduleId: article.id_module
+        moduleId: article.id_module,
+        quizId: article.id_quiz
     }
 }

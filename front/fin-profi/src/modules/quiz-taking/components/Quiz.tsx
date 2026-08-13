@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import clsx from 'clsx'
 
 import { Button } from '@/ui'
@@ -12,7 +12,11 @@ import { QuizBody } from './QuizBody'
 import { QuizContext } from './QuizSection'
 import { useCompleteQuizQuery, useFormRef, useQuestionQuery, useQuizQuery } from '../hooks'
 
-export function Quiz() {
+type QuizProps = {
+  name?: string
+}
+
+export function Quiz({ name }: QuizProps) {
   const { status } = useContext(QuizContext)
   const [passedCount, setPassedCount] = useState(0)
 
@@ -33,6 +37,7 @@ export function Quiz() {
       <QuizHeader
         isLoading={quizResponse.isPending || quizResponse.isError}
         count={questionsCount}
+        name={name}
       >
         {questionResponse.isPending && <Button
           text="Начать викторину"

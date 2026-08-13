@@ -1,8 +1,3 @@
-export const QUESTION_TYPE = {
-    RADIO: "radio",
-    CHECKBOX: "checkbox"
-}
-
 export const FETCH_QUIZ_KEY = ["fetchQuiz"]
 export const START_QUIZ_MUTATION_KEY = ["startQuizMutation"]
 export const FETCH_QUESTION_KEY = ["fetchQuestion"]

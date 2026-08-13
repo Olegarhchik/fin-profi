@@ -1,3 +1,5 @@
+import { Article } from '@/constants'
+
 type UsersModulesDTO = {
     id_module: number,
     id_user: number
@@ -8,14 +10,6 @@ type ModuleDTO = {
     name: string,
     id_quiz: number | null,
     users_modules: UsersModulesDTO[]
-}
-
-type Article = {
-    id: number,
-    name: string,
-    progress: number,
-    isRead: boolean,
-    moduleId: number
 }
 
 type Module = {
@@ -30,4 +24,4 @@ type Point = {
     articleId: number
 }
 
-export type { ModuleDTO, Module, Article, Point }
+export type { ModuleDTO, Module, Point }

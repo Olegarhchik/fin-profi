@@ -1,8 +1,6 @@
 import { publicApi } from '@/api'
-import { ArticleDTO } from '@/constants'
-
-import { Article } from '../constants'
-import { articleAdapter } from '../helpers'
+import { Article, ArticleDTO } from '@/constants'
+import { articleAdapter } from '@/helpers'
 
 export async function fetchArticles(): Promise<Article[]> {
     try {

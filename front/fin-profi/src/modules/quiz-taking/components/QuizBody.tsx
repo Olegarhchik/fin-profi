@@ -1,10 +1,10 @@
 import { RefObject, useContext } from 'react'
 
-import { QUIZ_STATUS } from '@/constants'
+import { QUESTION_TYPE, QUIZ_STATUS } from '@/constants'
 
 import { Option } from './Option'
 import { QuizContext } from './QuizSection'
-import { placeholder, QUESTION_TYPE } from '../constants'
+import { placeholder } from '../constants'
 import { useQuestionQuery } from '../hooks'
 
 type QuizBodyProps = {

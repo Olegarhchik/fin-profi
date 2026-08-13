@@ -1,10 +1,11 @@
 import { useQueries } from '@tanstack/react-query'
 
 import { useProgressStore } from '@/store'
-import { STATUS } from '@/constants'
+import { FETCH_ARTICLES_KEY, STATUS } from '@/constants'
+import { fetchArticles } from '@/api'
 
-import { FETCH_ARTICLES_KEY, FETCH_ARTICLES_PROGRESS_KEY, FETCH_MODULES_KEY } from '../constants'
-import { fetchModules, fetchArticles, fetchArticlesProgress } from '../api'
+import { FETCH_ARTICLES_PROGRESS_KEY, FETCH_MODULES_KEY } from '../constants'
+import { fetchModules, fetchArticlesProgress } from '../api'
 import { getPlaceholder, moduleAdapter } from '../helpers'
 
 export function useModulesQueries() {

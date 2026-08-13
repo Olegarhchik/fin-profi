@@ -1,25 +1,4 @@
-import { QUESTION_TYPE } from './names'
-
-type QuestionType = typeof QUESTION_TYPE[keyof typeof QUESTION_TYPE]
-
-type QuizzesQuestions = {
-    id_question: number,
-    id_quiz: number
-}
-
-type UsersQuizzes = {
-    id_user: number,
-    is_completed: boolean,
-    id_quiz: number,
-    created_at: string
-}
-
-type QuizDTO = {
-    name: string,
-    id_quiz: number,
-    quizes_questions: QuizzesQuestions[],
-    users_quizes: UsersQuizzes[]
-}
+import { Answer, Question, QuestionType, QuizDTO } from '@/constants'
 
 type QuizResponseDTO = {
     quiz: QuizDTO
@@ -50,26 +29,6 @@ type ResultDTO = {
     wrong: ResultDetailDTO[]
 }
 
-type Answer = {
-    id: number,
-    text: string,
-    isCorrect: boolean
-}
-
-type Question = {
-    id: number,
-    text: string,
-    type: QuestionType,
-    answers: Answer[]
-}
-
-type Quiz = {
-    id: number,
-    name: string,
-    questions: ({ id: number } | Question)[],
-    isCompleted?: boolean
-}
-
 type ResultDetail = {
     question: Question,
     givenAnswers: Answer[],
@@ -82,14 +41,9 @@ type Result = {
 }
 
 export type {
-    QuestionType,
     QuizResponseDTO,
-    QuizDTO,
-    Quiz,
     QuestionDTO,
-    Question,
     AnswerDTO,
-    Answer,
     ResultDetailDTO,
     ResultDetail,
     ResultDTO,
