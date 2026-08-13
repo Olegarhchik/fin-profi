@@ -7,6 +7,7 @@ import { ContentsSection, useProgressState, useRefMap } from '@/modules/article-
 import { QuizSection } from '@/modules/quiz-taking'
 import { Content, SideBar } from '@/ui'
 import { slugify } from 'transliteration'
+import { useProgressStore } from '@/store'
 
 export default function Article() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -15,11 +16,9 @@ export default function Article() {
   const { data: article, isSuccess } = useArticleQuery(id)
   const { refMap, refCallback } = useRefMap()
   const { activeHeader } = useProgressState(containerRef, refMap)
-  const { data } = useProgressQuery(id)
+  const { data, isSuccess: isProgressSuccess } = useProgressQuery(id)
   const { data: user } = useUserQuery()
 
-  const count = refMap.current.size
-  const header = Math.ceil((data?.progress ?? 1 / count * 100) * count / 100)
   const contents = article?.content ?? placeholder
 
   const headers = useMemo(() => {
@@ -32,7 +31,10 @@ export default function Article() {
       }))
   }, [article])
 
-  useDelayedScroll(isSuccess, refMap.current.get(header))
+  const count = headers.length
+  const header = count === 0 ? 1 : Math.ceil((data?.progress ?? 1 / count * 100) * count / 100)
+
+  useDelayedScroll(isSuccess && isProgressSuccess, refMap, header)
 
   return (
     <>

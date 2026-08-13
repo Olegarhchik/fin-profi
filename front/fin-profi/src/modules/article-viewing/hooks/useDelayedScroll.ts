@@ -1,17 +1,19 @@
-import { useEffect, useRef } from 'react'
+import { RefObject, useEffect, useRef } from 'react'
 import { useLocation } from 'react-router'
 
-import { RefMapValue } from '@/modules/article-contents'
-
-export function useDelayedScroll(isSuccess: boolean, header?: RefMapValue) {
+export function useDelayedScroll(
+    isSuccess: boolean,
+    refMap: RefObject<Map<number, HTMLDivElement | undefined>>,
+    header: number
+) {
     const { hash } = useLocation()
     const hasScrolled = useRef(false)
 
     useEffect(() => {
-        if (!isSuccess || !header || hasScrolled.current) return
+        if (!isSuccess || hasScrolled.current) return
 
         const timer = setTimeout(() => {
-            const node = hash === "" ? header.node : document.querySelector(hash)
+            const node = hash === "" ? refMap.current.get(header) : document.querySelector(hash)
 
             node?.scrollIntoView({ behavior: "smooth" })
 
@@ -19,5 +21,5 @@ export function useDelayedScroll(isSuccess: boolean, header?: RefMapValue) {
         }, 300)
 
         return () => clearTimeout(timer)
-    }, [isSuccess, header])
+    }, [isSuccess, hash, refMap, header])
 }

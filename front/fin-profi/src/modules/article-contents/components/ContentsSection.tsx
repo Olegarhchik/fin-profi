@@ -24,13 +24,11 @@ export function ContentsSection({ headers, refMap, activeHeader }: ContentsSecti
       grow
     >
       {headers.map(header => {
-        const node = refMap.current.get(header.order)
-
         return (
           <HeaderCard
             key={header.id}
             active={activeHeader === header.order}
-            node={node}
+            getNode={() => refMap.current.get(header.order)}
             text={header.text}
           />
         )

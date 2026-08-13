@@ -24,6 +24,7 @@ export function useProgressQuery(id?: number) {
     }
 
     return {
-        data: getArticleProgress(id)
+        data: getArticleProgress(id),
+        isSuccess: true
     }
 }
