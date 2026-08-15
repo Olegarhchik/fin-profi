@@ -1,5 +1,6 @@
 import { QuizSection } from '@/modules/quiz-taking'
 import { GeneralQuizzesSection, QuizzesByModulesSection, useCurrentQuizState } from '@/modules/quizzes-list'
+import { QuizzesProgress } from '@/modules/quizzes-progress'
 import { Content, SideBar } from '@/ui'
 
 export default function Quizzes() {
@@ -26,6 +27,7 @@ export default function Quizzes() {
       </Content>
 
       <SideBar>
+        <QuizzesProgress />
       </SideBar>
     </>
   )
