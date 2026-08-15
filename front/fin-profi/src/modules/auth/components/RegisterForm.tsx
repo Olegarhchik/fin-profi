@@ -1,5 +1,6 @@
-import { SubmitEventHandler, SVGProps } from 'react'
+import { SVGProps } from 'react'
 import { useNavigate } from 'react-router'
+import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form'
 
 import { Email, Password, Profile } from '@/assets/icons'
 import { COLORS } from '@/constants'
@@ -12,6 +13,8 @@ import { trigger } from '@/modules/local-progress'
 
 export function RegisterForm() {
   const navigate = useNavigate()
+  const { register: inputRegister, handleSubmit } = useForm<RegisterRequest & { "password-confirmation": string }>()
+
   const showToast = useToastStore(state => state.showToast)
   const setToken = useUserStore(state => state.setToken)
 
@@ -21,22 +24,7 @@ export function RegisterForm() {
     fill: COLORS.MID_GRAY
   }
 
-  const handleSubmit: SubmitEventHandler<HTMLFormElement> = async (e) => {
-    e.preventDefault()
-
-    const formData = new FormData(e.target)
-    const data = Object.fromEntries(formData) as RegisterRequest
-
-    if (Object.values(data).some(d => d === "")) {
-      showToast("Не все поля заполнены")
-      return
-    }
-
-    if (data.password !== formData.get("password-confirmation")) {
-      showToast("Пароли не совпадают")
-      return
-    }
-
+  const onSubmit: SubmitHandler<RegisterRequest & { "password-confirmation": string }> = async (data) => {
     try {
       const response = await register(data)
       setToken(response.data.access_token)
@@ -53,14 +41,29 @@ export function RegisterForm() {
     }
   }
 
+  const onError: SubmitErrorHandler<RegisterRequest & { "password-confirmation": string }> = (errors) => {
+    const messages = Object.entries(errors)
+
+    messages.forEach(([_, { message }]) => {
+      if (!message) return
+
+      showToast(message)
+    })
+  }
+
   return (
-    <form id="register-form" onSubmit={handleSubmit}>
+    <form id="register-form" onSubmit={handleSubmit(onSubmit, onError)}>
       <Input
         id="username-input"
         icon={<Profile {...iconProps} />}
         placeholder="Введите имя пользователя"
         text="Имя пользователя"
-        name="name"
+        {...inputRegister("name", {
+          required: {
+            value: true,
+            message: "Поле Имя пользовательно обязательное"
+          }
+        })}
         delay={0.2}
       />
 
@@ -69,27 +72,47 @@ export function RegisterForm() {
         icon={<Email {...iconProps} />}
         placeholder="Введите email"
         text="Email"
-        name="email"
+        {...inputRegister("email", {
+          required: {
+            value: true,
+            message: "Поле Email обязательное"
+          },
+          pattern: {
+            value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+            message: "Некорректный формат почты"
+          }
+        })}
         delay={0.15}
       />
 
       <Input
         id="password-input"
-        icon={<Password {...iconProps} />}
         placeholder="Введите пароль"
         text="Пароль"
         type="password"
-        name="password"
+        {...inputRegister("password", {
+          required: {
+            value: true,
+            message: "Поле Пароль обязательное"
+          },
+          minLength: {
+            value: 8,
+            message: "Минимальная длина пароля — 8 символов"
+          }
+        })}
+        icon={<Password {...iconProps} />}
         delay={0.1}
       />
 
       <Input
         id="password-confirmation-input"
-        icon={<Password {...iconProps} />}
         placeholder="Повторите пароль"
         text="Подтверждение пароля"
         type="password"
-        name="password-confirmation"
+        {...inputRegister("password-confirmation", {
+          validate: (value, formValues) => formValues.password === value || "Пароли не совпадают"
+        })}
+        icon={<Password {...iconProps} />}
         delay={0.05}
       />
 
