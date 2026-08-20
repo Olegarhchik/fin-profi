@@ -1,10 +1,11 @@
 import { UseFormRegister, UseFormSetValue } from 'react-hook-form'
+import { useState } from 'react'
+
+import { Check } from '@/assets/icons'
 
 import { NodeWithHeader } from './NodeWithHeader'
 import { NumberInput } from './NumberInput'
 import { FormFields } from '../constants'
-import { useState } from 'react'
-import { Check } from '@/assets/icons'
 
 type AdditionalSettingsProps = {
   register: UseFormRegister<FormFields>,
@@ -17,6 +18,7 @@ export function AdditionalSettings({ register, setValue }: AdditionalSettingsPro
 
   return (
     <NodeWithHeader
+      style={{ paddingBottom: 30 }}
       text="Доп. настройки"
       className="additional-settings"
     >

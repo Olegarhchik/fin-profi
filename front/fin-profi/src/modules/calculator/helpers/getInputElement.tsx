@@ -51,6 +51,7 @@ export function getInputElement(
         key="capitalization"
         className="capitalization"
         text="Капитализация"
+        style={{ paddingBottom: 30 }}
       >
         <RadioInput
           id="monthly"

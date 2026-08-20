@@ -19,7 +19,10 @@ export function RangeInput({ from, text, to, id, children, register, watch, unit
   const percent = ((value - from) / (to - from)) * 100
 
   return (
-    <div className={id}>
+    <div
+      className={id}
+      style={{ paddingBottom: id === "annual-rate" ? 30 : 0 }}
+    >
       <div className={`${id}-header`}>
         <div className={`${id}-label-group`}>
           <label

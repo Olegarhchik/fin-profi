@@ -1,9 +1,10 @@
-import { UseFormRegister } from 'react-hook-form'
-
-import { FormFields, METHOD_RATE } from '../constants'
-import { ArrowVertical } from '@/assets/icons'
 import { useState } from 'react'
+import { UseFormRegister } from 'react-hook-form'
 import clsx from 'clsx'
+
+import { ArrowVertical } from '@/assets/icons'
+
+import { FormFields, METHOD_RATE, MethodRateType } from '../constants'
 
 export function MultiSelectInput({ register }: { register: UseFormRegister<FormFields> }) {
   const [list, setList] = useState([{
@@ -20,7 +21,7 @@ export function MultiSelectInput({ register }: { register: UseFormRegister<FormF
 
   const onClickActive = () => setCollapsed(!collapsed)
 
-  const onClickInactive = (method: { value: number, text: string }) => {
+  const onClickInactive = (method: { value: MethodRateType, text: string }) => {
     setList(prev => {
       const first = prev[0]
       prev = prev.slice(1)

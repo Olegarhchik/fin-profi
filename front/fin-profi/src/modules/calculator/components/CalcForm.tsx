@@ -33,7 +33,9 @@ export function CalcForm({ selectedCalc, optionNames, setCalcResult }: CalcFormP
         </div>
 
         <div className="side-inputs">
-          {optionNames.side.map(name => getInputElement(name, register, watch, setValue))}
+          <AnimatePresence>
+            {optionNames.side.map(name => getInputElement(name, register, watch, setValue))}
+          </AnimatePresence>
         </div>
       </div>
 

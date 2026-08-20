@@ -1,7 +1,7 @@
 import { UseFormRegister, UseFormWatch } from 'react-hook-form'
 
 import { RangeInput } from './RangeInput'
-import { FormFields, PERIOD } from '../constants'
+import { FormFields, PERIOD, PeriodType } from '../constants'
 import { periodUnitsAdapter } from '../helpers'
 import { motion, MotionProps } from 'framer-motion'
 import { RefObject, useCallback, useEffect, useRef, useState } from 'react'
@@ -12,7 +12,7 @@ type PeriodProps = {
 }
 
 export function Period({ register, watch }: PeriodProps) {
-  const period = Number(watch("period-type"))
+  const period = Number(watch("period-type")) as PeriodType
 
   const yearsBtnWidth = useRef(0)
   const monthsBtnWidth = useRef(0)

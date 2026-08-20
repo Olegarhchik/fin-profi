@@ -1,14 +1,14 @@
 export const AUTH = {
     AUTHORIZED: "authorized",
     GUEST: "guest"
-}
+} as const
 
 export const STATUS = {
     WAITING: "waiting",
     SYNCING: "syncing",
     CLOSED: "closed",
     ERROR: "error"
-}
+} as const
 
 export const QUIZ_STATUS = {
     WAITING: "waiting",
@@ -16,12 +16,12 @@ export const QUIZ_STATUS = {
     STARTED: "started",
     COMPLETED: "completed",
     LOADING: "loading"
-}
+} as const
 
 export const QUESTION_TYPE = {
     RADIO: "radio",
     CHECKBOX: "checkbox"
-}
+} as const
 
 export const BASE_URL = "http://localhost/api"
 
