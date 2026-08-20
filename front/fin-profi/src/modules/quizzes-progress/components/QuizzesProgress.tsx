@@ -29,6 +29,7 @@ export function QuizzesProgress() {
       <div className="quizzes-progress-statistics">
         {statistics.map(obj =>
           <Skeleton
+            key={obj.text}
             height={50}
             show={isPending || isError}
           >

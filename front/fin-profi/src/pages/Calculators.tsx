@@ -1,9 +1,29 @@
-import { Content, Section } from '@/ui'
+import { useState } from 'react'
+
+import { CalculationResults, Calculator } from '@/modules/calculator'
+import type { CalcResult } from '@/modules/calculator'
+import { Content } from '@/ui'
+import { AnimatePresence } from 'framer-motion'
 
 export default function Calculators() {
+  const calcCount = 2
+
+  const [selectedCalc, setSelectedCalc] = useState(1)
+  const [calcResult, setCalcResult] = useState<CalcResult | null>(null)
+
   return (
     <Content>
-      <Section style={{ flex: 1 }}>Calculators</Section>
+      <Calculator
+        selectedCalc={selectedCalc > calcCount ? 1 : selectedCalc}
+        calcResult={calcResult}
+        setCalcResult={setCalcResult}
+      />
+
+      {calcResult &&
+        <CalculationResults
+          result={calcResult}
+        />
+      }
     </Content>
   )
 }

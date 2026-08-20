@@ -12,9 +12,6 @@ export function useCurrentQuizState() {
         id: 1
     })
 
-    console.log(currentQuiz.status)
-
-
     useEffect(() => {
         const unsubscribe = queryClient.getMutationCache().subscribe((event) => {
             const mutation = event.mutation
