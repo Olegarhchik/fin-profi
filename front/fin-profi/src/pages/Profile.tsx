@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 
-import { ContinueSection } from '@/components'
 import { Content, SideBar } from '@/ui'
 import { ProfileInfoSection } from '@/modules/profile-actions'
 import { StatisticsSection } from '@/modules/statistics'
@@ -33,14 +32,6 @@ export default function Profile() {
         <RatingSection />
 
         <NextRankSection />
-
-        <ContinueSection
-          name="Название статьи"
-          id={2}
-          articleId={0}
-          module="Название модуля"
-          progress={80}
-        />
       </SideBar>
     </>
   )
