@@ -1,7 +1,8 @@
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from db.session import engine, get_db
-from sqlalchemy import select
+from sqlalchemy import select, text
 from contextlib import asynccontextmanager
 from models import Base
 from routes.module import router as module_module
@@ -16,7 +17,31 @@ from routes.auth import router as module_auth
 async def lifespan(app: FastAPI):
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
-    yield
+    
+    async with engine.begin() as conn:
+        result = await conn.execute(text("SELECT COUNT(*) FROM modules"))
+        count = result.scalar()
+        
+        if count == 0:
+            print("База пустая. Начинаю заливку данных из demo.sql...")
+            sql_file_path = os.path.join(os.path.dirname(__file__), "db", "demo.sql")
+            
+            try:
+                with open(sql_file_path, "r", encoding="utf-8") as file:
+                    sql_script = file.read()
+                
+                statements = sql_script.split(';')
+                for statement in statements:
+                    if statement.strip():
+                        await conn.execute(text(statement))
+                        
+                print("Тестовые данные успешно загружены!")
+            except Exception as e:
+                print(f"Ошибка при выполнении скрипта: {e}")
+
+    yield 
+    await engine.dispose()
+
 
 origins = [
     "http://localhost:3000",   # React, Next.js
