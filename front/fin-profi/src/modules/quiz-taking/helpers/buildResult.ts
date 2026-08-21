@@ -9,7 +9,7 @@ export function buildResult(rightCount: number, totalCount: number) {
             text: "с ошибкой"
         },
         {
-            value: `${rightCount / totalCount * 100}%`,
+            value: `${Math.round(rightCount / totalCount * 100)}%`,
             text: "результат"
         }
     ]
