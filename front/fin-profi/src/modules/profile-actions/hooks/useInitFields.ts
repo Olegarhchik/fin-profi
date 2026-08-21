@@ -4,7 +4,7 @@ import { useErrorEffect, useUserQuery } from '@/hooks'
 import { User } from '@/constants'
 
 export function useInitFields(id: number) {
-    const { data, isError, isLoading, error } = useUserQuery()
+    const { data, isError, isLoading, error } = useUserQuery(id)
     const [fields, setFields] = useState<Pick<User, "name" | "email">>({ name: "", email: "" })
 
     const isLoadingSkeleton = isLoading || isError

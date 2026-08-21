@@ -4,9 +4,11 @@ import { fetchUser } from '@/api'
 import { AUTH, FETCH_USER_KEY, User } from '@/constants'
 import { useUserStore } from '@/store'
 
-export function useUserQuery() {
-    const id = useUserStore(state => state.id)
+export function useUserQuery(fallbackId?: number) {
+    let id = useUserStore(state => state.id)
     const auth = useUserStore(state => state.auth)
+
+    if (fallbackId) id = fallbackId
 
     return useQuery({
         queryKey: [...FETCH_USER_KEY, id],
